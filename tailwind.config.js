@@ -7,33 +7,25 @@ module.exports = {
   ],
   theme: {
     colors: {
-      primarycolor01: "#69e3fc",
-      primarycolor02: "#ffea80",
-      primarycolor: "#69e3fc",
-      blue: "#1fb6ff",
-      primarycolorvariant01: "#b4f1fd",
-      primarycolorvariant02: "#e6fafe",
-      primarycolorvariant03: "#e5c000",
-      secondarycolor: "#ff7733",
-      primarytextcolor: "#000",
-      inputfieldcolor: "#ccc",
-      tabbordercolor: "#666",
-      bgcolor: "#f7f6e8",
-      tabbgcolor: "#F9F9FA",
-      tabtopnotactive: "#D9D9D9",
-      aColor: "#6ED669",
-      bColor: "#FFD166",
-      cColor: "#FF6B6B",
+      primaryColor: "#2CA3A8",
+      secondaryColor: "#FFC0CB",
+      secondaryVariantColor: "#EB8899",
+      primaryTextColor: "#FFF0F5",
+      secondaryTextColor: "#1B2020",
+      bgColor: "#1B2020",
+      secondaryBgColor: "#333838",
+      inputFieldColor: "#AFC2C3",
+      accentColor: "#FFD700",
 
-  //     --primary-color-01: #2ca3a8;
-  // --primary-text-color: #fff0f5;
-  // --secondary-color-01: #ffc0cb;
-  // --secondary-color-02: #eb8899;
-  // --primary-color-bg: #1b2020;
-  // --secondary-color-text: #fff0f5;
-  // --secondary-color-bg: #333838;
-  // --input-field-color: #afc2c3;
-  // --accent-color:#ffd700;
+      //     --primary-color-01: #2ca3a8;
+      // --primary-text-color: #fff0f5;
+      // --secondary-color-01: #ffc0cb;
+      // --secondary-color-02: #eb8899;
+      // --primary-color-bg: #1b2020;
+      // --secondary-color-text: #1b2020;
+      // --secondary-color-bg: #333838;
+      // --input-bg-color: #afc2c3;
+      // --accent-color:#ffd700;
     },
     extend: {
       backgroundImage: {

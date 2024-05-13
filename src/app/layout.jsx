@@ -1,7 +1,6 @@
-import { Inter } from "next/font/google";
 import "../styles/globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import "../styles/reset.css";
+import { lato } from "./fonts";
 
 export const metadata = {
   title: "Foofest",
@@ -10,8 +9,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={lato.className}>
+      <body>
+        <main>
+          <div>{children}</div>
+        </main>
+      </body>
     </html>
   );
 }
