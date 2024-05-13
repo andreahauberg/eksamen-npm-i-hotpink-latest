@@ -1,5 +1,4 @@
-// api.jsx
-const URL = process.env.NEXT_PUBLIC_LOCAL_URL;
+const baseURL = process.env.NEXT_PUBLIC_API;
 
 
 export const fetchAPI = async (endpoint) => {
@@ -15,3 +14,7 @@ export const fetchAPI = async (endpoint) => {
     throw error;
   }
 };
+
+
+
+
