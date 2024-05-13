@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import prices from '../backend/settings.js';
 
-export default function TicketsForm({ onSelect }) {
+export default function TicketsForm({ onSelect, onNext }) {
   const [ticketType, setTicketType] = useState('regular');
   const [quantity, setQuantity] = useState(1);
 
   const handleSubmit = (event) => {
     event.preventDefault();  
-    onSelect(ticketType, quantity);  
+    onSelect(ticketType, quantity);
+    onNext();
   };
 
   return (
@@ -50,10 +51,9 @@ export default function TicketsForm({ onSelect }) {
           </label>
         </div>
         <div>
-          +Fee {prices.fee}
+         <p> +Fee {prices.fee}</p>
         </div>
-
-        <button type="submit">Vælg billetter</button>
+        <button type="submit">Køb billetter</button>
       </fieldset>
     </form>
   );
