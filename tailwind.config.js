@@ -24,6 +24,16 @@ module.exports = {
       aColor: "#6ED669",
       bColor: "#FFD166",
       cColor: "#FF6B6B",
+
+  //     --primary-color-01: #2ca3a8;
+  // --primary-text-color: #fff0f5;
+  // --secondary-color-01: #ffc0cb;
+  // --secondary-color-02: #eb8899;
+  // --primary-color-bg: #1b2020;
+  // --secondary-color-text: #fff0f5;
+  // --secondary-color-bg: #333838;
+  // --input-field-color: #afc2c3;
+  // --accent-color:#ffd700;
     },
     extend: {
       backgroundImage: {
