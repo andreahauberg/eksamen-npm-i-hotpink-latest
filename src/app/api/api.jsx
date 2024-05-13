@@ -1,5 +1,5 @@
 // api.jsx
-const baseURL = process.env.NEXT_PUBLIC_LOCAL_URL;
+const URL = process.env.NEXT_PUBLIC_LOCAL_URL;
 
 
 export const fetchAPI = async (endpoint) => {
