@@ -11,17 +11,15 @@
   --feature: minmax(0, 5rem);
   
   /* color */
-  --primary-color-01: #69e3fc;
-  --primary-color-02: #ffea80;
-  --primary-color: #69e3fc;
-  --primary-color-variant-01: #b4f1fd;
-  --primary-color-variant-02: #e6fafe;
-  --primary-color-variant-03: #e5c000;
-  --secondary-color: #ff7733;
-  --primary-text-color: #000;
-  --input-field-color: #ccc;
-  --tab-border-color: #666;
-  --background-color: #f7f6e8;
+  --primary-color-01: #2ca3a8;
+  --primary-text-color: #fff0f5;
+  --secondary-color-01: #ffc0cb;
+  --secondary-color-02: #eb8899;
+  --primary-color-bg: #1b2020;
+  --secondary-color-text: #fff0f5;
+  --secondary-color-bg: #333838;
+  --input-field-color: #afc2c3;
+  --accent-color:#ffd700;
   /* text */
   --heading01: clamp(1.5rem, 2.5vw, 2.5rem);
   --heading02: clamp(1.4rem, 2.3vw, 2.3125rem);
