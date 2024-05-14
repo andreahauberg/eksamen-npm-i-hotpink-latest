@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { krona_one } from "@/app/fonts";
+import Burger from "./burger";
 
 export default function Header() {
   return (
@@ -28,7 +29,10 @@ export default function Header() {
             </Link>
           </div>
           <div>
-            <ul>
+            <div className=" visible md:hidden ">
+              <Burger />
+            </div>
+            <ul className=" hidden md:block ">
               <li className="flex gap-8 ">
                 <Link href={"/lineup"} prefetch={false}>
                   <div className="hover:text-primaryColor transition-colors duration-200 ease-in-out">
