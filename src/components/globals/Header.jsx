@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Krona_One } from "next/font/google";
 import { krona_one } from "@/app/fonts";
 
 export default function Header() {
