@@ -16,6 +16,7 @@ module.exports = {
       secondaryBgColor: "#333838",
       inputFieldColor: "#AFC2C3",
       accentColor: "#FFD700",
+      labelColor: "#FF69B4",
 
       //     --primary-color-01: #2ca3a8;
       // --primary-text-color: #fff0f5;

@@ -20,6 +20,7 @@
   --secondary-color-bg: #333838;
   --input-bg-color: #afc2c3;
   --accent-color: #ffd700;
+  --label-color: #ff69b4;
 
   /* text */
   --heading01: clamp(1.5rem, 2.5vw, 2.5rem);
