@@ -23,7 +23,7 @@ export default function Home() {
     getBands();
 
     const interval = setInterval(() => {
-      setTimeLeft(moment("2024-06-01").diff(moment()));
+      setTimeLeft(moment("2024-07-01").diff(moment()));
     }, 1000);
     return () => clearInterval(interval);
   }, []);
@@ -44,16 +44,16 @@ export default function Home() {
       >
         <h1 className={`${krona_one.className} text-5xl`}>FOO FEST</h1>
         <div className="mt-8 flex justify-center gap-3">
-          <Link href="/billetter">
+          <Link href="/booking/">
             <Button title="KØB BILLET" />
           </Link>
-          <Link href="/bands">
-            <Button title="SE BANDS" />
+          <Link href="/lineup/">
+            <Button title="LINE-UP" />
           </Link>
         </div>
       </header>
 
-      <div className="text-center py-8">
+      <div className="text-center pt-16 pb-8">
         <h2 className={`${krona_one.className} text-3xl`}>
           {formatTimeLeft(timeLeft)}
         </h2>
@@ -67,10 +67,10 @@ export default function Home() {
             className="w-full h-full object-cover"
           />
           <Link
-            href="/bands"
+            href="/lineup/"
             className="absolute bottom-4 left-1/2 transform -translate-x-1/2"
           >
-            <Button title="Bands" />
+            <Button title="Line-up" />
           </Link>
         </div>
         <div className="relative w-72 h-72">
@@ -80,10 +80,10 @@ export default function Home() {
             className="w-full h-full object-cover"
           />
           <Link
-            href="/bands"
+            href="/booking/"
             className="absolute bottom-4 left-1/2 transform -translate-x-1/2"
           >
-            <Button title="Tidsplan" />
+            <Button title="Billetter" />
           </Link>
         </div>
         <div className="relative w-72 h-72 ">
@@ -93,10 +93,10 @@ export default function Home() {
             className="w-full h-full object-cover"
           />
           <Link
-            href="/bands"
+            href="/timeTable/"
             className="absolute bottom-4 left-1/2 transform -translate-x-1/2"
           >
-            <Button title="Line-up" />
+            <Button title="Tidsplan" />
           </Link>
         </div>
       </div>
