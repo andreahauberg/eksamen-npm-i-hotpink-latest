@@ -3,28 +3,34 @@
 import Link from "next/link";
 import { Turn as Hamburger } from "hamburger-react";
 import { useState } from "react";
-import { krona_one } from "@/app/fonts";
 
 export default function Burger() {
   const [isOpen, setOpen] = useState(false);
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-  };
+  //   const handleClick = () => {
+  //     setIsOpen(!isOpen);
+  //   };
 
   return (
     <>
-      <Hamburger toggled={isOpen} toggle={setOpen}>
+      <Hamburger toggled={isOpen} toggle={setOpen} />
+      {isOpen && (
         <ul>
-          <li className="">
+          <li>
             <Link href={"/lineup/"} prefetch={false}>
               <div className="hover:text-primaryColor transition-colors duration-200 ease-in-out">Line-up</div>
             </Link>
+          </li>
+          <li>
             <Link href={"/timetabel"} prefetch={false}>
               <div className="hover:text-primaryColor transition-colors duration-200 ease-in-out">Tidsplan</div>
             </Link>
+          </li>
+          <li>
             <Link href={"/booking"} prefetch={false}>
               <div className="hover:text-primaryColor transition-colors duration-200 ease-in-out">Billetter</div>
             </Link>
+          </li>
+          <li>
             <Link href={"/lineup"} prefetch={false}>
               <div>
                 <svg className=" transition duration-600 ease-in h-8 w-8 hover:fill-primaryColor" xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 46" fill="none">
@@ -34,7 +40,7 @@ export default function Burger() {
             </Link>
           </li>
         </ul>
-      </Hamburger>
+      )}
     </>
   );
 }
