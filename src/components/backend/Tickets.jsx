@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import prices from "../backend/settings.js";
+import { krona_one } from "@/app/fonts.jsx";
 
 export default function TicketsForm({
   ticketType,
@@ -27,14 +28,18 @@ export default function TicketsForm({
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+    <div className="min-h-screen text-white flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md"
+        className=" bg-secondaryBgColor p-8 shadow-md w-full max-w-md"
       >
         <fieldset className="space-y-6">
-          <legend className="text-3xl font-bold mb-4">Vælg billettype</legend>
-          <div className="flex items-center">
+          <legend
+            className={`${krona_one.className} large-size mb-6 text-primaryTextColor`}
+          >
+            Vælg billettype
+          </legend>
+          <div className="flex items-center small-size">
             <label className="flex items-center space-x-2">
               <input
                 type="radio"
@@ -46,7 +51,7 @@ export default function TicketsForm({
               <span>Regular {prices.regular} kr.</span>
             </label>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center small-size">
             <label className="flex items-center space-x-2">
               <input
                 type="radio"
@@ -58,7 +63,7 @@ export default function TicketsForm({
               <span>VIP {prices.vip} kr.</span>
             </label>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col small-size">
             <label className="mb-2">
               Antal billetter:
               <input
@@ -66,16 +71,16 @@ export default function TicketsForm({
                 value={localQuantity}
                 min="1"
                 onChange={(e) => setLocalQuantity(parseInt(e.target.value, 10))}
-                className="form-input mt-1 block w-full rounded-md bg-gray-700 border-transparent focus:border-pink-500 focus:bg-gray-800 focus:ring-0"
+                className="form-input mt-1 block w-full rounded-md bg-gray-700 border-transparent focus:border-pink-500 focus:bg-gray-800 focus:ring-0 small-size"
               />
             </label>
           </div>
-          <div className="text-lg font-bold">
+          <div className="normal-size">
             Total Price for Tickets: {localTotalPrice} kr.
           </div>
           <button
             type="submit"
-            className="bg-pink-500 text-white py-2 px-4 rounded-lg mt-4 hover:bg-pink-700 transition"
+            className=" bg-bgColor border-2 border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
           >
             Køb billetter
           </button>

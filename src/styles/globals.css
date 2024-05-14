@@ -26,7 +26,7 @@
   --heading01: clamp(1.5rem, 2.5vw, 2.5rem);
   --heading02: clamp(1.4rem, 2.3vw, 2.3125rem);
   --heading03: clamp(1.1rem, 1.6vw, 1.2625rem);
-  --paragraph-text: clamp(0.9rem, 1.2vw, 0.9rem);
+  --paragraph-text: clamp(1rem, 1.2vw, 0.9rem);
 
   /* line-height */
   --heading-large-line-height: 1.5;
