@@ -35,11 +35,18 @@
 
 body {
   background: var(--primary-color-bg);
+  color: var(--primary-text-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 main {
   flex-grow: 1;
-  color: #fff0f5;
   /* color skal sættes et andet sted */
+}
+
+nav {
+  background: var(--secondary-color-bg);
 }
 
 .large-size {
