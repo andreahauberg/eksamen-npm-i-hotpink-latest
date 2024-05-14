@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import prices from '../backend/settings.js';
 
-export default function TicketsForm({ onSelect, onNext }) {
-  const [ticketType, setTicketType] = useState('regular');
-  const [quantity, setQuantity] = useState(1);
+export default function TicketsForm({ ticketType, ticketQuantity, onClick, onNext }) {
+  const [localTicketType, setLocalTicketType] = useState(ticketType);
+  const [localQuantity, setLocalQuantity] = useState(ticketQuantity);
+  const [localTotalPrice, setLocalTotalPrice] = useState(0);
+
+  useEffect(() => {
+    const updatePrice = () => {
+      const pricePerTicket = localTicketType === 'regular' ? prices.regular : prices.vip;
+      setLocalTotalPrice(localQuantity * pricePerTicket);
+    };
+    updatePrice();
+  }, [localTicketType, localQuantity]);
 
   const handleSubmit = (event) => {
-    event.preventDefault();  
-    onSelect(ticketType, quantity);
+    event.preventDefault();
+    onClick({ ticketType: localTicketType, ticketQuantity: localQuantity });
     onNext();
   };
 
@@ -15,27 +24,26 @@ export default function TicketsForm({ onSelect, onNext }) {
     <form onSubmit={handleSubmit}>
       <fieldset>
         <legend>Vælg billettype</legend>
-        <h1>Regular</h1>
         <div>
           <label>
             <input
               type="radio"
               value="regular"
-              checked={ticketType === 'regular'}
-              onChange={() => setTicketType('regular')}
+              checked={localTicketType === 'regular'}
+              onChange={() => setLocalTicketType('regular')}
             />
-            <p>{prices.regular}</p>
+            <span>Regular {prices.regular} kr.</span>
           </label>
+        </div>
+        <div>
           <label>
-          <h1>VIP</h1>
             <input
               type="radio"
               value="vip"
-              checked={ticketType === 'vip'}
-              onChange={() => setTicketType('vip')}
+              checked={localTicketType === 'vip'}
+              onChange={() => setLocalTicketType('vip')}
             />
-            <p>{prices.vip}</p>
-       
+            <span>VIP {prices.vip} kr.</span>
           </label>
         </div>
 
@@ -44,15 +52,13 @@ export default function TicketsForm({ onSelect, onNext }) {
             Antal billetter:
             <input
               type="number"
-              value={quantity}
+              value={localQuantity}
               min="1"
-              onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+              onChange={(e) => setLocalQuantity(parseInt(e.target.value, 10))}
             />
           </label>
         </div>
-        <div>
-         <p> +Fee {prices.fee}</p>
-        </div>
+        <div>Total Price for Tickets: {localTotalPrice} kr.</div>
         <button type="submit">Køb billetter</button>
       </fieldset>
     </form>
