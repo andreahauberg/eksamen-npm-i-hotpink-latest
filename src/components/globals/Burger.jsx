@@ -14,7 +14,7 @@ export default function Burger() {
     <>
       <Hamburger toggled={isOpen} toggle={setOpen} />
       {isOpen && (
-        <ul className={`fixed grid justify-center items-center top-20 gap-4 py-6 right-0 z-10 bg-secondaryBgColor ${isOpen ? "w-full" : "w-0"} overflow-hidden transition-all duration-300 ease-in-out`}>
+        <ul className={`absolute grid justify-center items-center gap-4 py-6 right-0 z-10 bg-secondaryBgColor ${isOpen ? "w-full fixed top-20" : "w-0"} overflow-hidden transition-all duration-300 ease-in-out`}>
           <li>
             <Link href={"/lineup/"} prefetch={false}>
               <div className="">Line-up</div>
