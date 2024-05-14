@@ -8,7 +8,7 @@ import { krona_one } from "./fonts";
 import Button from "@/components/globals/Button";
 
 export default function Home() {
-  const [timeLeft, setTimeLeft] = useState(moment("2024-06-01").diff(moment()));
+  const [timeLeft, setTimeLeft] = useState(moment("2024-07-01").diff(moment()));
 
   useEffect(() => {
     const getBands = async () => {
