@@ -3,8 +3,8 @@ import { useState } from 'react';
 import TicketsForm from '../../components/backend/Tickets';
 import Camping from '../../components/backend/Camping';
 import PersonalForm from '../../components/backend/PersonalForm';
-import SummaryPage from '../../components/backend/Summary'; // Import SummaryPage
-import PaymentPage from '../../components/backend/Payment'; // Import PaymentPage
+import SummaryPage from '../../components/backend/Summary';
+import PaymentPage from '../../components/backend/Payment'; 
 
 export default function BookingPage() {
     const [step, setStep] = useState(1);
