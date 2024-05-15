@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import prices from '../backend/settings.js';
 import { fetchAPI, fetchDatabase } from '../../app/api/api.js';
 
-export default function Camping({ ticketQuantity, campingOptions, onClick, onNext, onBack }) {
+export default function Camping({ ticketQuantity, ticketType, campingOptions, onClick, onNext, onBack }) {
   const [greenCamping, setGreenCamping] = useState(campingOptions.greenCamping || false);
   const [twoPersonTent, setTwoPersonTent] = useState(campingOptions.twoPersonTent || 0);
   const [threePersonTent, setThreePersonTent] = useState(campingOptions.threePersonTent || 0);
   const [campingAreas, setCampingAreas] = useState([]);
   const [selectedArea, setSelectedArea] = useState(campingOptions.selectedArea || '');
   const [totalPrice, setTotalPrice] = useState(0);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const loadCampingAreas = async () => {
@@ -21,6 +22,22 @@ export default function Camping({ ticketQuantity, campingOptions, onClick, onNex
     };
     loadCampingAreas();
   }, []);
+
+  useEffect(() => {
+    const calculateTotalPrice = () => {
+      const ticketPrice = ticketQuantity * (ticketType === 'regular' ? prices.regular : prices.vip);
+      let addOnPrice = 0;
+      addOnPrice += greenCamping ? prices.greenCamping : 0;
+      addOnPrice += twoPersonTent * prices.TwoPersonsTent;
+      addOnPrice += threePersonTent * prices.ThreePersonsTent;
+      setTotalPrice(ticketPrice + addOnPrice);
+    };
+    calculateTotalPrice();
+  }, [ticketQuantity, ticketType, greenCamping, twoPersonTent, threePersonTent]);
+
+  useEffect(() => {
+    onClick({ camping: { greenCamping, twoPersonTent, threePersonTent, selectedArea } });
+  }, [greenCamping, twoPersonTent, threePersonTent, selectedArea]);
 
   const handleQuantityChange = (type, increment) => {
     if (type === 'twoPersonTent') {
@@ -38,23 +55,13 @@ export default function Camping({ ticketQuantity, campingOptions, onClick, onNex
     }
   };
 
-  useEffect(() => {
-    const calculateTotalPrice = () => {
-      let total = 0;
-      total += greenCamping ? prices.greenCamping : 0;
-      total += twoPersonTent * prices.TwoPersonsTent;
-      total += threePersonTent * prices.ThreePersonsTent;
-      setTotalPrice(total);
-    };
-    calculateTotalPrice();
-  }, [greenCamping, twoPersonTent, threePersonTent]);
-
-  useEffect(() => {
-    onClick({ camping: { greenCamping, twoPersonTent, threePersonTent, selectedArea } });
-  }, [greenCamping, twoPersonTent, threePersonTent, selectedArea]);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (twoPersonTent + threePersonTent === 0) {
+      setErrorMessage('Du skal vælge telt, inden du kan gå videre.');
+      return;
+    }
 
     try {
       // Reserve spot via external API
@@ -78,6 +85,7 @@ export default function Camping({ ticketQuantity, campingOptions, onClick, onNex
       const bookingData = {
         area: selectedArea,
         ticketQuantity,
+        ticketType,
         greenCamping,
         twoPersonTent,
         threePersonTent,
@@ -98,16 +106,16 @@ export default function Camping({ ticketQuantity, campingOptions, onClick, onNex
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <h2>Add-on</h2>
+      <fieldset>
+        <legend>Add-on</legend>
         <p>Note: The price includes the crew setting up your tent</p>
         
         <div>
           <label>2 person Tent</label>
           <div>
-            <button type="button" onClick={() => handleQuantityChange('twoPersonTent', -1)}>-</button>
+            <button type="button" onClick={() => handleQuantityChange('twoPersonTent', -1)} aria-label="Decrease 2 person tent quantity">-</button>
             <span>{twoPersonTent}</span>
-            <button type="button" onClick={() => handleQuantityChange('twoPersonTent', 1)}>+</button>
+            <button type="button" onClick={() => handleQuantityChange('twoPersonTent', 1)} aria-label="Increase 2 person tent quantity">+</button>
             <p>{prices.TwoPersonsTent} kr.</p>
           </div>
         </div>
@@ -115,9 +123,9 @@ export default function Camping({ ticketQuantity, campingOptions, onClick, onNex
         <div>
           <label>3 person Tent</label>
           <div>
-            <button type="button" onClick={() => handleQuantityChange('threePersonTent', -1)}>-</button>
+            <button type="button" onClick={() => handleQuantityChange('threePersonTent', -1)} aria-label="Decrease 3 person tent quantity">-</button>
             <span>{threePersonTent}</span>
-            <button type="button" onClick={() => handleQuantityChange('threePersonTent', 1)}>+</button>
+            <button type="button" onClick={() => handleQuantityChange('threePersonTent', 1)} aria-label="Increase 3 person tent quantity">+</button>
             <p>{prices.ThreePersonsTent} kr.</p>
           </div>
         </div>
@@ -128,6 +136,7 @@ export default function Camping({ ticketQuantity, campingOptions, onClick, onNex
               type="checkbox"
               checked={greenCamping}
               onChange={(e) => setGreenCamping(e.target.checked)}
+              aria-label="Green camping"
             />
             Green camping {prices.greenCamping} kr.
           </label>
@@ -135,7 +144,7 @@ export default function Camping({ ticketQuantity, campingOptions, onClick, onNex
 
         <div>
           <label>Choose Camping Area</label>
-          <select value={selectedArea} onChange={(e) => setSelectedArea(e.target.value)}>
+          <select value={selectedArea} onChange={(e) => setSelectedArea(e.target.value)} aria-label="Choose camping area">
             <option value="">Select an area</option>
             {campingAreas.map(area => (
               <option key={area.area} value={area.area}>
@@ -145,11 +154,14 @@ export default function Camping({ ticketQuantity, campingOptions, onClick, onNex
           </select>
         </div>
 
-        <div>Total Price for Add-ons: {totalPrice} kr.</div>
+        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
-        <button type="submit">Continue</button>
+        <div>Total Price: {totalPrice} kr.</div>
+
         <button type="button" onClick={onBack}>Back</button>
-      </div>
+        <button type="button" onClick={onNext}>Continue</button>
+
+      </fieldset>
     </form>
   );
 }

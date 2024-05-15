@@ -1,19 +1,20 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import TicketsForm from '../../components/backend/Tickets';
 import Camping from '../../components/backend/Camping';
 import PersonalForm from '../../components/backend/PersonalForm';
-import prices from '../../components/backend/settings.js';
+import SummaryPage from '../../components/backend/Summary'; // Import SummaryPage
+import PaymentPage from '../../components/backend/Payment'; // Import PaymentPage
 
 export default function BookingPage() {
     const [step, setStep] = useState(1);
     const [bookingData, setBookingData] = useState({
-        ticketType: 'regular',
+        ticketType: 'regular', // Default value
         ticketQuantity: 1,
         camping: {},
-        personalInfo: {}
+        personalInfo: [],
+        totalPrice: 0
     });
-    const [totalPrice, setTotalPrice] = useState(0);
 
     const nextStep = () => setStep(step + 1);
     const prevStep = () => setStep(step - 1);
@@ -21,18 +22,6 @@ export default function BookingPage() {
     const handleBookingChange = (data) => {
         setBookingData(prevData => ({ ...prevData, ...data }));
     };
-
-    useEffect(() => {
-        const calculateTotalPrice = () => {
-            let total = prices.fee;
-            total += bookingData.ticketQuantity * (bookingData.ticketType === 'regular' ? prices.regular : prices.vip);
-            total += bookingData.camping.greenCamping ? prices.greenCamping : 0;
-            total += (bookingData.camping.twoPersonTent || 0) * prices.TwoPersonsTent;
-            total += (bookingData.camping.threePersonTent || 0) * prices.ThreePersonsTent;
-            setTotalPrice(total);
-        };
-        calculateTotalPrice();
-    }, [bookingData]);
 
     return (
         <div>
@@ -47,6 +36,7 @@ export default function BookingPage() {
             {step === 2 && (
                 <Camping
                     ticketQuantity={bookingData.ticketQuantity}
+                    ticketType={bookingData.ticketType}
                     campingOptions={bookingData.camping}
                     onClick={handleBookingChange}
                     onNext={nextStep}
@@ -56,11 +46,22 @@ export default function BookingPage() {
             {step === 3 && (
                 <PersonalForm
                     personalInfo={bookingData.personalInfo}
+                    ticketQuantity={bookingData.ticketQuantity}
+                    ticketType={bookingData.ticketType}
+                    campingOptions={bookingData.camping}
                     onClick={handleBookingChange}
                     onNext={nextStep}
                     onBack={prevStep}
                 />
             )}
+            {step === 4 && (
+                <SummaryPage
+                    bookingData={bookingData}
+                    onBack={prevStep}
+                    onNext={nextStep}
+                />
+            )}
+            {step === 5 && <PaymentPage onBack={prevStep} />}
         </div>
     );
 }

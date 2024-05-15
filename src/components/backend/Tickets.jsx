@@ -38,7 +38,7 @@ export default function TicketsForm({
     <div className="min-h-screen text-white flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className=" bg-secondaryBgColor p-8 shadow-md w-full max-w-md"
+        className="bg-secondaryBgColor p-8 shadow-md w-full max-w-md"
       >
         <fieldset className="space-y-6">
           <legend
@@ -60,12 +60,12 @@ export default function TicketsForm({
                 {({ checked }) => (
                   <div className="flex w-full items-center justify-between">
                     <div className="small-size">
-                      <p className=" text-primaryTextColor">
+                      <p className="text-primaryTextColor">
                         {option.name} {option.price} kr.
                       </p>
                     </div>
                     {checked && (
-                      <CheckCircleIcon className="size-7 fill-accentColor " />
+                      <CheckCircleIcon className="size-7 fill-accentColor" />
                     )}
                   </div>
                 )}
@@ -80,7 +80,9 @@ export default function TicketsForm({
                 value={localQuantity}
                 min="1"
                 onChange={(e) => setLocalQuantity(parseInt(e.target.value, 10))}
-                className="form-input mt-1 block w-24  bg-inputFieldColor text-bgColor py-2 px-5  focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                className="form-input mt-1 block w-24 bg-inputFieldColor text-bgColor py-2 px-5 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                aria-label="Antal billetter"
+                required
               />
             </label>
           </div>
@@ -89,7 +91,7 @@ export default function TicketsForm({
           </div>
           <button
             type="submit"
-            className=" bg-bgColor border-2 border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2  focus:ring-offset-1 focus:ring-accentColor"
+            className="bg-bgColor border-2 border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
           >
             Køb billetter
           </button>
