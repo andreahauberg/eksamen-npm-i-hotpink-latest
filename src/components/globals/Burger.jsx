@@ -14,23 +14,23 @@ export default function Burger() {
     <>
       <Hamburger toggled={isOpen} toggle={setOpen} />
       {isOpen && (
-        <ul>
+        <ul className={`absolute grid justify-center items-center gap-4 py-6 right-0 z-10 bg-secondaryBgColor ${isOpen ? "w-full fixed top-20" : "w-0"} overflow-hidden transition-all duration-300 ease-in-out`}>
           <li>
             <Link href={"/lineup/"} prefetch={false}>
-              <div className="hover:text-primaryColor transition-colors duration-200 ease-in-out">Line-up</div>
+              <div className="">Line-up</div>
             </Link>
           </li>
           <li>
             <Link href={"/timetabel"} prefetch={false}>
-              <div className="hover:text-primaryColor transition-colors duration-200 ease-in-out">Tidsplan</div>
+              <div className="">Tidsplan</div>
             </Link>
           </li>
           <li>
             <Link href={"/booking"} prefetch={false}>
-              <div className="hover:text-primaryColor transition-colors duration-200 ease-in-out">Billetter</div>
+              <div className="">Billetter</div>
             </Link>
           </li>
-          <li>
+          <li className=" justify-self-center ">
             <Link href={"/lineup"} prefetch={false}>
               <div>
                 <svg className=" transition duration-600 ease-in h-8 w-8 hover:fill-primaryColor" xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 46" fill="none">
