@@ -72,7 +72,7 @@ export default function PersonalForm({
         personalInfo: localPersonalInfo,
         totalPrice: calculateTotalPrice()
       });
-      onNext(); // Navigate to the next step (SummaryPage)
+      onNext(); 
     } catch (error) {
       console.error('Failed to save order data:', error);
     }
