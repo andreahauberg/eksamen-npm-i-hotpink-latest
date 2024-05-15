@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
 import prices from "../backend/settings.js";
 import { krona_one } from "@/app/fonts.jsx";
-import { RadioGroup } from "@headlessui/react";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import {
+  Select,
+  RadioGroup,
+  Field,
+  Label,
+  Description,
+} from "@headlessui/react";
+import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import clsx from "clsx";
 
 export default function TicketsForm({
   ticketType,
@@ -35,14 +42,14 @@ export default function TicketsForm({
   ];
 
   return (
-    <div className="min-h-screen text-white flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="bg-secondaryBgColor p-8 shadow-md w-full max-w-md"
+        className="bg-secondaryBgColor p-8 shadow-md shadow-primaryColor w-full max-w-md"
       >
         <fieldset className="space-y-6">
           <legend
-            className={`${krona_one.className} large-size mb-6 text-primaryTextColor`}
+            className={`${krona_one.className} large-size mb-1 text-primaryTextColor`}
           >
             Vælg billettype
           </legend>
@@ -51,11 +58,20 @@ export default function TicketsForm({
             onChange={setLocalTicketType}
             className="space-y-6"
           >
+            <RadioGroup.Label className="sr-only">Billettype</RadioGroup.Label>
             {ticketOptions.map((option) => (
               <RadioGroup.Option
                 key={option.name}
                 value={option.name.toLowerCase()}
-                className="group relative flex cursor-pointer bg-bgColor py-4 px-5 text-white shadow-md transition focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                className={({ active, checked }) =>
+                  clsx(
+                    "relative flex cursor-pointer bg-bgColor py-4 px-5 text-white shadow-md transition focus:outline-none",
+                    {
+                      "ring-2 ring-offset-2 ring-accentColor": active,
+                      "bg-white/10": checked,
+                    }
+                  )
+                }
               >
                 {({ checked }) => (
                   <div className="flex w-full items-center justify-between">
@@ -72,20 +88,37 @@ export default function TicketsForm({
               </RadioGroup.Option>
             ))}
           </RadioGroup>
-          <div className="flex flex-col small-size">
-            <label className="mb-2">
+          <Field className="flex flex-col small-size">
+            <Label htmlFor="ticketQuantity" className="mb-1 font-bold">
               Antal billetter:
-              <input
-                type="number"
+            </Label>
+            <Description id="ticketQuantity-description" className="mb-1">
+              Vælg antal billetter fra 1 til 10
+            </Description>
+            <div className="relative">
+              <Select
+                id="ticketQuantity"
                 value={localQuantity}
-                min="1"
                 onChange={(e) => setLocalQuantity(parseInt(e.target.value, 10))}
-                className="form-input mt-1 block w-24 bg-inputFieldColor text-bgColor py-2 px-5 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
-                aria-label="Antal billetter"
+                className={clsx(
+                  "mt-1 block w-28 appearance-none border-none bg-inputFieldColor text-bgColor py-2 px-5",
+                  "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                )}
+                aria-describedby="ticketQuantity-description"
                 required
+              >
+                {[...Array(10).keys()].map((i) => (
+                  <option key={i + 1} value={i + 1}>
+                    {i + 1}
+                  </option>
+                ))}
+              </Select>
+              <ChevronDownIcon
+                className="pointer-events-none absolute top-2.5 left-20 size-5 fill-bgColor"
+                aria-hidden="true"
               />
-            </label>
-          </div>
+            </div>
+          </Field>
           <div className="normal-size">
             Total pris for billetter: {localTotalPrice} kr.
           </div>
