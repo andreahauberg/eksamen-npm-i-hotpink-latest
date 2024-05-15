@@ -64,7 +64,7 @@ export default function Camping({ ticketQuantity, ticketType, campingOptions, on
     }
 
     try {
-      // Reserve spot via external API
+     
       const reservation = await fetchAPI('/reserve-spot', {
         method: 'PUT',
         body: JSON.stringify({
@@ -73,7 +73,7 @@ export default function Camping({ ticketQuantity, ticketType, campingOptions, on
         }),
       });
 
-      // Confirm reservation via external API
+
       await fetchAPI('/fullfill-reservation', {
         method: 'POST',
         body: JSON.stringify({
@@ -81,7 +81,7 @@ export default function Camping({ ticketQuantity, ticketType, campingOptions, on
         }),
       });
 
-      // Save booking information to Supabase database
+
       const bookingData = {
         area: selectedArea,
         ticketQuantity,
