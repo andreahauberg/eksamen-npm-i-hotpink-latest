@@ -1,23 +1,41 @@
-import { useState, useEffect } from 'react';
-import prices from '../backend/settings.js';
-import { fetchAPI, fetchDatabase } from '../../app/api/api.js';
+import { useState, useEffect } from "react";
+import prices from "../backend/settings.js";
+import { fetchAPI, fetchDatabase } from "../../app/api/api.js";
+import { Field, Label, Select, RadioGroup } from "@headlessui/react";
+import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import clsx from "clsx";
 
-export default function Camping({ ticketQuantity, ticketType, campingOptions, onClick, onNext, onBack }) {
-  const [greenCamping, setGreenCamping] = useState(campingOptions.greenCamping || false);
-  const [twoPersonTent, setTwoPersonTent] = useState(campingOptions.twoPersonTent || 0);
-  const [threePersonTent, setThreePersonTent] = useState(campingOptions.threePersonTent || 0);
+export default function Camping({
+  ticketQuantity,
+  ticketType,
+  campingOptions,
+  onClick,
+  onNext,
+  onBack,
+}) {
+  const [greenCamping, setGreenCamping] = useState(
+    campingOptions.greenCamping || false
+  );
+  const [twoPersonTent, setTwoPersonTent] = useState(
+    campingOptions.twoPersonTent || 0
+  );
+  const [threePersonTent, setThreePersonTent] = useState(
+    campingOptions.threePersonTent || 0
+  );
   const [campingAreas, setCampingAreas] = useState([]);
-  const [selectedArea, setSelectedArea] = useState(campingOptions.selectedArea || '');
+  const [selectedArea, setSelectedArea] = useState(
+    campingOptions.selectedArea || ""
+  );
   const [totalPrice, setTotalPrice] = useState(0);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const loadCampingAreas = async () => {
       try {
-        const data = await fetchAPI('/available-spots');
+        const data = await fetchAPI("/available-spots");
         setCampingAreas(data);
       } catch (error) {
-        console.error('Error loading camping areas:', error);
+        console.error("Error loading camping areas:", error);
       }
     };
     loadCampingAreas();
@@ -25,7 +43,9 @@ export default function Camping({ ticketQuantity, ticketType, campingOptions, on
 
   useEffect(() => {
     const calculateTotalPrice = () => {
-      const ticketPrice = ticketQuantity * (ticketType === 'regular' ? prices.regular : prices.vip);
+      const ticketPrice =
+        ticketQuantity *
+        (ticketType === "regular" ? prices.regular : prices.vip);
       let addOnPrice = 0;
       addOnPrice += greenCamping ? prices.greenCamping : 0;
       addOnPrice += twoPersonTent * prices.TwoPersonsTent;
@@ -33,21 +53,29 @@ export default function Camping({ ticketQuantity, ticketType, campingOptions, on
       setTotalPrice(ticketPrice + addOnPrice);
     };
     calculateTotalPrice();
-  }, [ticketQuantity, ticketType, greenCamping, twoPersonTent, threePersonTent]);
+  }, [
+    ticketQuantity,
+    ticketType,
+    greenCamping,
+    twoPersonTent,
+    threePersonTent,
+  ]);
 
   useEffect(() => {
-    onClick({ camping: { greenCamping, twoPersonTent, threePersonTent, selectedArea } });
+    onClick({
+      camping: { greenCamping, twoPersonTent, threePersonTent, selectedArea },
+    });
   }, [greenCamping, twoPersonTent, threePersonTent, selectedArea]);
 
   const handleQuantityChange = (type, increment) => {
-    if (type === 'twoPersonTent') {
-      setTwoPersonTent(prev => {
+    if (type === "twoPersonTent") {
+      setTwoPersonTent((prev) => {
         const newQuantity = Math.max(0, prev + increment);
         const totalTents = newQuantity + threePersonTent;
         return totalTents <= ticketQuantity ? newQuantity : prev;
       });
-    } else if (type === 'threePersonTent') {
-      setThreePersonTent(prev => {
+    } else if (type === "threePersonTent") {
+      setThreePersonTent((prev) => {
         const newQuantity = Math.max(0, prev + increment);
         const totalTents = twoPersonTent + newQuantity;
         return totalTents <= ticketQuantity ? newQuantity : prev;
@@ -59,28 +87,25 @@ export default function Camping({ ticketQuantity, ticketType, campingOptions, on
     event.preventDefault();
 
     if (twoPersonTent + threePersonTent === 0) {
-      setErrorMessage('Du skal vælge telt, inden du kan gå videre.');
+      setErrorMessage("Du skal vælge telt, inden du kan gå videre.");
       return;
     }
 
     try {
-     
-      const reservation = await fetchAPI('/reserve-spot', {
-        method: 'PUT',
+      const reservation = await fetchAPI("/reserve-spot", {
+        method: "PUT",
         body: JSON.stringify({
           area: selectedArea,
           amount: ticketQuantity,
         }),
       });
 
-
-      await fetchAPI('/fullfill-reservation', {
-        method: 'POST',
+      await fetchAPI("/fullfill-reservation", {
+        method: "POST",
         body: JSON.stringify({
           id: reservation.id,
         }),
       });
-
 
       const bookingData = {
         area: selectedArea,
@@ -93,75 +118,139 @@ export default function Camping({ ticketQuantity, ticketType, campingOptions, on
         reservationId: reservation.id,
       };
 
-      await fetchDatabase('/foofest_info', {
-        method: 'POST',
+      await fetchDatabase("/foofest_info", {
+        method: "POST",
         body: JSON.stringify(bookingData),
       });
 
       onNext();
     } catch (error) {
-      console.error('Error reserving spot:', error);
+      console.error("Error reserving spot:", error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <fieldset>
-        <legend>Add-on</legend>
-        <p>Note: The price includes the crew setting up your tent</p>
-        
-        <div>
-          <label>2 person Tent</label>
-          <div>
-            <button type="button" onClick={() => handleQuantityChange('twoPersonTent', -1)} aria-label="Decrease 2 person tent quantity">-</button>
-            <span>{twoPersonTent}</span>
-            <button type="button" onClick={() => handleQuantityChange('twoPersonTent', 1)} aria-label="Increase 2 person tent quantity">+</button>
-            <p>{prices.TwoPersonsTent} kr.</p>
-          </div>
-        </div>
-        
-        <div>
-          <label>3 person Tent</label>
-          <div>
-            <button type="button" onClick={() => handleQuantityChange('threePersonTent', -1)} aria-label="Decrease 3 person tent quantity">-</button>
-            <span>{threePersonTent}</span>
-            <button type="button" onClick={() => handleQuantityChange('threePersonTent', 1)} aria-label="Increase 3 person tent quantity">+</button>
-            <p>{prices.ThreePersonsTent} kr.</p>
-          </div>
-        </div>
+    <div className="min-h-screen flex items-center justify-center">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-secondaryBgColor p-8 shadow-md shadow-primaryColor w-full max-w-md"
+      >
+        <fieldset className="space-y-6">
+          <legend className="text-xl font-semibold text-white">
+            Camping Tilvalg
+          </legend>
+          <p className="text-sm text-white">
+            Bemærk: Prisen inkluderer opsætning af dit telt af vores team
+          </p>
 
-        <div>
-          <label>
+          <Field className="space-y-4">
+            <Label htmlFor="twoPersonTent">2 person Telt</Label>
+            <div className="flex items-center">
+              <button
+                type="button"
+                onClick={() => handleQuantityChange("twoPersonTent", -1)}
+                aria-label="Decrease 2 person tent quantity"
+                className="px-2 py-1 text-white bg-red-600 rounded"
+              >
+                -
+              </button>
+              <span className="mx-2 text-white">{twoPersonTent}</span>
+              <button
+                type="button"
+                onClick={() => handleQuantityChange("twoPersonTent", 1)}
+                aria-label="Increase 2 person tent quantity"
+                className="px-2 py-1 text-white bg-green-600 rounded"
+              >
+                +
+              </button>
+              <p className="ml-2 text-white">{prices.TwoPersonsTent} kr.</p>
+            </div>
+          </Field>
+
+          <Field className="space-y-4">
+            <Label htmlFor="threePersonTent">3 person Telt</Label>
+            <div className="flex items-center">
+              <button
+                type="button"
+                onClick={() => handleQuantityChange("threePersonTent", -1)}
+                aria-label="Decrease 3 person tent quantity"
+                className="px-2 py-1 text-white bg-red-600 rounded"
+              >
+                -
+              </button>
+              <span className="mx-2 text-white">{threePersonTent}</span>
+              <button
+                type="button"
+                onClick={() => handleQuantityChange("threePersonTent", 1)}
+                aria-label="Increase 3 person tent quantity"
+                className="px-2 py-1 text-white bg-green-600 rounded"
+              >
+                +
+              </button>
+              <p className="ml-2 text-white">{prices.ThreePersonsTent} kr.</p>
+            </div>
+          </Field>
+
+          <Field className="flex items-center">
             <input
               type="checkbox"
+              id="greenCamping"
               checked={greenCamping}
               onChange={(e) => setGreenCamping(e.target.checked)}
               aria-label="Green camping"
+              className="mr-2"
             />
-            Green camping {prices.greenCamping} kr.
-          </label>
-        </div>
+            <Label htmlFor="greenCamping" className="text-white">
+              Green camping {prices.greenCamping} kr.
+            </Label>
+          </Field>
 
-        <div>
-          <label>Choose Camping Area</label>
-          <select value={selectedArea} onChange={(e) => setSelectedArea(e.target.value)} aria-label="Choose camping area">
-            <option value="">Select an area</option>
-            {campingAreas.map(area => (
-              <option key={area.area} value={area.area}>
-                {area.area} (Available spots: {area.available})
-              </option>
-            ))}
-          </select>
-        </div>
+          <Field className="space-y-4">
+            <Label htmlFor="campingArea">Vælg Campingområde</Label>
+            <Select
+              id="campingArea"
+              value={selectedArea}
+              onChange={(e) => setSelectedArea(e.target.value)}
+              className={clsx(
+                "mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-white py-2 px-5",
+                "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+              )}
+              aria-label="Vælg campingområde"
+            >
+              <option value="">Select an area</option>
+              {campingAreas.map((area) => (
+                <option key={area.area} value={area.area}>
+                  {area.area} (Available spots: {area.available})
+                </option>
+              ))}
+            </Select>
+            <ChevronDownIcon
+              className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-white"
+              aria-hidden="true"
+            />
+          </Field>
 
-        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+          {errorMessage && <p className="text-red-500">{errorMessage}</p>}
 
-        <div>Total Price: {totalPrice} kr.</div>
+          <div className="text-white">Total pris: {totalPrice} kr.</div>
 
-        <button type="button" onClick={onBack}>Back</button>
-        <button type="button" onClick={onNext}>Continue</button>
-
-      </fieldset>
-    </form>
+          <div className="flex justify-between">
+            <button
+              type="button"
+              onClick={onBack}
+              className="px-4 py-2 bg-gray-600 text-white rounded"
+            >
+              Tilbage
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-green-600 text-white rounded"
+            >
+              Fortsæt
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
   );
 }
