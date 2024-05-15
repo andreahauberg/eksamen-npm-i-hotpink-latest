@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import prices from "../backend/settings.js";
 import { fetchAPI, fetchDatabase } from "../../app/api/api.js";
-import { Field, Label, Select, RadioGroup } from "@headlessui/react";
-import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import { Field, Label, Select, Checkbox } from "@headlessui/react";
+import { ChevronDownIcon, CheckIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
+import { krona_one } from "@/app/fonts.jsx";
 
 export default function Camping({
   ticketQuantity,
@@ -136,10 +137,12 @@ export default function Camping({
         className="bg-secondaryBgColor p-8 shadow-md shadow-primaryColor w-full max-w-md"
       >
         <fieldset className="space-y-6">
-          <legend className="text-xl font-semibold text-white">
+          <legend
+            className={`${krona_one.className} large-size text-primaryTextColor`}
+          >
             Camping Tilvalg
           </legend>
-          <p className="text-sm text-white">
+          <p className="text-sm">
             Bemærk: Prisen inkluderer opsætning af dit telt af vores team
           </p>
 
@@ -150,7 +153,7 @@ export default function Camping({
                 type="button"
                 onClick={() => handleQuantityChange("twoPersonTent", -1)}
                 aria-label="Decrease 2 person tent quantity"
-                className="px-2 py-1 text-white bg-red-600 rounded"
+                className="px-2 py-1 text-white bg-red-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
               >
                 -
               </button>
@@ -159,7 +162,7 @@ export default function Camping({
                 type="button"
                 onClick={() => handleQuantityChange("twoPersonTent", 1)}
                 aria-label="Increase 2 person tent quantity"
-                className="px-2 py-1 text-white bg-green-600 rounded"
+                className="px-2 py-1 text-white bg-green-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
               >
                 +
               </button>
@@ -174,7 +177,7 @@ export default function Camping({
                 type="button"
                 onClick={() => handleQuantityChange("threePersonTent", -1)}
                 aria-label="Decrease 3 person tent quantity"
-                className="px-2 py-1 text-white bg-red-600 rounded"
+                className="px-2 py-1 text-white bg-red-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
               >
                 -
               </button>
@@ -183,7 +186,7 @@ export default function Camping({
                 type="button"
                 onClick={() => handleQuantityChange("threePersonTent", 1)}
                 aria-label="Increase 3 person tent quantity"
-                className="px-2 py-1 text-white bg-green-600 rounded"
+                className="px-2 py-1 text-white bg-green-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
               >
                 +
               </button>
@@ -192,42 +195,49 @@ export default function Camping({
           </Field>
 
           <Field className="flex items-center">
-            <input
-              type="checkbox"
-              id="greenCamping"
+            <Checkbox
               checked={greenCamping}
-              onChange={(e) => setGreenCamping(e.target.checked)}
-              aria-label="Green camping"
-              className="mr-2"
-            />
-            <Label htmlFor="greenCamping" className="text-white">
+              onChange={setGreenCamping}
+              className="group size-6 bg-inputFieldColor p-1 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor data-[checked]:bg-white"
+              id="greenCamping"
+              aria-labelledby="greenCampingLabel"
+            >
+              <CheckIcon className="hidden size-4 fill-bgColor group-data-[checked]:block" />
+            </Checkbox>
+            <Label
+              htmlFor="greenCamping"
+              id="greenCampingLabel"
+              className="ml-2 text-white"
+            >
               Green camping {prices.greenCamping} kr.
             </Label>
           </Field>
 
           <Field className="space-y-4">
             <Label htmlFor="campingArea">Vælg Campingområde</Label>
-            <Select
-              id="campingArea"
-              value={selectedArea}
-              onChange={(e) => setSelectedArea(e.target.value)}
-              className={clsx(
-                "mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-white py-2 px-5",
-                "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
-              )}
-              aria-label="Vælg campingområde"
-            >
-              <option value="">Select an area</option>
-              {campingAreas.map((area) => (
-                <option key={area.area} value={area.area}>
-                  {area.area} (Available spots: {area.available})
-                </option>
-              ))}
-            </Select>
-            <ChevronDownIcon
-              className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-white"
-              aria-hidden="true"
-            />
+            <div className="relative">
+              <Select
+                id="campingArea"
+                value={selectedArea}
+                onChange={(e) => setSelectedArea(e.target.value)}
+                className={clsx(
+                  "mt-1 block w-44 appearance-none border-none  bg-inputFieldColor text-bgColor py-2 px-5",
+                  "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                )}
+                aria-label="Vælg campingområde"
+              >
+                <option value="">Select an area</option>
+                {campingAreas.map((area) => (
+                  <option key={area.area} value={area.area}>
+                    {area.area} (Available spots: {area.available})
+                  </option>
+                ))}
+              </Select>
+              <ChevronDownIcon
+                className="pointer-events-none absolute top-2.5 left-36 size-5 fill-bgColor"
+                aria-hidden="true"
+              />
+            </div>
           </Field>
 
           {errorMessage && <p className="text-red-500">{errorMessage}</p>}
@@ -238,13 +248,13 @@ export default function Camping({
             <button
               type="button"
               onClick={onBack}
-              className="px-4 py-2 bg-gray-600 text-white rounded"
+              className="bg-bgColor border-2 border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
             >
               Tilbage
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-green-600 text-white rounded"
+              className="bg-bgColor border-2 border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
             >
               Fortsæt
             </button>

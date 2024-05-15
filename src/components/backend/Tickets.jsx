@@ -114,7 +114,7 @@ export default function TicketsForm({
                 ))}
               </Select>
               <ChevronDownIcon
-                className="pointer-events-none absolute top-2.5 left-20 size-5 fill-bgColor"
+                className="pointer-events-none absolute top-3.5 left-20 size-5 fill-bgColor"
                 aria-hidden="true"
               />
             </div>
