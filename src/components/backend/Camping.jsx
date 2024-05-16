@@ -328,6 +328,7 @@ export default function Camping({
               </button>
               <button
                 type="submit"
+                onClick={onNext}
                 className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
               >
                 Fortsæt
