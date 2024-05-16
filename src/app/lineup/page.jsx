@@ -1,23 +1,13 @@
 import { fetchAPI, fetchDatabase } from "../../app/api/api.js";
-import { useState, useEffect } from "react";
+import Logo from "../../components/svgs/Logo.svg";
 
 export default function Lineup() {
-  useEffect(() => {
-    const loadLineUp = async () => {
-      try {
-        const data = await fetchAPI("/available-spots");
-        setCampingAreas(data);
-      } catch (error) {
-        console.error("Error loading camping areas:", error);
-      }
-    };
-    loadCampingAreas();
-  }, []);
-
   return (
     <>
-      <section>
-        <h1>HEJ</h1>
+      <section className="">
+        <h1 className=" h-fit fill-secondaryVariantColor hover:fill-primaryColor transition-colors duration-200 ease-in-out ">HEJ</h1>
+
+        <h2>Booo</h2>
       </section>
     </>
   );
