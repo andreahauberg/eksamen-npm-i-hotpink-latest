@@ -131,7 +131,7 @@ export default function Camping({
   };
 
   return (
-    <div className=" grid grid-cols-gridContent ">
+    <div className="grid grid-cols-gridContent">
       <div className="py-16 col-start-3 flex items-center justify-center">
         <form
           onSubmit={handleSubmit}
@@ -148,73 +148,6 @@ export default function Camping({
             </p>
 
             <Field className="space-y-4">
-              <Label htmlFor="twoPersonTent">2 person Telt</Label>
-              <div className="flex items-center">
-                <button
-                  type="button"
-                  onClick={() => handleQuantityChange("twoPersonTent", -1)}
-                  aria-label="Decrease 2 person tent quantity"
-                  className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
-                >
-                  -
-                </button>
-                <span className="mx-2 text-white">{twoPersonTent}</span>
-                <button
-                  type="button"
-                  onClick={() => handleQuantityChange("twoPersonTent", 1)}
-                  aria-label="Increase 2 person tent quantity"
-                  className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
-                >
-                  +
-                </button>
-                <p className="ml-2 text-white">{prices.TwoPersonsTent} kr.</p>
-              </div>
-            </Field>
-
-            <Field className="space-y-4">
-              <Label htmlFor="threePersonTent">3 person Telt</Label>
-              <div className="flex items-center">
-                <button
-                  type="button"
-                  onClick={() => handleQuantityChange("threePersonTent", -1)}
-                  aria-label="Decrease 3 person tent quantity"
-                  className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
-                >
-                  -
-                </button>
-                <span className="mx-2 text-white">{threePersonTent}</span>
-                <button
-                  type="button"
-                  onClick={() => handleQuantityChange("threePersonTent", 1)}
-                  aria-label="Increase 3 person tent quantity"
-                  className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
-                >
-                  +
-                </button>
-                <p className="ml-2 text-white">{prices.ThreePersonsTent} kr.</p>
-              </div>
-            </Field>
-
-            <Field className="flex items-center">
-              <Checkbox
-                checked={greenCamping}
-                onChange={setGreenCamping}
-                className="group size-6 bg-inputFieldColor rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor data-[checked]:bg-white"
-                id="greenCamping"
-                aria-labelledby="greenCampingLabel"
-              >
-                <CheckIcon className="hidden size-4 fill-bgColor group-data-[checked]:block" />
-              </Checkbox>
-              <Label
-                htmlFor="greenCamping"
-                id="greenCampingLabel"
-                className="ml-2 text-white"
-              >
-                Green camping {prices.greenCamping} kr.
-              </Label>
-            </Field>
-
-            <Field className="space-y-4">
               <Label htmlFor="campingArea">Vælg Campingområde</Label>
               <div className="relative">
                 <Select
@@ -222,7 +155,7 @@ export default function Camping({
                   value={selectedArea}
                   onChange={(e) => setSelectedArea(e.target.value)}
                   className={clsx(
-                    "mt-1 block w-44 appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
+                    "mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
                     "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
                   )}
                   aria-label="Vælg campingområde"
@@ -235,15 +168,155 @@ export default function Camping({
                   ))}
                 </Select>
                 <ChevronDownIcon
-                  className="pointer-events-none absolute top-2.5 left-36 size-5 fill-bgColor"
+                  className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor"
                   aria-hidden="true"
                 />
               </div>
             </Field>
 
-            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-
-            <div className="text-white">Total pris: {totalPrice} kr.</div>
+            <table className="min-w-full rounded-lg">
+              <thead>
+                <tr>
+                  <th className="text-left px-4 py-3 rounded-tl-lg text-bgColor bg-primaryTextColor">
+                    Add-ons
+                  </th>
+                  <th className="text-center px-4 py-3 text-bgColor bg-primaryTextColor">
+                    Quantity
+                  </th>
+                  <th className="text-right px-4 py-3 rounded-tr-lg text-bgColor bg-primaryTextColor">
+                    Price
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className=" px-4 pb-2 pt-6">2 person tent</td>
+                  <td className=" px-4 pb-2 pt-6 text-center">
+                    <div className="flex items-center justify-center space-x-2">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleQuantityChange("twoPersonTent", -1)
+                        }
+                        aria-label="Decrease 2 person tent quantity"
+                        className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none"
+                      >
+                        -
+                      </button>
+                      <span>{twoPersonTent}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleQuantityChange("twoPersonTent", 1)}
+                        aria-label="Increase 2 person tent quantity"
+                        className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </td>
+                  <td className=" px-4 pb-2 pt-6 text-right">
+                    {prices.TwoPersonsTent} DKK
+                  </td>
+                </tr>
+                <tr>
+                  <td className=" px-4 py-2">3 person tent</td>
+                  <td className=" px-4 py-2 text-center">
+                    <div className="flex items-center justify-center space-x-2">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleQuantityChange("threePersonTent", -1)
+                        }
+                        aria-label="Decrease 3 person tent quantity"
+                        className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none"
+                      >
+                        -
+                      </button>
+                      <span>{threePersonTent}</span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleQuantityChange("threePersonTent", 1)
+                        }
+                        aria-label="Increase 3 person tent quantity"
+                        className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </td>
+                  <td className=" px-4 py-2 text-right">
+                    {prices.ThreePersonsTent} DKK
+                  </td>
+                </tr>
+                <tr>
+                  <td className=" px-4 pb-6 pt-2">
+                    Supportive camping
+                    <br />
+                    {/* <span className="text-sm text-gray-500">
+                      Option to help change the world
+                    </span> */}
+                  </td>
+                  <td className=" px-4 pb-6 pt-4 flex justify-center text-center items-center">
+                    <Checkbox
+                      checked={greenCamping}
+                      onChange={setGreenCamping}
+                      className="h-6 w-6 rounded bg-inputFieldColor text-accentColor focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
+                    >
+                      {({ checked }) => (
+                        <div
+                          className={clsx(
+                            checked ? "bg-accentColor" : "bg-inputFieldColor",
+                            "flex items-center justify-center h-6 w-6 rounded "
+                          )}
+                        >
+                          {checked && (
+                            <CheckIcon
+                              className="w-4 h-4 text-bgColor"
+                              aria-hidden="true"
+                            />
+                          )}
+                        </div>
+                      )}
+                    </Checkbox>
+                  </td>
+                  <td className=" px-4 pb-6 pt-2 text-right">
+                    {prices.greenCamping} DKK
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td
+                    colSpan="3"
+                    className="text-center px-4 py-3 bg-primaryTextColor rounded-b-lg text-bgColor"
+                  >
+                    <strong>
+                      Total (
+                      {twoPersonTent + threePersonTent + (greenCamping ? 1 : 0)}{" "}
+                      item
+                      {twoPersonTent +
+                        threePersonTent +
+                        (greenCamping ? 1 : 0) !==
+                      1
+                        ? "s"
+                        : ""}
+                      ): {totalPrice} DKK
+                    </strong>
+                  </td>
+                </tr>
+                {errorMessage && (
+                  <tr>
+                    <td
+                      colSpan="3"
+                      className="text-red-500 text-right px-4 py-2"
+                    >
+                      {errorMessage}
+                    </td>
+                  </tr>
+                )}
+              </tfoot>
+            </table>
 
             <div className="flex justify-between">
               <button
@@ -255,7 +328,6 @@ export default function Camping({
               </button>
               <button
                 type="submit"
-                onClick={onNext}
                 className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
               >
                 Fortsæt
