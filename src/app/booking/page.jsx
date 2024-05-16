@@ -5,6 +5,7 @@ import Camping from '../../components/backend/Camping';
 import PersonalForm from '../../components/backend/PersonalForm';
 import SummaryPage from '../../components/backend/Summary';
 import PaymentPage from '../../components/backend/Payment';
+import ConfirmationPage from '../../components/backend/Confirmation';
 import ProgressBar from '../../components/backend/ProgressBar';
 
 export default function BookingPage() {
@@ -64,7 +65,18 @@ export default function BookingPage() {
                     onNext={nextStep}
                 />
             )}
-            {step === 5 && <PaymentPage onBack={prevStep} />}
+            {step === 5 && (
+                <PaymentPage
+                    bookingData={bookingData}
+                    onBack={prevStep}
+                    onNext={nextStep}
+                />
+            )}
+            {step === 6 && (
+                <ConfirmationPage
+                    bookingData={bookingData}
+                />
+            )}
         </div>
     );
 }

@@ -59,7 +59,8 @@ export default function PersonalForm({
 
     const orderData = localPersonalInfo.map(info => ({
       id: orderId,
-      name: `${info.firstName} ${info.lastName}`,
+      first_name: info.firstName,
+      last_name: info.lastName,
       email: info.email,
       phone: info.phoneNumber,
       amount: ticketQuantity,
@@ -70,7 +71,8 @@ export default function PersonalForm({
       await saveOrderToDatabase(orderData);
       onClick({
         personalInfo: localPersonalInfo,
-        totalPrice: calculateTotalPrice()
+        totalPrice: calculateTotalPrice(),
+        orderId: orderId
       });
       onNext(); 
     } catch (error) {
