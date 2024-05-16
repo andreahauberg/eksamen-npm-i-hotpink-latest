@@ -5,6 +5,7 @@ import { Field, Label, Select, Checkbox } from "@headlessui/react";
 import { ChevronDownIcon, CheckIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import { krona_one } from "@/app/fonts.jsx";
+import CartSummary from "./CartSummary";
 
 export default function Camping({
   ticketQuantity,
@@ -132,7 +133,7 @@ export default function Camping({
 
   return (
     <div className="grid grid-cols-gridContent">
-      <div className="py-16 col-start-3 flex items-center justify-center">
+      <div className="pt-8 pb-16 col-start-3 gap-3 flex flex-wrap  items-center justify-center">
         <form
           onSubmit={handleSubmit}
           className="bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-md"
@@ -336,6 +337,13 @@ export default function Camping({
             </div>
           </fieldset>
         </form>
+        <div className=" flex items-center justify-center w-full max-w-md md:w-44">
+          <CartSummary
+            ticketType={ticketType}
+            ticketQuantity={ticketQuantity}
+            campingOptions={campingOptions}
+          />
+        </div>
       </div>
     </div>
   );

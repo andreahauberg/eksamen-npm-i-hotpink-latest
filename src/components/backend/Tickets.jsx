@@ -43,7 +43,7 @@ export default function TicketsForm({
 
   return (
     <div className=" grid grid-cols-gridContent ">
-      <div className="py-16 col-start-3 flex items-center justify-center">
+      <div className="pt-8 pb-16 col-start-3 flex items-center justify-center">
         <form
           onSubmit={handleSubmit}
           className="bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor w-full max-w-md"
