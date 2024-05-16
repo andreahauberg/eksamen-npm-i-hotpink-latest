@@ -65,5 +65,3 @@ export const saveOrderToDatabase = async (orderData) => {
     throw error;
   }
 };
-
-

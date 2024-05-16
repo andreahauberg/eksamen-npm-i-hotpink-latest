@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import prices from '../backend/settings.js';
-import { saveOrderToDatabase } from '../../app/api/api.js';
 
 export default function PersonalForm({
   personalInfo,
@@ -53,9 +52,10 @@ export default function PersonalForm({
     return 'ORD' + Math.floor(Math.random() * 1000000).toString();
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const orderId = generateOrderId();
+    const totalPrice = calculateTotalPrice();
 
     const orderData = localPersonalInfo.map(info => ({
       id: orderId,
@@ -67,17 +67,12 @@ export default function PersonalForm({
       birthday: info.dateOfBirth,
     }));
 
-    try {
-      await saveOrderToDatabase(orderData);
-      onClick({
-        personalInfo: localPersonalInfo,
-        totalPrice: calculateTotalPrice(),
-        orderId: orderId
-      });
-      onNext(); 
-    } catch (error) {
-      console.error('Failed to save order data:', error);
-    }
+    onClick({
+      personalInfo: localPersonalInfo,
+      totalPrice: totalPrice,
+      orderId: orderId
+    });
+    onNext(); 
   };
 
   const validateDateOfBirth = (date) => {

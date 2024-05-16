@@ -15,7 +15,8 @@ export default function BookingPage() {
         ticketQuantity: 1,
         camping: {},
         personalInfo: [],
-        totalPrice: 0
+        totalPrice: 0,
+        orderId: '' 
     });
 
     const nextStep = () => setStep(step + 1);
