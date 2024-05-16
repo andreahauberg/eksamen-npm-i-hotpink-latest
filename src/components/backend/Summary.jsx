@@ -33,6 +33,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
           ))}
           <h2 className="text-2xl mb-4">Pris</h2>
           <p>Total: {totalPrice} kr.</p>
+  
         </div>
         <div>
           <button
