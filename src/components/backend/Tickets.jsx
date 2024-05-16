@@ -93,11 +93,11 @@ export default function TicketsForm({
             </RadioGroup>
             <Field className="flex flex-col small-size">
               <Label htmlFor="ticketQuantity" className="mb-1 font-bold">
-                Antal billetter:
+                Vælg antal billetter:
               </Label>
-              <Description id="ticketQuantity-description" className="mb-1">
+              {/* <Description id="ticketQuantity-description" className="mb-1">
                 Vælg antal billetter fra 1 til 10
-              </Description>
+              </Description> */}
               <div className="relative">
                 <Select
                   id="ticketQuantity"
