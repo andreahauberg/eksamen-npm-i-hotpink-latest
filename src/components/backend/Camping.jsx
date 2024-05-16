@@ -131,137 +131,139 @@ export default function Camping({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-md"
-      >
-        <fieldset className="space-y-6">
-          <legend
-            className={`${krona_one.className} large-size text-primaryTextColor`}
-          >
-            Camping Tilvalg
-          </legend>
-          <p className="text-sm">
-            Bemærk: Prisen inkluderer opsætning af dit telt af vores team
-          </p>
+    <div className=" grid grid-cols-gridContent ">
+      <div className="py-16 col-start-3 flex items-center justify-center">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-md"
+        >
+          <fieldset className="space-y-6">
+            <legend
+              className={`${krona_one.className} large-size text-primaryTextColor`}
+            >
+              Camping Tilvalg
+            </legend>
+            <p className="text-sm">
+              Bemærk: Prisen inkluderer opsætning af dit telt af vores team
+            </p>
 
-          <Field className="space-y-4">
-            <Label htmlFor="twoPersonTent">2 person Telt</Label>
-            <div className="flex items-center">
+            <Field className="space-y-4">
+              <Label htmlFor="twoPersonTent">2 person Telt</Label>
+              <div className="flex items-center">
+                <button
+                  type="button"
+                  onClick={() => handleQuantityChange("twoPersonTent", -1)}
+                  aria-label="Decrease 2 person tent quantity"
+                  className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
+                >
+                  -
+                </button>
+                <span className="mx-2 text-white">{twoPersonTent}</span>
+                <button
+                  type="button"
+                  onClick={() => handleQuantityChange("twoPersonTent", 1)}
+                  aria-label="Increase 2 person tent quantity"
+                  className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
+                >
+                  +
+                </button>
+                <p className="ml-2 text-white">{prices.TwoPersonsTent} kr.</p>
+              </div>
+            </Field>
+
+            <Field className="space-y-4">
+              <Label htmlFor="threePersonTent">3 person Telt</Label>
+              <div className="flex items-center">
+                <button
+                  type="button"
+                  onClick={() => handleQuantityChange("threePersonTent", -1)}
+                  aria-label="Decrease 3 person tent quantity"
+                  className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
+                >
+                  -
+                </button>
+                <span className="mx-2 text-white">{threePersonTent}</span>
+                <button
+                  type="button"
+                  onClick={() => handleQuantityChange("threePersonTent", 1)}
+                  aria-label="Increase 3 person tent quantity"
+                  className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
+                >
+                  +
+                </button>
+                <p className="ml-2 text-white">{prices.ThreePersonsTent} kr.</p>
+              </div>
+            </Field>
+
+            <Field className="flex items-center">
+              <Checkbox
+                checked={greenCamping}
+                onChange={setGreenCamping}
+                className="group size-6 bg-inputFieldColor rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor data-[checked]:bg-white"
+                id="greenCamping"
+                aria-labelledby="greenCampingLabel"
+              >
+                <CheckIcon className="hidden size-4 fill-bgColor group-data-[checked]:block" />
+              </Checkbox>
+              <Label
+                htmlFor="greenCamping"
+                id="greenCampingLabel"
+                className="ml-2 text-white"
+              >
+                Green camping {prices.greenCamping} kr.
+              </Label>
+            </Field>
+
+            <Field className="space-y-4">
+              <Label htmlFor="campingArea">Vælg Campingområde</Label>
+              <div className="relative">
+                <Select
+                  id="campingArea"
+                  value={selectedArea}
+                  onChange={(e) => setSelectedArea(e.target.value)}
+                  className={clsx(
+                    "mt-1 block w-44 appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
+                    "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                  )}
+                  aria-label="Vælg campingområde"
+                >
+                  <option value="">Select an area</option>
+                  {campingAreas.map((area) => (
+                    <option key={area.area} value={area.area}>
+                      {area.area} (Available spots: {area.available})
+                    </option>
+                  ))}
+                </Select>
+                <ChevronDownIcon
+                  className="pointer-events-none absolute top-2.5 left-36 size-5 fill-bgColor"
+                  aria-hidden="true"
+                />
+              </div>
+            </Field>
+
+            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+
+            <div className="text-white">Total pris: {totalPrice} kr.</div>
+
+            <div className="flex justify-between">
               <button
                 type="button"
-                onClick={() => handleQuantityChange("twoPersonTent", -1)}
-                aria-label="Decrease 2 person tent quantity"
-                className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
+                onClick={onBack}
+                className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
               >
-                -
+                Tilbage
               </button>
-              <span className="mx-2 text-white">{twoPersonTent}</span>
               <button
-                type="button"
-                onClick={() => handleQuantityChange("twoPersonTent", 1)}
-                aria-label="Increase 2 person tent quantity"
-                className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
+                type="submit"
+                onClick={onNext}
+                className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
               >
-                +
+                Fortsæt
               </button>
-              <p className="ml-2 text-white">{prices.TwoPersonsTent} kr.</p>
             </div>
-          </Field>
-
-          <Field className="space-y-4">
-            <Label htmlFor="threePersonTent">3 person Telt</Label>
-            <div className="flex items-center">
-              <button
-                type="button"
-                onClick={() => handleQuantityChange("threePersonTent", -1)}
-                aria-label="Decrease 3 person tent quantity"
-                className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
-              >
-                -
-              </button>
-              <span className="mx-2 text-white">{threePersonTent}</span>
-              <button
-                type="button"
-                onClick={() => handleQuantityChange("threePersonTent", 1)}
-                aria-label="Increase 3 person tent quantity"
-                className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
-              >
-                +
-              </button>
-              <p className="ml-2 text-white">{prices.ThreePersonsTent} kr.</p>
-            </div>
-          </Field>
-
-          <Field className="flex items-center">
-            <Checkbox
-              checked={greenCamping}
-              onChange={setGreenCamping}
-              className="group size-6 bg-inputFieldColor rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor data-[checked]:bg-white"
-              id="greenCamping"
-              aria-labelledby="greenCampingLabel"
-            >
-              <CheckIcon className="hidden size-4 fill-bgColor group-data-[checked]:block" />
-            </Checkbox>
-            <Label
-              htmlFor="greenCamping"
-              id="greenCampingLabel"
-              className="ml-2 text-white"
-            >
-              Green camping {prices.greenCamping} kr.
-            </Label>
-          </Field>
-
-          <Field className="space-y-4">
-            <Label htmlFor="campingArea">Vælg Campingområde</Label>
-            <div className="relative">
-              <Select
-                id="campingArea"
-                value={selectedArea}
-                onChange={(e) => setSelectedArea(e.target.value)}
-                className={clsx(
-                  "mt-1 block w-44 appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
-                  "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
-                )}
-                aria-label="Vælg campingområde"
-              >
-                <option value="">Select an area</option>
-                {campingAreas.map((area) => (
-                  <option key={area.area} value={area.area}>
-                    {area.area} (Available spots: {area.available})
-                  </option>
-                ))}
-              </Select>
-              <ChevronDownIcon
-                className="pointer-events-none absolute top-2.5 left-36 size-5 fill-bgColor"
-                aria-hidden="true"
-              />
-            </div>
-          </Field>
-
-          {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-
-          <div className="text-white">Total pris: {totalPrice} kr.</div>
-
-          <div className="flex justify-between">
-            <button
-              type="button"
-              onClick={onBack}
-              className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
-            >
-              Tilbage
-            </button>
-            <button
-              type="submit"
-              onClick={onNext}
-              className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
-            >
-              Fortsæt
-            </button>
-          </div>
-        </fieldset>
-      </form>
+          </fieldset>
+        </form>
+      </div>
     </div>
   );
 }
