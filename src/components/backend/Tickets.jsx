@@ -68,7 +68,7 @@ export default function TicketsForm({
                   value={option.name.toLowerCase()}
                   className={({ active, checked }) =>
                     clsx(
-                      "relative flex cursor-pointer rounded-lg bg-bgColor py-4 px-5 text-white shadow-md transition focus:outline-none",
+                      "relative flex cursor-pointer rounded-lg bg-bgColor py-4 px-5 text-white shadow-md transition focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
                       {
                         "ring-2 ring-offset-2 ring-accentColor": active,
                         "bg-white/10": checked,

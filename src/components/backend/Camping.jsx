@@ -199,7 +199,7 @@ export default function Camping({
                           handleQuantityChange("twoPersonTent", -1)
                         }
                         aria-label="Decrease 2 person tent quantity"
-                        className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none"
+                        className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                       >
                         -
                       </button>
@@ -208,7 +208,7 @@ export default function Camping({
                         type="button"
                         onClick={() => handleQuantityChange("twoPersonTent", 1)}
                         aria-label="Increase 2 person tent quantity"
-                        className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none"
+                        className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                       >
                         +
                       </button>
@@ -228,7 +228,7 @@ export default function Camping({
                           handleQuantityChange("threePersonTent", -1)
                         }
                         aria-label="Decrease 3 person tent quantity"
-                        className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none"
+                        className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                       >
                         -
                       </button>
@@ -239,7 +239,7 @@ export default function Camping({
                           handleQuantityChange("threePersonTent", 1)
                         }
                         aria-label="Increase 3 person tent quantity"
-                        className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none"
+                        className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                       >
                         +
                       </button>
