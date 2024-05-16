@@ -134,7 +134,7 @@ export default function Camping({
     <div className="min-h-screen flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="bg-secondaryBgColor p-8 shadow-md shadow-primaryColor w-full max-w-md"
+        className="bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-md"
       >
         <fieldset className="space-y-6">
           <legend
@@ -153,7 +153,7 @@ export default function Camping({
                 type="button"
                 onClick={() => handleQuantityChange("twoPersonTent", -1)}
                 aria-label="Decrease 2 person tent quantity"
-                className="px-2 py-1 text-white bg-red-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
+                className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
               >
                 -
               </button>
@@ -162,7 +162,7 @@ export default function Camping({
                 type="button"
                 onClick={() => handleQuantityChange("twoPersonTent", 1)}
                 aria-label="Increase 2 person tent quantity"
-                className="px-2 py-1 text-white bg-green-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
+                className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
               >
                 +
               </button>
@@ -177,7 +177,7 @@ export default function Camping({
                 type="button"
                 onClick={() => handleQuantityChange("threePersonTent", -1)}
                 aria-label="Decrease 3 person tent quantity"
-                className="px-2 py-1 text-white bg-red-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
+                className="px-2 py-1 rounded-lg text-white bg-red-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
               >
                 -
               </button>
@@ -186,7 +186,7 @@ export default function Camping({
                 type="button"
                 onClick={() => handleQuantityChange("threePersonTent", 1)}
                 aria-label="Increase 3 person tent quantity"
-                className="px-2 py-1 text-white bg-green-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
+                className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
               >
                 +
               </button>
@@ -198,7 +198,7 @@ export default function Camping({
             <Checkbox
               checked={greenCamping}
               onChange={setGreenCamping}
-              className="group size-6 bg-inputFieldColor p-1 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor data-[checked]:bg-white"
+              className="group size-6 bg-inputFieldColor rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor data-[checked]:bg-white"
               id="greenCamping"
               aria-labelledby="greenCampingLabel"
             >
@@ -221,7 +221,7 @@ export default function Camping({
                 value={selectedArea}
                 onChange={(e) => setSelectedArea(e.target.value)}
                 className={clsx(
-                  "mt-1 block w-44 appearance-none border-none  bg-inputFieldColor text-bgColor py-2 px-5",
+                  "mt-1 block w-44 appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
                   "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
                 )}
                 aria-label="Vælg campingområde"
@@ -248,13 +248,13 @@ export default function Camping({
             <button
               type="button"
               onClick={onBack}
-              className="bg-bgColor border-2 border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+              className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
             >
               Tilbage
             </button>
             <button
               type="submit"
-              className="bg-bgColor border-2 border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+              className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
             >
               Fortsæt
             </button>
