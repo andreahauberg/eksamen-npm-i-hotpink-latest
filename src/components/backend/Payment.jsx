@@ -1,7 +1,5 @@
 export default function PaymentPage({ bookingData, onBack, onNext }) {
   const handlePayment = async () => {
-      // Her kan du tilføje betalingslogik
-      // For nu vil vi bare fortsætte til bekræftelsessiden
       onNext();
   };
 
