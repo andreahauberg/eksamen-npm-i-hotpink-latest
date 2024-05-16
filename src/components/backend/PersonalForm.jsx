@@ -48,6 +48,11 @@ export default function PersonalForm({
     return ticketPrice + addOnPrice + prices.fee;
   };
 
+  useEffect(() => {
+    const totalPrice = calculateTotalPrice();
+    onClick({ personalInfo: localPersonalInfo, totalPrice: totalPrice });
+  }, [localPersonalInfo, campingOptions]);
+
   const generateOrderId = () => {
     return 'ORD' + Math.floor(Math.random() * 1000000).toString();
   };
