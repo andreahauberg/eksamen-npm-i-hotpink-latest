@@ -43,7 +43,7 @@ export default function TicketsForm({
 
   return (
     <div className=" grid grid-cols-gridContent ">
-      <div className="py-16 col-start-3 flex items-center justify-center">
+      <div className="pt-8 pb-16 col-start-3 flex items-center justify-center">
         <form
           onSubmit={handleSubmit}
           className="bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor w-full max-w-md"
@@ -68,7 +68,7 @@ export default function TicketsForm({
                   value={option.name.toLowerCase()}
                   className={({ active, checked }) =>
                     clsx(
-                      "relative flex cursor-pointer rounded-lg bg-bgColor py-4 px-5 text-white shadow-md transition focus:outline-none",
+                      "relative flex cursor-pointer rounded-lg bg-bgColor py-4 px-5 text-white shadow-md transition focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
                       {
                         "ring-2 ring-offset-2 ring-accentColor": active,
                         "bg-white/10": checked,
@@ -93,11 +93,11 @@ export default function TicketsForm({
             </RadioGroup>
             <Field className="flex flex-col small-size">
               <Label htmlFor="ticketQuantity" className="mb-1 font-bold">
-                Antal billetter:
+                Vælg antal billetter:
               </Label>
-              <Description id="ticketQuantity-description" className="mb-1">
+              {/* <Description id="ticketQuantity-description" className="mb-1">
                 Vælg antal billetter fra 1 til 10
-              </Description>
+              </Description> */}
               <div className="relative">
                 <Select
                   id="ticketQuantity"
@@ -127,12 +127,14 @@ export default function TicketsForm({
             <div className="normal-size">
               Total pris for billetter: {localTotalPrice} kr.
             </div>
-            <button
-              type="submit"
-              className="bg-bgColor rounded-lg border-2 border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
-            >
-              Køb billetter
-            </button>
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className="bg-bgColor rounded-lg border-2 border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+              >
+                Køb billetter
+              </button>
+            </div>
           </fieldset>
         </form>
       </div>
