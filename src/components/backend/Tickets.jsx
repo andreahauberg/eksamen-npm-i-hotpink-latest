@@ -37,8 +37,8 @@ export default function TicketsForm({
   };
 
   const ticketOptions = [
-    { name: "Regular", price: prices.regular },
-    { name: "VIP", price: prices.vip },
+    { name: "Partoutbillet", price: prices.regular },
+    { name: "VIP-Partoutbillet", price: prices.vip },
   ];
 
   return (
