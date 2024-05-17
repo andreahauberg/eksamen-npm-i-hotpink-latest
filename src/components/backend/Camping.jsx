@@ -166,10 +166,10 @@ export default function Camping({
                   )}
                   aria-label="Vælg campingområde"
                 >
-                  <option value="">Select an area</option>
+                  <option value="">Vælg campingområde</option>
                   {filteredCampingAreas.map((area) => (
                     <option key={area.area} value={area.area}>
-                      {area.area} (Available spots: {area.available})
+                      {area.area} (Ledige pladser: {area.available})
                     </option>
                   ))}
                 </Select>
@@ -184,19 +184,19 @@ export default function Camping({
               <thead>
                 <tr>
                   <th className="text-left px-4 py-3 rounded-tl-lg text-bgColor bg-primaryTextColor">
-                    Add-ons
+                    Tilvalg
                   </th>
                   <th className="text-center px-4 py-3 text-bgColor bg-primaryTextColor">
-                    Quantity
+                    Antal
                   </th>
                   <th className="text-right px-4 py-3 rounded-tr-lg text-bgColor bg-primaryTextColor">
-                    Price
+                    Pris
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td className=" px-4 pb-2 pt-6">2 person tent</td>
+                  <td className=" px-4 pb-2 pt-6">2 pers telt</td>
                   <td className=" px-4 pb-2 pt-6 text-center">
                     <div className="flex items-center justify-center space-x-2">
                       <button
@@ -225,7 +225,7 @@ export default function Camping({
                   </td>
                 </tr>
                 <tr>
-                  <td className=" px-4 py-2">3 person tent</td>
+                  <td className=" px-4 py-2">3 pers telt</td>
                   <td className=" px-4 py-2 text-center">
                     <div className="flex items-center justify-center space-x-2">
                       <button
@@ -257,7 +257,7 @@ export default function Camping({
                 </tr>
                 <tr>
                   <td className=" px-4 pb-6 pt-2">
-                    Supportive camping
+                    Grøn camping
                     <br />
                     {/* <span className="text-sm text-gray-500">
                       Option to help change the world
@@ -298,14 +298,14 @@ export default function Camping({
                     className="text-center px-4 py-3 bg-primaryTextColor rounded-b-lg text-bgColor"
                   >
                     <strong>
-                      Total (
-                      {twoPersonTent + threePersonTent + (greenCamping ? 1 : 0)}{" "}
-                      item
+                      Tilvalg (
+                      {twoPersonTent + threePersonTent + (greenCamping ? (0,1) : 0)}{" "}
+                      telt
                       {twoPersonTent +
                         threePersonTent +
                         (greenCamping ? 1 : 0) !==
                       1
-                        ? "s"
+                        ? "e"
                         : ""}
                       ): {totalPrice} DKK
                     </strong>
