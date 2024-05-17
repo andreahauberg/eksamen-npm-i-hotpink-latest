@@ -12,7 +12,7 @@ export default function ProgressBar({ currentStep }) {
               }`}
             >
               <span className={styles.progress_count}>1</span>
-              <span className={styles.step_label}>Tickets</span>
+              <span className={styles.step_label}></span>
             </li>
             <li
               className={`${styles.step_item} ${
@@ -20,7 +20,7 @@ export default function ProgressBar({ currentStep }) {
               }`}
             >
               <span className={styles.progress_count}>2</span>
-              <span className={styles.step_label}>Camping</span>
+              <span className={styles.step_label}></span>
             </li>
             <li
               className={`${styles.step_item} ${
@@ -28,7 +28,7 @@ export default function ProgressBar({ currentStep }) {
               }`}
             >
               <span className={styles.progress_count}>3</span>
-              <span className={styles.step_label}>Personal Info</span>
+              <span className={styles.step_label}></span>
             </li>
             <li
               className={`${styles.step_item} ${
@@ -36,7 +36,7 @@ export default function ProgressBar({ currentStep }) {
               }`}
             >
               <span className={styles.progress_count}>4</span>
-              <span className={styles.step_label}>Summary</span>
+              <span className={styles.step_label}></span>
             </li>
             <li
               className={`${styles.step_item} ${
@@ -44,7 +44,7 @@ export default function ProgressBar({ currentStep }) {
               }`}
             >
               <span className={styles.progress_count}>5</span>
-              <span className={styles.step_label}>Payment</span>
+              <span className={styles.step_label}></span>
             </li>
           </ul>
         </section>
