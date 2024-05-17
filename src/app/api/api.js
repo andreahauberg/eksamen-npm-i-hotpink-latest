@@ -22,46 +22,45 @@ export const fetchAPI = async (endpoint, options = {}) => {
   }
 };
 
-export const fetchDatabase = async (endpoint, options = {}) => {
-  const url = `${databaseURL}${endpoint}`;
+
+export const reserveSpot = async (area, amount) => {
+  const url = `${baseURL}/reserve-spot`;
+  const payload = { area, amount };
   try {
     const response = await fetch(url, {
-      ...options,
+      method: 'PUT',
       headers: {
-        ...options.headers,
         'Content-Type': 'application/json',
-        'apikey': apiKey,
-        'Authorization': `Bearer ${apiKey}`,
       },
+      body: JSON.stringify(payload),
     });
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error(`Network response was not ok. Status: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
-    console.error("Error fetching data: ", error);
+    console.error("Error reserving spot: ", error);
     throw error;
   }
 };
 
-export const saveOrderToDatabase = async (orderData) => {
-  const url = `${databaseURL}/ticket_info`;
+export const fulfillReservation = async (id) => {
+  const url = `${baseURL}/fullfill-reservation`;
+  const payload = { id };
   try {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'apikey': apiKey,
-        'Authorization': `Bearer ${apiKey}`,
       },
-      body: JSON.stringify(orderData),
+      body: JSON.stringify(payload),
     });
     if (!response.ok) {
-      throw new Error('Failed to save order data');
+      throw new Error(`Network response was not ok. Status: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
-    console.error('Error saving order data: ', error);
+    console.error("Error fulfilling reservation: ", error);
     throw error;
   }
 };
