@@ -47,7 +47,7 @@ export default function Camping({
     const calculateTotalPrice = () => {
       const ticketPrice =
         ticketQuantity *
-        (ticketType === "regular" ? prices.regular : prices.vip);
+        (ticketType == "Partoutbillet" ? prices.regular : prices.vip);
       let addOnPrice = 0;
       addOnPrice += greenCamping ? prices.greenCamping : 0;
       addOnPrice += twoPersonTent * prices.TwoPersonsTent;
@@ -131,6 +131,11 @@ export default function Camping({
     }
   };
 
+  // Filter camping areas based on ticketQuantity
+  const filteredCampingAreas = campingAreas.filter(
+    (area) => area.available >= ticketQuantity
+  );
+
   return (
     <div className="grid grid-cols-gridContent">
       <div className="pt-8 pb-16 col-start-3 gap-3 flex flex-wrap  items-center justify-center">
@@ -162,7 +167,7 @@ export default function Camping({
                   aria-label="Vælg campingområde"
                 >
                   <option value="">Select an area</option>
-                  {campingAreas.map((area) => (
+                  {filteredCampingAreas.map((area) => (
                     <option key={area.area} value={area.area}>
                       {area.area} (Available spots: {area.available})
                     </option>
@@ -329,7 +334,6 @@ export default function Camping({
               </button>
               <button
                 type="submit"
-                onClick={onNext}
                 className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
               >
                 Fortsæt
