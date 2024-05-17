@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Description, Field, Label } from "@headlessui/react";
+import { Disclosure, Field, Label, Description } from "@headlessui/react";
 import clsx from "clsx";
 import prices from "../backend/settings.js";
 import { krona_one } from "@/app/fonts.jsx";
@@ -107,119 +107,154 @@ export default function PersonalForm({
               Personlig information
             </legend>
             {localPersonalInfo.map((info, index) => (
-              <div key={index} className="space-y-4">
-                <h3 className="normal-size font-semibold">
-                  Billet {index + 1} ({ticketType})
-                </h3>
+              <Disclosure key={index} defaultOpen={index === 0}>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button
+                      className={clsx(
+                        "w-full py-2 text-center small-size font-medium text-blue-700 rounded-lg bg-bgColor text-primaryTextColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
+                        { "mb-4": open }
+                      )}
+                    >
+                      Billet {index + 1} ({ticketType})
+                    </Disclosure.Button>
+                    <Disclosure.Panel className="pt-4 pb-2">
+                      <div className="space-y-4">
+                        <Field className="space-y-2">
+                          <Label htmlFor={`firstName-${index}`}>Fornavn:</Label>
+                          <input
+                            id={`firstName-${index}`}
+                            type="text"
+                            value={info.firstName}
+                            className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
+                            aria-label={`Fornavn for billet ${index + 1}`}
+                            required
+                            pattern="^[A-Za-z]+$"
+                            title="Fornavn må kun indeholde bogstaver."
+                            onChange={(e) =>
+                              handleInputChange(
+                                index,
+                                "firstName",
+                                e.target.value
+                              )
+                            }
+                          />
+                          <Description className="xsmall-size hidden peer-focus:block">
+                            Fornavn må kun indeholde bogstaver
+                          </Description>
+                        </Field>
 
-                <Field className="space-y-2">
-                  <Label htmlFor={`firstName-${index}`}>Fornavn:</Label>
-                  <input
-                    id={`firstName-${index}`}
-                    type="text"
-                    value={info.firstName}
-                    className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
-                    aria-label={`Fornavn for billet ${index + 1}`}
-                    required
-                    pattern="^[A-Za-z]+$"
-                    title="Fornavn må kun indeholde bogstaver."
-                    onChange={(e) =>
-                      handleInputChange(index, "firstName", e.target.value)
-                    }
-                  />
-                  <Description className="xsmall-size hidden peer-focus:block">
-                    Fornavn må kun indeholde bogstaver
-                  </Description>
-                </Field>
+                        <Field className="space-y-2">
+                          <Label htmlFor={`lastName-${index}`}>
+                            Last name:
+                          </Label>
+                          <input
+                            id={`lastName-${index}`}
+                            type="text"
+                            value={info.lastName}
+                            className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
+                            aria-label={`Efternavn for billet ${index + 1}`}
+                            required
+                            pattern="^[A-Za-z]+$"
+                            title="Efternavn må kun indeholde bogstaver."
+                            onChange={(e) =>
+                              handleInputChange(
+                                index,
+                                "lastName",
+                                e.target.value
+                              )
+                            }
+                          />
+                          <Description className=" xsmall-size hidden peer-focus:block">
+                            Efternavn må kun indeholde bogstaver
+                          </Description>
+                        </Field>
 
-                <Field className="space-y-2">
-                  <Label htmlFor={`lastName-${index}`}>Last name:</Label>
-                  <input
-                    id={`lastName-${index}`}
-                    type="text"
-                    value={info.lastName}
-                    className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
-                    aria-label={`Efternavn for billet ${index + 1}`}
-                    required
-                    pattern="^[A-Za-z]+$"
-                    title="Efternavn må kun indeholde bogstaver."
-                    onChange={(e) =>
-                      handleInputChange(index, "lastName", e.target.value)
-                    }
-                  />
-                  <Description className=" xsmall-size hidden peer-focus:block">
-                    Efternavn må kun indeholde bogstaver
-                  </Description>
-                </Field>
+                        <Field className="space-y-2">
+                          <Label htmlFor={`phoneNumber-${index}`}>
+                            Phone number:
+                          </Label>
+                          <input
+                            id={`phoneNumber-${index}`}
+                            type="tel"
+                            value={info.phoneNumber}
+                            className="peer w-full p-2 border bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
+                            aria-label={`Phone number for ticket ${index + 1}`}
+                            required
+                            pattern="^\+\d+$"
+                            title="Telefonnummeret skal starte med et + og kun indeholde tal."
+                            onKeyPress={handlePhoneKeyPress}
+                            onChange={(e) =>
+                              handleInputChange(
+                                index,
+                                "phoneNumber",
+                                e.target.value
+                              )
+                            }
+                          />
+                          <Description className=" xsmall-size hidden peer-focus:block">
+                            Telefonnummeret skal starte med et + og kun
+                            indeholde tal
+                          </Description>
+                        </Field>
 
-                <Field className="space-y-2">
-                  <Label htmlFor={`phoneNumber-${index}`}>Phone number:</Label>
-                  <input
-                    id={`phoneNumber-${index}`}
-                    type="tel"
-                    value={info.phoneNumber}
-                    className="peer w-full p-2 border bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
-                    aria-label={`Phone number for ticket ${index + 1}`}
-                    required
-                    pattern="^\+\d+$"
-                    title="Telefonnummeret skal starte med et + og kun indeholde tal."
-                    onKeyPress={handlePhoneKeyPress}
-                    onChange={(e) =>
-                      handleInputChange(index, "phoneNumber", e.target.value)
-                    }
-                  />
-                  <Description className=" xsmall-size hidden peer-focus:block">
-                    Telefonnummeret skal starte med et + og kun indeholde tal
-                  </Description>
-                </Field>
+                        <Field className="space-y-2">
+                          <Label htmlFor={`dateOfBirth-${index}`}>
+                            Date of birth:
+                          </Label>
+                          <input
+                            id={`dateOfBirth-${index}`}
+                            type="date"
+                            value={info.dateOfBirth}
+                            className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
+                            aria-label={`Fødelsdato for billet ${index + 1}`}
+                            required
+                            min="1923-01-01"
+                            max={new Date().toISOString().split("T")[0]}
+                            onChange={(e) => {
+                              if (validateDateOfBirth(e.target.value)) {
+                                handleInputChange(
+                                  index,
+                                  "dateOfBirth",
+                                  e.target.value
+                                );
+                              } else {
+                                alert(
+                                  "Fødselsdatoen skal være en gyldig dato, som ikke ligger i fremtiden og er mindre end 100 år gammel."
+                                );
+                              }
+                            }}
+                          />
+                          <Description className="xsmall-size hidden peer-focus:block">
+                            Fødselsdatoen skal være en gyldig dato
+                          </Description>
+                        </Field>
 
-                <Field className="space-y-2">
-                  <Label htmlFor={`dateOfBirth-${index}`}>Date of birth:</Label>
-                  <input
-                    id={`dateOfBirth-${index}`}
-                    type="date"
-                    value={info.dateOfBirth}
-                    className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
-                    aria-label={`Fødelsdato for billet ${index + 1}`}
-                    required
-                    min="1923-01-01"
-                    max={new Date().toISOString().split("T")[0]}
-                    onChange={(e) => {
-                      if (validateDateOfBirth(e.target.value)) {
-                        handleInputChange(index, "dateOfBirth", e.target.value);
-                      } else {
-                        alert(
-                          "Fødselsdatoen skal være en gyldig dato, som ikke ligger i fremtiden og er mindre end 100 år gammel."
-                        );
-                      }
-                    }}
-                  />
-                  <Description className="xsmall-size hidden peer-focus:block">
-                    Fødselsdatoen skal være en gyldig dato
-                  </Description>
-                </Field>
-
-                <Field className="space-y-2">
-                  <Label htmlFor={`email-${index}`}>Email:</Label>
-                  <input
-                    id={`email-${index}`}
-                    type="email"
-                    value={info.email}
-                    className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
-                    aria-label={`Email for billet ${index + 1}`}
-                    required
-                    pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-                    title="Email skal være en gyldig emailadresse."
-                    onChange={(e) =>
-                      handleInputChange(index, "email", e.target.value)
-                    }
-                  />
-                  <Description className="xsmall-size hidden peer-focus:block">
-                    {" "}
-                    Email skal være en gyldig emailadresse
-                  </Description>
-                </Field>
-              </div>
+                        <Field className="space-y-2">
+                          <Label htmlFor={`email-${index}`}>Email:</Label>
+                          <input
+                            id={`email-${index}`}
+                            type="email"
+                            value={info.email}
+                            className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
+                            aria-label={`Email for billet ${index + 1}`}
+                            required
+                            pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+                            title="Email skal være en gyldig emailadresse."
+                            onChange={(e) =>
+                              handleInputChange(index, "email", e.target.value)
+                            }
+                          />
+                          <Description className="xsmall-size hidden peer-focus:block">
+                            {" "}
+                            Email skal være en gyldig emailadresse
+                          </Description>
+                        </Field>
+                      </div>
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
             ))}
           </fieldset>
 
@@ -239,7 +274,7 @@ export default function PersonalForm({
             </button>
           </div>
         </form>
-        <div className=" flex items-center justify-center w-full max-w-md md:w-44">
+        <div className="flex items-center justify-center w-full max-w-md md:w-44">
           <CartSummary
             ticketType={ticketType}
             ticketQuantity={ticketQuantity}
