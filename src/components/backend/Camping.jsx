@@ -47,7 +47,7 @@ export default function Camping({
     const calculateTotalPrice = () => {
       const ticketPrice =
         ticketQuantity *
-        (ticketType == "Partoutbillet" ? prices.regular : prices.vip);
+        (ticketType == "regular" ? prices.regular : prices.vip);
       let addOnPrice = 0;
       addOnPrice += greenCamping ? prices.greenCamping : 0;
       addOnPrice += twoPersonTent * prices.TwoPersonsTent;
@@ -85,50 +85,55 @@ export default function Camping({
     }
   };
 
+   
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (twoPersonTent + threePersonTent === 0) {
-      setErrorMessage("Du skal vælge telt, inden du kan gå videre.");
+    if (!selectedArea) {
+      setErrorMessage("Du skal vælge et område, inden du kan gå videre.");
       return;
     }
 
-    try {
-      const reservation = await fetchAPI("/reserve-spot", {
-        method: "PUT",
-        body: JSON.stringify({
-          area: selectedArea,
-          amount: ticketQuantity,
-        }),
-      });
+    // Udkommenteret PUT- og POST-anmodninger
+    // try {
+    //   const reservation = await fetchAPI("/reserve-spot", {
+    //     method: "PUT",
+    //     body: JSON.stringify({
+    //       area: selectedArea,
+    //       amount: ticketQuantity,
+    //     }),
+    //   });
 
-      await fetchAPI("/fullfill-reservation", {
-        method: "POST",
-        body: JSON.stringify({
-          id: reservation.id,
-        }),
-      });
+    //   await fetchAPI("/fullfill-reservation", {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       id: reservation.id,
+    //     }),
+    //   });
 
-      const bookingData = {
-        area: selectedArea,
-        ticketQuantity,
-        ticketType,
-        greenCamping,
-        twoPersonTent,
-        threePersonTent,
-        totalPrice,
-        reservationId: reservation.id,
-      };
+    //   const bookingData = {
+    //     area: selectedArea,
+    //     ticketQuantity,
+    //     ticketType,
+    //     greenCamping,
+    //     twoPersonTent,
+    //     threePersonTent,
+    //     totalPrice,
+    //     reservationId: reservation.id,
+    //   };
 
-      await fetchDatabase("/foofest_info", {
-        method: "POST",
-        body: JSON.stringify(bookingData),
-      });
+    //   await fetchDatabase("/foofest_info", {
+    //     method: "POST",
+    //     body: JSON.stringify(bookingData),
+    //   });
 
-      onNext();
-    } catch (error) {
-      console.error("Error reserving spot:", error);
-    }
+    //   onNext();
+    // } catch (error) {
+    //   console.error("Error reserving spot:", error);
+    // }
+
+    // For nu, bare kald onNext uden anmodninger
+    onNext();
   };
 
   // Filter camping areas based on ticketQuantity
@@ -138,7 +143,7 @@ export default function Camping({
 
   return (
     <div className="grid grid-cols-gridContent">
-      <div className="pt-8 pb-16 col-start-3 gap-3 flex flex-wrap  items-center justify-center">
+      <div className="pt-8 pb-16 col-start-3 gap-3 flex flex-wrap items-center justify-center">
         <form
           onSubmit={handleSubmit}
           className="bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-md"
@@ -154,7 +159,7 @@ export default function Camping({
             </p>
 
             <Field className="space-y-4">
-              <Label htmlFor="campingArea">Vælg Campingområde</Label>
+              <Label htmlFor="campingArea">Vælg campingområde</Label>
               <div className="relative">
                 <Select
                   id="campingArea"
@@ -341,7 +346,7 @@ export default function Camping({
             </div>
           </fieldset>
         </form>
-        <div className=" flex items-center justify-center w-full max-w-md md:w-44">
+        <div className="flex items-center justify-center w-full max-w-md md:w-44">
           <CartSummary
             ticketType={ticketType}
             ticketQuantity={ticketQuantity}
