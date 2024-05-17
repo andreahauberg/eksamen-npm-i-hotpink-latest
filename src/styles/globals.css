@@ -65,14 +65,12 @@ nav {
 .normal-size {
   font-size: var(--heading03);
   line-height: var(--default-line-height);
-  color: var(--primary-text-color);
 }
 
 .small-size {
   font-size: var(--paragraph-text);
   font-weight: var(--normal);
   line-height: var(--default-line-height);
-  color: var(--primary-text-color);
 }
 .xsmall-size {
   font-size: var(--small-text);
