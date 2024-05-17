@@ -1,4 +1,3 @@
-// pages/index.js
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -9,6 +8,7 @@ import Button from "@/components/globals/Button";
 
 export default function Home() {
   const [timeLeft, setTimeLeft] = useState(moment("2024-07-01").diff(moment()));
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     const getBands = async () => {
@@ -25,7 +25,12 @@ export default function Home() {
     const interval = setInterval(() => {
       setTimeLeft(moment("2024-07-01").diff(moment()));
     }, 1000);
+
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    setIsMounted(true);
   }, []);
 
   const formatTimeLeft = (duration) => {
@@ -70,9 +75,11 @@ export default function Home() {
       </header>
 
       <div className="text-center pt-16 pb-8">
-        <h2 className={`${krona_one.className} text-3xl`}>
-          {formatTimeLeft(timeLeft)}
-        </h2>
+        {isMounted && (
+          <h2 className={`${krona_one.className} text-3xl`}>
+            {formatTimeLeft(timeLeft)}
+          </h2>
+        )}
       </div>
 
       <div className="flex flex-col md:flex-row justify-center items-center md:space-x-8 py-8 space-y-8 md:space-y-0">
