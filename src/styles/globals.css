@@ -27,6 +27,7 @@
   --heading02: clamp(1.4rem, 2.3vw, 2.3125rem);
   --heading03: clamp(1.1rem, 1.6vw, 1.2625rem);
   --paragraph-text: clamp(1rem, 1.2vw, 0.9rem);
+  --small-text: clamp(0.9rem, 1vw, 0.6rem);
 
   /* line-height */
   --heading-large-line-height: 1.5;
@@ -72,6 +73,12 @@ nav {
   font-weight: var(--normal);
   line-height: var(--default-line-height);
   color: var(--primary-text-color);
+}
+.xsmall-size {
+  font-size: var(--small-text);
+  font-weight: var(--normal);
+  line-height: var(--default-line-height);
+  color: var(--secondary-color-01);
 }
 
 /* .bordercolor {
