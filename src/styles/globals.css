@@ -82,3 +82,8 @@ nav {
 /* .bordercolor {
   border: 0.1rem solid var(--tab-border-color);
 } */
+
+.image {
+  max-width: 400px;
+  max-height: 00px;
+}
