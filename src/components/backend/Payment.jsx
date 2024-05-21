@@ -7,7 +7,7 @@ export default function Payment({ bookingData, onNext, onBack }) {
     try {
       console.log("Fulfilling reservation with ID:", reservationId);
 
-      // Fulfill reservation
+
       await fetchAPI('/fullfill-reservation', {
         method: 'POST',
         body: JSON.stringify({ id: reservationId }),
@@ -15,7 +15,6 @@ export default function Payment({ bookingData, onNext, onBack }) {
 
       console.log("Reservation fulfilled. ID:", reservationId);
 
-      // Prepare order data
       const orderData = personalInfo.map((info) => ({
         first_name: info.firstName,
         last_name: info.lastName,
@@ -23,15 +22,15 @@ export default function Payment({ bookingData, onNext, onBack }) {
         email: info.email,
         phone: info.phoneNumber,
         birthday: info.dateOfBirth,
-        ordrenummer: reservationId, // Use reservation ID as order number
+        ordrenummer: reservationId,
       }));
 
       console.log("Saving order data to Supabase:", orderData);
 
-      // Save order data to Supabase
+      
       await saveOrderToSupabase(orderData);
 
-      // Pass booking data including the reservation ID to the next step
+  
       onNext({ ...bookingData, orderId: reservationId });
     } catch (error) {
       console.error("Failed to complete purchase:", error);

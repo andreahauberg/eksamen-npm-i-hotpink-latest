@@ -115,7 +115,7 @@ export default function Camping({
         reservationId: reservation.id, 
       };
 
-      onNext(bookingData); // Pass booking data including reservation ID to the next step
+      onNext(bookingData); 
     } catch (error) {
       console.error("Error reserving spot:", error);
     }
