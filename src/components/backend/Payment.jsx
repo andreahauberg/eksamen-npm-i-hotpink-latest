@@ -1,16 +1,42 @@
-import { saveOrderToDatabase } from '../../app/api/api.js';
+import { fetchAPI, saveOrderToSupabase } from "../../app/api/api.js";
 
-export default function PaymentPage({ bookingData, onBack, onNext }) {
-  const handlePayment = async () => {
+export default function Payment({ bookingData, onNext, onBack }) {
+  const {
+    reservationId,
+    personalInfo,
+    ticketQuantity,
+    ticketType,
+    totalPrice,
+  } = bookingData;
+
+  const handleCompletePurchase = async () => {
     try {
-      // Simulerer et fiktivt køb ved at gemme dataene i databasen
-      await saveOrderToDatabase(bookingData);
-      console.log('Order saved to database:', bookingData);
+      console.log("Fulfilling reservation with ID:", reservationId);
 
-      // Proceed to confirmation page
-      onNext();
+      await fetchAPI("/fullfill-reservation", {
+        method: "POST",
+        body: JSON.stringify({ id: reservationId }),
+      });
+
+      console.log("Reservation fulfilled. ID:", reservationId);
+
+      const orderData = personalInfo.map((info) => ({
+        first_name: info.firstName,
+        last_name: info.lastName,
+        amount: ticketQuantity,
+        email: info.email,
+        phone: info.phoneNumber,
+        birthday: info.dateOfBirth,
+        ordrenummer: reservationId,
+      }));
+
+      console.log("Saving order data to Supabase:", orderData);
+
+      await saveOrderToSupabase(orderData);
+
+      onNext({ ...bookingData, orderId: reservationId });
     } catch (error) {
-      console.error('Failed to process payment:', error);
+      console.error("Failed to complete purchase:", error);
     }
   };
 
@@ -26,7 +52,7 @@ export default function PaymentPage({ bookingData, onBack, onNext }) {
           Back
         </button>
         <button
-          onClick={handlePayment}
+          onClick={handleCompletePurchase}
           className="bg-bgColor border-2 border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor ml-4"
         >
           Complete Purchase

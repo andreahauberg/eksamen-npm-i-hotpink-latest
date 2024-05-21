@@ -4,6 +4,7 @@ import clsx from "clsx";
 import prices from "../backend/settings.js";
 import { krona_one } from "@/app/fonts.jsx";
 import CartSummary from "./CartSummary";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 
 export default function PersonalForm({
   personalInfo,
@@ -13,6 +14,7 @@ export default function PersonalForm({
   onClick,
   onNext,
   onBack,
+  reservationId,
 }) {
   const [localPersonalInfo, setLocalPersonalInfo] = useState(personalInfo);
 
@@ -57,17 +59,11 @@ export default function PersonalForm({
     onClick({ personalInfo: localPersonalInfo, totalPrice: totalPrice });
   }, [localPersonalInfo, campingOptions]);
 
-  const generateOrderId = () => {
-    return "ORD" + Math.floor(Math.random() * 1000000).toString();
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    const orderId = generateOrderId();
     const totalPrice = calculateTotalPrice();
 
     const orderData = localPersonalInfo.map((info) => ({
-      id: orderId,
       first_name: info.firstName,
       last_name: info.lastName,
       email: info.email,
@@ -79,7 +75,7 @@ export default function PersonalForm({
     onClick({
       personalInfo: localPersonalInfo,
       totalPrice: totalPrice,
-      orderId: orderId,
+      reservationId,
     });
     onNext();
   };
@@ -106,19 +102,33 @@ export default function PersonalForm({
             >
               Personlig information
             </legend>
+
             {localPersonalInfo.map((info, index) => (
               <Disclosure key={index} defaultOpen={index === 0}>
                 {({ open }) => (
                   <>
-                    <Disclosure.Button
-                      className={clsx(
-                        "w-full py-2 text-center small-size font-medium text-blue-700 rounded-lg bg-bgColor text-primaryTextColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
-                        { "mb-4": open }
+                    <div className="relative mb-2">
+                      <Disclosure.Button
+                        className={clsx(
+                          "w-full py-2 text-center small-size rounded-lg bg-bgColor text-primaryTextColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
+                          { "": open }
+                        )}
+                      >
+                        Billet {index + 1} ({ticketType})
+                      </Disclosure.Button>
+                      {open ? (
+                        <ChevronUpIcon
+                          className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-primaryTextColor"
+                          aria-hidden="true"
+                        />
+                      ) : (
+                        <ChevronDownIcon
+                          className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-primaryTextColor"
+                          aria-hidden="true"
+                        />
                       )}
-                    >
-                      Billet {index + 1} ({ticketType})
-                    </Disclosure.Button>
-                    <Disclosure.Panel className="pt-4 pb-2">
+                    </div>
+                    <Disclosure.Panel className="pb-2">
                       <div className="space-y-4">
                         <Field className="space-y-2">
                           <Label htmlFor={`firstName-${index}`}>Fornavn:</Label>
@@ -246,7 +256,6 @@ export default function PersonalForm({
                             }
                           />
                           <Description className="xsmall-size hidden peer-focus:block">
-                            {" "}
                             Email skal være en gyldig emailadresse
                           </Description>
                         </Field>
@@ -264,13 +273,13 @@ export default function PersonalForm({
               onClick={onBack}
               className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
             >
-              Back
+              Tilbage
             </button>
             <button
               type="submit"
               className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
             >
-              Continue to Summary
+              Forsæt
             </button>
           </div>
         </form>

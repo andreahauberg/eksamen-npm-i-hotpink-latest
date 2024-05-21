@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import prices from "../backend/settings.js";
-import { fetchAPI, fetchDatabase } from "../../app/api/api.js";
+import { fetchAPI } from "../../app/api/api.js";
 import { Field, Label, Select, Checkbox } from "@headlessui/react";
 import { ChevronDownIcon, CheckIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
@@ -47,7 +47,7 @@ export default function Camping({
     const calculateTotalPrice = () => {
       const ticketPrice =
         ticketQuantity *
-        (ticketType == "Regular" ? prices.regular : prices.vip);
+        (ticketType === "Regular" ? prices.regular : prices.vip);
       let addOnPrice = 0;
       addOnPrice += greenCamping ? prices.greenCamping : 0;
       addOnPrice += twoPersonTent * prices.TwoPersonsTent;
@@ -88,8 +88,8 @@ export default function Camping({
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (twoPersonTent + threePersonTent === 0) {
-      setErrorMessage("Du skal vælge telt, inden du kan gå videre.");
+    if (!selectedArea || selectedArea === "") {
+      setErrorMessage("Du skal vælge et campingområde, inden du kan gå videre.");
       return;
     }
 
@@ -102,12 +102,7 @@ export default function Camping({
         }),
       });
 
-      await fetchAPI("/fullfill-reservation", {
-        method: "POST",
-        body: JSON.stringify({
-          id: reservation.id,
-        }),
-      });
+      console.log("Reservation successful. ID:", reservation.id);
 
       const bookingData = {
         area: selectedArea,
@@ -117,28 +112,22 @@ export default function Camping({
         twoPersonTent,
         threePersonTent,
         totalPrice,
-        reservationId: reservation.id,
+        reservationId: reservation.id, // Save reservation ID
       };
 
-      await fetchDatabase("/foofest_info", {
-        method: "POST",
-        body: JSON.stringify(bookingData),
-      });
-
-      onNext();
+      onNext(bookingData); // Pass booking data including reservation ID to the next step
     } catch (error) {
       console.error("Error reserving spot:", error);
     }
   };
 
-  // Filter camping areas based on ticketQuantity
   const filteredCampingAreas = campingAreas.filter(
     (area) => area.available >= ticketQuantity
   );
 
   return (
     <div className="grid grid-cols-gridContent">
-      <div className="pt-8 pb-16 col-start-3 gap-3 flex flex-wrap  items-center justify-center">
+      <div className="pt-8 pb-16 col-start-3 gap-3 flex flex-wrap items-center justify-center">
         <form
           onSubmit={handleSubmit}
           className="bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-md"
@@ -165,6 +154,7 @@ export default function Camping({
                     "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
                   )}
                   aria-label="Vælg campingområde"
+                  required
                 >
                   <option value="">Vælg campingområde</option>
                   {filteredCampingAreas.map((area) => (
@@ -256,13 +246,7 @@ export default function Camping({
                   </td>
                 </tr>
                 <tr>
-                  <td className=" px-4 pb-6 pt-2">
-                    Grøn camping
-                    <br />
-                    {/* <span className="text-sm text-gray-500">
-                      Option to help change the world
-                    </span> */}
-                  </td>
+                  <td className=" px-4 pb-6 pt-2">Grøn camping</td>
                   <td className=" px-4 pb-6 pt-4 flex justify-center text-center items-center">
                     <Checkbox
                       checked={greenCamping}
@@ -299,13 +283,13 @@ export default function Camping({
                   >
                     <strong>
                       Tilvalg (
-                      {twoPersonTent + threePersonTent + (greenCamping ? (0,1) : 0)}{" "}
-                      telt
+                      {twoPersonTent + threePersonTent + (greenCamping ? 1 : 0)}{""}
+                    
                       {twoPersonTent +
                         threePersonTent +
                         (greenCamping ? 1 : 0) !==
                       1
-                        ? "e"
+                        ? ""
                         : ""}
                       ): {totalPrice} DKK
                     </strong>
@@ -334,7 +318,6 @@ export default function Camping({
               </button>
               <button
                 type="submit"
-                onClick={onNext}
                 className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
               >
                 Fortsæt
