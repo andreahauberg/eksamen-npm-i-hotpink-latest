@@ -8,6 +8,7 @@ import PaymentPage from '../../components/backend/Payment';
 import ConfirmationPage from '../../components/backend/Confirmation';
 import ProgressBar from '../../components/backend/ProgressBar';
 
+
 export default function BookingPage() {
     const [step, setStep] = useState(1);
     const [bookingData, setBookingData] = useState({
@@ -29,6 +30,7 @@ export default function BookingPage() {
 
     return (
         <div>
+        
             <ProgressBar currentStep={step} />
             {step === 1 && (
                 <TicketsForm
