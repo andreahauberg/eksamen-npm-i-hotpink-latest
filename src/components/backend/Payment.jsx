@@ -1,15 +1,20 @@
 import { fetchAPI, saveOrderToSupabase } from "../../app/api/api.js";
 
 export default function Payment({ bookingData, onNext, onBack }) {
-  const { reservationId, personalInfo, ticketQuantity, ticketType, totalPrice } = bookingData;
+  const {
+    reservationId,
+    personalInfo,
+    ticketQuantity,
+    ticketType,
+    totalPrice,
+  } = bookingData;
 
   const handleCompletePurchase = async () => {
     try {
       console.log("Fulfilling reservation with ID:", reservationId);
 
-
-      await fetchAPI('/fullfill-reservation', {
-        method: 'POST',
+      await fetchAPI("/fullfill-reservation", {
+        method: "POST",
         body: JSON.stringify({ id: reservationId }),
       });
 
@@ -27,10 +32,8 @@ export default function Payment({ bookingData, onNext, onBack }) {
 
       console.log("Saving order data to Supabase:", orderData);
 
-      
       await saveOrderToSupabase(orderData);
 
-  
       onNext({ ...bookingData, orderId: reservationId });
     } catch (error) {
       console.error("Failed to complete purchase:", error);
