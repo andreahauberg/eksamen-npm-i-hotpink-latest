@@ -1,6 +1,8 @@
+// api.js
 const baseURL = process.env.NEXT_PUBLIC_API;
-const databaseURL = process.env.NEXT_PUBLIC_DATABASE;
-const apiKey = process.env.NEXT_PUBLIC_KEY;
+const supabaseURL = process.env.NEXT_PUBLIC_SUPABASE;
+const supabaseKey = process.env.NEXT_PUBLIC_KEY;
+
 
 export const fetchAPI = async (endpoint, options = {}) => {
   const url = `${baseURL}${endpoint}`;
@@ -13,7 +15,8 @@ export const fetchAPI = async (endpoint, options = {}) => {
       },
     });
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      const errorText = await response.text();
+      throw new Error(`Network response was not ok: ${response.status} - ${errorText}`);
     }
     return await response.json();
   } catch (error) {
@@ -22,45 +25,45 @@ export const fetchAPI = async (endpoint, options = {}) => {
   }
 };
 
+export const reserveSpot = (area, amount) => fetchAPI('/reserve-spot', {
+  method: 'PUT',
+  body: JSON.stringify({ area, amount }),
+});
 
-export const reserveSpot = async (area, amount) => {
-  const url = `${baseURL}/reserve-spot`;
-  const payload = { area, amount };
-  try {
-    const response = await fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-    if (!response.ok) {
-      throw new Error(`Network response was not ok. Status: ${response.status}`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Error reserving spot: ", error);
-    throw error;
-  }
-};
 
-export const fulfillReservation = async (id) => {
-  const url = `${baseURL}/fullfill-reservation`;
-  const payload = { id };
+
+export const fullfillReservation = (id) => fetchAPI('/fullfill-reservation', {
+  method: 'POST',
+  body: JSON.stringify({ id }),
+});
+
+
+
+export const saveOrderToSupabase = async (orderData) => {
+  const url = `${supabaseURL}/rest/v1/orders`;
+  console.log("Saving order data to:", url);
+  console.log("Order data:", orderData);
   try {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'apikey': supabaseKey,
+        'Authorization': `Bearer ${supabaseKey}`,
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(orderData),
     });
     if (!response.ok) {
-      throw new Error(`Network response was not ok. Status: ${response.status}`);
+      const errorText = await response.text();
+      console.error("Supabase response error:", errorText);
+      throw new Error(`Network response was not ok: ${response.status} - ${errorText}`);
     }
-    return await response.json();
+    // Check if there is any content to parse
+    const responseText = await response.text();
+    console.log("Supabase response text:", responseText);
+    return responseText ? JSON.parse(responseText) : {};
   } catch (error) {
-    console.error("Error fulfilling reservation: ", error);
+    console.error("Error saving data to Supabase: ", error);
     throw error;
   }
 };

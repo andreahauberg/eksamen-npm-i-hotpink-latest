@@ -13,6 +13,7 @@ export default function PersonalForm({
   onClick,
   onNext,
   onBack,
+  reservationId, 
 }) {
   const [localPersonalInfo, setLocalPersonalInfo] = useState(personalInfo);
 
@@ -57,17 +58,11 @@ export default function PersonalForm({
     onClick({ personalInfo: localPersonalInfo, totalPrice: totalPrice });
   }, [localPersonalInfo, campingOptions]);
 
-  const generateOrderId = () => {
-    return "ORD" + Math.floor(Math.random() * 1000000).toString();
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    const orderId = generateOrderId();
     const totalPrice = calculateTotalPrice();
 
     const orderData = localPersonalInfo.map((info) => ({
-      id: orderId,
       first_name: info.firstName,
       last_name: info.lastName,
       email: info.email,
@@ -79,7 +74,7 @@ export default function PersonalForm({
     onClick({
       personalInfo: localPersonalInfo,
       totalPrice: totalPrice,
-      orderId: orderId,
+      reservationId, 
     });
     onNext();
   };
@@ -246,7 +241,6 @@ export default function PersonalForm({
                             }
                           />
                           <Description className="xsmall-size hidden peer-focus:block">
-                            {" "}
                             Email skal være en gyldig emailadresse
                           </Description>
                         </Field>
