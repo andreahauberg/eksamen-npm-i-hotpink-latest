@@ -89,7 +89,9 @@ export default function Camping({
     event.preventDefault();
 
     if (!selectedArea || selectedArea === "") {
-      setErrorMessage("Du skal vælge et campingområde, inden du kan gå videre.");
+      setErrorMessage(
+        "Du skal vælge et campingområde, inden du kan gå videre."
+      );
       return;
     }
 
@@ -283,8 +285,8 @@ export default function Camping({
                   >
                     <strong>
                       Tilvalg (
-                      {twoPersonTent + threePersonTent + (greenCamping ? 1 : 0)}{""}
-                    
+                      {twoPersonTent + threePersonTent + (greenCamping ? 1 : 0)}
+                      {""}
                       {twoPersonTent +
                         threePersonTent +
                         (greenCamping ? 1 : 0) !==

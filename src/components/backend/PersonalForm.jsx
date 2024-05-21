@@ -156,7 +156,7 @@ export default function PersonalForm({
 
                         <Field className="space-y-2">
                           <Label htmlFor={`lastName-${index}`}>
-                            Last name:
+                            Efternavn:
                           </Label>
                           <input
                             id={`lastName-${index}`}
@@ -182,7 +182,7 @@ export default function PersonalForm({
 
                         <Field className="space-y-2">
                           <Label htmlFor={`phoneNumber-${index}`}>
-                            Phone number:
+                            Telefon:
                           </Label>
                           <input
                             id={`phoneNumber-${index}`}
@@ -210,7 +210,7 @@ export default function PersonalForm({
 
                         <Field className="space-y-2">
                           <Label htmlFor={`dateOfBirth-${index}`}>
-                            Date of birth:
+                            Fødselsdag:
                           </Label>
                           <input
                             id={`dateOfBirth-${index}`}

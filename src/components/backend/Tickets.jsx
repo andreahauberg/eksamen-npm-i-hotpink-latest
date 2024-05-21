@@ -80,7 +80,7 @@ export default function TicketsForm({
                     <div className="flex w-full items-center justify-between">
                       <div className="small-size">
                         <p className="text-primaryTextColor">
-                          {option.name} {option.price} kr.
+                          {option.name} {option.price} DKK
                         </p>
                       </div>
                       {checked && (
@@ -125,7 +125,7 @@ export default function TicketsForm({
               </div>
             </Field>
             <div className="normal-size">
-              Total pris for billetter: {localTotalPrice} kr.
+              Total pris for billetter: {localTotalPrice} DKK
             </div>
             <div className="flex justify-end">
               <button

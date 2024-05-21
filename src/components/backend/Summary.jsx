@@ -146,7 +146,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
             </Tab.Group>
             <div>
               <h2 className="normal-size mb-2">Pris</h2>
-              <p className="small-size">Total: {totalPrice} kr.</p>
+              <p className="small-size">I alt: {totalPrice}DKK</p>
             </div>
           </div>
           <div className="flex justify-between">

@@ -23,22 +23,22 @@ export default function CartSummary({
           Kurvens indhold
         </legend>
         <p>
-          {ticketType.charAt(0).toUpperCase() + ticketType.slice(1)} ticket x{" "}
+          {ticketType.charAt(0).toUpperCase() + ticketType.slice(1)} billet x{" "}
           {ticketQuantity}
         </p>
         {campingOptions.selectedArea && (
-          <p>Camping area: {campingOptions.selectedArea}</p>
+          <p>Campingområde: {campingOptions.selectedArea}</p>
         )}
         {campingOptions.twoPersonTent > 0 && (
-          <p>2 person Tent x {campingOptions.twoPersonTent}</p>
+          <p>2 pers telt x {campingOptions.twoPersonTent}</p>
         )}
         {campingOptions.threePersonTent > 0 && (
-          <p>3 person Tent x {campingOptions.threePersonTent}</p>
+          <p>3 pers telt x {campingOptions.threePersonTent}</p>
         )}
-        <p>Booking fee: {prices.fee} kr.</p>
+        <p>Gebyr: {prices.fee} DKK</p>
         <h3 className="text-lg font-bold">
-          Total:{" "}
-          {calculateTotalPrice(ticketQuantity, ticketType, campingOptions)} kr.
+          I alt:{" "}
+          {calculateTotalPrice(ticketQuantity, ticketType, campingOptions)} DKK
         </h3>
       </fieldset>
     </aside>
