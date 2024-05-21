@@ -16,13 +16,14 @@ export default function BookingPage() {
         camping: {},
         personalInfo: [],
         totalPrice: 0,
-        orderId: '' 
+        orderId: ''
     });
 
     const nextStep = () => setStep(step + 1);
     const prevStep = () => setStep(step - 1);
 
     const handleBookingChange = (data) => {
+    console.log(data);
         setBookingData(prevData => ({ ...prevData, ...data }));
     };
 
@@ -43,6 +44,7 @@ export default function BookingPage() {
                     ticketType={bookingData.ticketType}
                     campingOptions={bookingData.camping}
                     onClick={handleBookingChange}
+                    //updateBasket
                     onNext={nextStep}
                     onBack={prevStep}
                 />

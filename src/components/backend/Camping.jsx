@@ -112,10 +112,10 @@ export default function Camping({
         twoPersonTent,
         threePersonTent,
         totalPrice,
-        reservationId: reservation.id, 
+        reservationId: reservation.id, // Save reservation ID
       };
 
-      onNext(bookingData); 
+      onNext(bookingData); // Pass booking data including reservation ID to the next step
     } catch (error) {
       console.error("Error reserving spot:", error);
     }
@@ -283,13 +283,13 @@ export default function Camping({
                   >
                     <strong>
                       Tilvalg (
-                      {twoPersonTent + threePersonTent + (greenCamping ? 1 : 0)}{" "}
-                      telt
+                      {twoPersonTent + threePersonTent + (greenCamping ? 1 : 0)}{""}
+                    
                       {twoPersonTent +
                         threePersonTent +
                         (greenCamping ? 1 : 0) !==
                       1
-                        ? "e"
+                        ? ""
                         : ""}
                       ): {totalPrice} DKK
                     </strong>
