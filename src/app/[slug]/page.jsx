@@ -10,6 +10,9 @@ export async function generateMetadata({ params }) {
   const filterData = fetchData.filter((band) => band.slug === slug);
   const band = filterData[0];
   // Husk at sætte en if statement på, så der er fejl hvis den ikke finder data...
+  if (!band) {
+    return { title: "Band Not Found" };
+  }
   return {
     title: `FooFest - ${band.name}`,
   };
@@ -24,10 +27,27 @@ export async function generateStaticParams() {
 
 export default async function Band({ params }) {
   const { slug } = params;
-  const fetchData = await fetchAPI("/bands");
+  const fetchBandsData = await fetchAPI("/bands");
+  const fetchScheduleData = await fetchAPI("/schedule");
 
-  const filterData = fetchData.filter((band) => band.slug === slug);
-  const band = filterData[0];
+  const filterBandsData = fetchBandsData.filter((band) => band.slug === slug);
+  const band = filterBandsData[0];
+
+  if (!band) {
+    return <div>Band not found</div>;
+  }
+
+  let bandSchedule = [];
+
+  Object.keys(fetchScheduleData).forEach((stage) => {
+    Object.keys(fetchScheduleData[stage]).forEach((day) => {
+      fetchScheduleData[stage][day].forEach((event) => {
+        if (event.act === band.name) {
+          bandSchedule.push({ ...event, stage, day });
+        }
+      });
+    });
+  });
 
   return (
     <>
@@ -36,15 +56,20 @@ export default async function Band({ params }) {
           <div className="grid md:grid-cols-2">
             <div className="flex flex-col p-5">
               <h1 className={`${krona_one.className} text-4xl text-center py-5`}>{band.name}</h1>
-              <div className="flex justify-between items-center text-center pb-6 ">
-                <div className="uppercase bg-labelColor text-secondaryTextColor rounded-lg w-28 lg:w-36 lg:px-5 py-3 ">Mon 00:00</div>
-                <div className="uppercase bg-labelColor text-secondaryTextColor rounded-lg w-28 lg:w-36 lg:px-5 py-3">Midgard</div>
-                <div>
-                  <HeartIcon className="stroke-primaryTextColor stroke-2 transition duration-800 ease-in h-12 hover:fill-primaryColor" />
-                </div>
-              </div>
+              {bandSchedule.length > 0 &&
+                bandSchedule.map((schedule, index) => (
+                  <div key={index} className="flex justify-between items-center text-center pb-6">
+                    <div className="uppercase bg-labelColor text-secondaryTextColor rounded-lg w-28 lg:w-36 lg:px-5 py-3">
+                      {schedule.day.charAt(0).toUpperCase() + schedule.day.slice(1)} {schedule.start}
+                    </div>
+                    <div className="uppercase bg-labelColor text-secondaryTextColor rounded-lg w-28 lg:w-36 lg:px-5 py-3">{schedule.stage}</div>
+                    <div>
+                      <HeartIcon className="stroke-primaryTextColor stroke-2 transition duration-800 ease-in h-12 hover:fill-primaryColor" />
+                    </div>
+                  </div>
+                ))}
               <div className="pb-6">
-                <BandBio data={band} />
+                <BandBio bio={band.bio} />
               </div>
               <div>
                 <div className="rounded-lg overflow-hidden">
