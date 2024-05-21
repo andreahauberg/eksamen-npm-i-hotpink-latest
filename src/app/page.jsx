@@ -79,34 +79,34 @@ export default function Home() {
       <div className="text-center pt-16 pb-8">
         {isMounted && (
           <div
-            className={`${krona_one.className} text-3xl flex justify-center text-white space-x-`}
+            className={`${krona_one.className} text-3xl flex justify-center text-white space-x-4`}
           >
             <div className="flex flex-col items-center">
-              <span className="text-4xl ">
+              <span className="text-4xl md:text-6xl ">
                 {String(time.days).padStart(2, "0")}
               </span>
-              <span className="text-sm">DAYS</span>
+              <span className="text-sm md:text-2xl">DAYS</span>
             </div>
-            <span className="text-4xl ">:</span>
+            <span className="text-4xl md:text-6xl">:</span>
             <div className="flex flex-col items-center">
-              <span className="text-4xl ">
+              <span className="text-4xl md:text-6xl">
                 {String(time.hours).padStart(2, "0")}
               </span>
-              <span className="text-sm">HOURS</span>
+              <span className="text-sm md:text-2xl">HOURS</span>
             </div>
-            <span className="text-4xl ">:</span>
+            <span className="text-4xl md:text-6xl ">:</span>
             <div className="flex flex-col items-center">
-              <span className="text-4xl ">
+              <span className="text-4xl md:text-6xl ">
                 {String(time.minutes).padStart(2, "0")}
               </span>
-              <span className="text-sm">MINUTES</span>
+              <span className="text-sm md:text-2xl">MINUTES</span>
             </div>
-            <span className="text-4xl ">:</span>
+            <span className="text-4xl md:text-6xl ">:</span>
             <div className="flex flex-col items-center">
-              <span className="text-4xl ">
+              <span className="text-4xl md:text-6xl ">
                 {String(time.seconds).padStart(2, "0")}
               </span>
-              <span className="text-sm">SECONDS</span>
+              <span className="text-sm md:text-2xl">SECONDS</span>
             </div>
           </div>
         )}
