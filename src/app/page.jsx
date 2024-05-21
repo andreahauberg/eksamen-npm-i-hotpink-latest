@@ -72,7 +72,7 @@ export default function Home() {
       <div className="text-center pt-16 pb-8">
         {isMounted && (
           <div
-            className={`${krona_one.className} text-3xl flex justify-center text-white space-x-4`}
+            className={`${krona_one.className} text-3xl flex justify-center text-white space-x-3`}
           >
             <div className="flex flex-col items-center">
               <span className="text-4xl ">
