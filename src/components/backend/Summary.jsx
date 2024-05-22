@@ -12,7 +12,6 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
     personalInfo,
     camping,
     totalPrice,
-    orderId,
   } = bookingData;
 
   const TicketSVG =
