@@ -134,7 +134,7 @@ export default function PersonalForm({
                             value={info.firstName}
                             className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
                             aria-label={`Fornavn for billet ${index + 1}`}
-                            pattern="^[A-Za-z]+$"
+                            pattern="^[A-Za-zæøåÆØÅ ]+$"
                             title="Fornavn må kun indeholde bogstaver."
                             onChange={(e) =>
                               handleInputChange(
@@ -159,7 +159,7 @@ export default function PersonalForm({
                             value={info.lastName}
                             className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
                             aria-label={`Efternavn for billet ${index + 1}`}
-                            pattern="^[A-Za-z]+$"
+                            pattern="^[A-Za-zæøåÆØÅ ]+$"
                             title="Efternavn må kun indeholde bogstaver."
                             onChange={(e) =>
                               handleInputChange(
