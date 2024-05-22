@@ -4,7 +4,6 @@ import "react-credit-cards-2/dist/es/styles-compiled.css";
 import { fetchAPI, saveOrderToSupabase } from "../../app/api/api.js";
 import { krona_one } from "@/app/fonts.jsx";
 
-
 export default function Payment({ bookingData, onNext, onBack }) {
   const {
     reservationId,
@@ -39,7 +38,7 @@ export default function Payment({ bookingData, onNext, onBack }) {
         email: info.email,
         phone: info.phoneNumber,
         birthday: info.dateOfBirth,
-        ordrenummer: orderId, 
+        ordrenummer: orderId,
         tickettype: ticketType,
       }));
 
