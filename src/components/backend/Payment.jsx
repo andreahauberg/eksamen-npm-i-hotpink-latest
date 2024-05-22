@@ -11,12 +11,15 @@ export default function Payment({ bookingData, onNext, onBack }) {
   } = bookingData;
 
   const handleCompletePurchase = async () => {
+    try {
+      console.log("Reservations ID: // ordrenummer", reservationId);
+
       await fetchAPI("/fullfill-reservation", {
         method: "POST",
         body: JSON.stringify({ id: reservationId }),
       });
 
-      console.log("Reservations ID: // ordrenummer", reservationId);
+      console.log("Reservation fulfilled. ID:", reservationId);
 
       const orderData = personalInfo.map((info) => ({
         first_name: info.firstName,
@@ -25,7 +28,7 @@ export default function Payment({ bookingData, onNext, onBack }) {
         email: info.email,
         phone: info.phoneNumber,
         birthday: info.dateOfBirth,
-        ordrenummer: orderId,
+        ordrenummer: orderId, 
         tickettype: ticketType,
       }));
 
@@ -33,7 +36,7 @@ export default function Payment({ bookingData, onNext, onBack }) {
 
       await saveOrderToSupabase(orderData);
 
-      onNext({ ...bookingData, orderId: orderId});
+      onNext({ ...bookingData, orderId });
     } catch (error) {
       console.error("Der opstod en fejl", error);
     }
@@ -48,13 +51,13 @@ export default function Payment({ bookingData, onNext, onBack }) {
           onClick={onBack}
           className="bg-bgColor border-2 border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
         >
-          Back
+          Tilbage
         </button>
         <button
           onClick={handleCompletePurchase}
           className="bg-bgColor border-2 border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor ml-4"
         >
-          Complete Purchase
+          Gennemfør Køb
         </button>
       </div>
     </div>
