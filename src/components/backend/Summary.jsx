@@ -57,7 +57,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                       : "w-full py-2.5 small-size  rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                   }
                 >
-                  Campingområder
+                  Campingområde
                 </Tab>
               </Tab.List>
               <Tab.Panels className="mt-2">
