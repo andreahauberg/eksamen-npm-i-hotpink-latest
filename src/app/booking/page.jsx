@@ -8,7 +8,6 @@ import PaymentPage from '../../components/backend/Payment';
 import ConfirmationPage from '../../components/backend/Confirmation';
 import ProgressBar from '../../components/backend/ProgressBar';
 
-
 export default function BookingPage() {
     const [step, setStep] = useState(1);
     const [bookingData, setBookingData] = useState({
@@ -24,17 +23,13 @@ export default function BookingPage() {
     const prevStep = () => setStep(step - 1);
 
     const handleBookingChange = (data) => {
-    console.log(data);
-        setBookingData(prevData => ({ ...prevData, ...data, }));
+        console.log(data);
+        setBookingData(prevData => ({ ...prevData, ...data }));
     };
-    
-
-   
 
     return (
         <div>
-        
-            <ProgressBar currentStep={step} />
+            {step < 6 && <ProgressBar currentStep={step} />}
             {step === 1 && (
                 <TicketsForm setBookingData={setBookingData}
                     ticketType={bookingData.ticketType}
