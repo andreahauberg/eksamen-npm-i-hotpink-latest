@@ -18,7 +18,7 @@
 .step_item::after {
   content: "";
   position: absolute;
-  top: 0.8rem;
+  top: 1.5rem;
   left: 0%;
   transform: translateX(-50%);
   width: calc(100% - 30px);
@@ -33,9 +33,10 @@
 
 .progress_count {
   display: inline-block;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
+  font-size: var(--heading02);
+  width: 3rem;
+  height: 3rem;
+  line-height: 3rem;
   border-radius: 50%;
   background-color: var(--secondary-color-bg);
   color: var(--primary-text-color);
