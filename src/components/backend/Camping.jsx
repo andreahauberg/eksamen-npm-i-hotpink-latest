@@ -14,6 +14,7 @@ export default function Camping({
   onClick,
   onNext,
   onBack,
+  setBookingData,
 }) {
   const [greenCamping, setGreenCamping] = useState(
     campingOptions.greenCamping || false
@@ -28,7 +29,7 @@ export default function Camping({
   const [selectedArea, setSelectedArea] = useState(
     campingOptions.selectedArea || ""
   );
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalAddOnPrice, setTotalAddOnPrice] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -44,28 +45,19 @@ export default function Camping({
   }, []);
 
   useEffect(() => {
-    const calculateTotalPrice = () => {
-      const ticketPrice =
-        ticketQuantity *
-        (ticketType === "Regular" ? prices.regular : prices.vip);
+    const calculateTotalAddOnPrice = () => {
       let addOnPrice = 0;
       addOnPrice += greenCamping ? prices.greenCamping : 0;
       addOnPrice += twoPersonTent * prices.TwoPersonsTent;
       addOnPrice += threePersonTent * prices.ThreePersonsTent;
-      setTotalPrice(ticketPrice + addOnPrice);
+      setTotalAddOnPrice(addOnPrice);
     };
-    calculateTotalPrice();
-  }, [
-    ticketQuantity,
-    ticketType,
-    greenCamping,
-    twoPersonTent,
-    threePersonTent,
-  ]);
+    calculateTotalAddOnPrice();
+  }, [greenCamping, twoPersonTent, threePersonTent]);
 
   useEffect(() => {
     onClick({
-      camping: { greenCamping, twoPersonTent, threePersonTent, selectedArea },
+      camping: { greenCamping, twoPersonTent, threePersonTent, selectedArea }
     });
   }, [greenCamping, twoPersonTent, threePersonTent, selectedArea]);
 
@@ -106,18 +98,19 @@ export default function Camping({
 
       console.log("Reservation successful. ID:", reservation.id);
 
-      const bookingData = {
+      setBookingData((old) => ({
+        ...old,
         area: selectedArea,
         ticketQuantity,
         ticketType,
         greenCamping,
         twoPersonTent,
         threePersonTent,
-        totalPrice,
-        reservationId: reservation.id, // Save reservation ID
-      };
+        totalAddOnPrice,
+        orderId: reservation.id,
+      }));
 
-      onNext(bookingData); // Pass booking data including reservation ID to the next step
+      onNext();
     } catch (error) {
       console.error("Error reserving spot:", error);
     }
@@ -188,8 +181,8 @@ export default function Camping({
               </thead>
               <tbody>
                 <tr>
-                  <td className=" px-4 pb-2 pt-6">2 pers telt</td>
-                  <td className=" px-4 pb-2 pt-6 text-center">
+                  <td className="px-4 pb-2 pt-6">2 pers telt</td>
+                  <td className="px-4 pb-2 pt-6 text-center">
                     <div className="flex items-center justify-center space-x-2">
                       <button
                         type="button"
@@ -212,13 +205,13 @@ export default function Camping({
                       </button>
                     </div>
                   </td>
-                  <td className=" px-4 pb-2 pt-6 text-right">
+                  <td className="px-4 pb-2 pt-6 text-right">
                     {prices.TwoPersonsTent} DKK
                   </td>
                 </tr>
                 <tr>
-                  <td className=" px-4 py-2">3 pers telt</td>
-                  <td className=" px-4 py-2 text-center">
+                  <td className="px-4 py-2">3 pers telt</td>
+                  <td className="px-4 py-2 text-center">
                     <div className="flex items-center justify-center space-x-2">
                       <button
                         type="button"
@@ -234,8 +227,7 @@ export default function Camping({
                       <button
                         type="button"
                         onClick={() =>
-                          handleQuantityChange("threePersonTent", 1)
-                        }
+                          handleQuantityChange("threePersonTent", 1)}
                         aria-label="Increase 3 person tent quantity"
                         className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                       >
@@ -243,13 +235,13 @@ export default function Camping({
                       </button>
                     </div>
                   </td>
-                  <td className=" px-4 py-2 text-right">
+                  <td className="px-4 py-2 text-right">
                     {prices.ThreePersonsTent} DKK
                   </td>
                 </tr>
                 <tr>
-                  <td className=" px-4 pb-6 pt-2">Grøn camping</td>
-                  <td className=" px-4 pb-6 pt-4 flex justify-center text-center items-center">
+                  <td className="px-4 pb-6 pt-2">Grøn camping</td>
+                  <td className="px-4 pb-6 pt-4 flex justify-center text-center items-center">
                     <Checkbox
                       checked={greenCamping}
                       onChange={setGreenCamping}
@@ -272,7 +264,7 @@ export default function Camping({
                       )}
                     </Checkbox>
                   </td>
-                  <td className=" px-4 pb-6 pt-2 text-right">
+                  <td className="px-4 pb-6 pt-2 text-right">
                     {prices.greenCamping} DKK
                   </td>
                 </tr>
@@ -293,7 +285,7 @@ export default function Camping({
                       1
                         ? ""
                         : ""}
-                      ): {totalPrice} DKK
+                      ): {totalAddOnPrice} DKK
                     </strong>
                   </td>
                 </tr>
@@ -327,7 +319,7 @@ export default function Camping({
             </div>
           </fieldset>
         </form>
-        <div className=" flex items-center justify-center w-full max-w-md md:w-44">
+        <div className="flex items-center justify-center w-full max-w-md md:w-44">
           <CartSummary
             ticketType={ticketType}
             ticketQuantity={ticketQuantity}

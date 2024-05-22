@@ -12,7 +12,7 @@ import ProgressBar from '../../components/backend/ProgressBar';
 export default function BookingPage() {
     const [step, setStep] = useState(1);
     const [bookingData, setBookingData] = useState({
-        ticketType: 'regular', // Default value
+        ticketType: 'regular', 
         ticketQuantity: 1,
         camping: {},
         personalInfo: [],
@@ -25,15 +25,18 @@ export default function BookingPage() {
 
     const handleBookingChange = (data) => {
     console.log(data);
-        setBookingData(prevData => ({ ...prevData, ...data }));
+        setBookingData(prevData => ({ ...prevData, ...data, }));
     };
+    
+
+   
 
     return (
         <div>
         
             <ProgressBar currentStep={step} />
             {step === 1 && (
-                <TicketsForm
+                <TicketsForm setBookingData={setBookingData}
                     ticketType={bookingData.ticketType}
                     ticketQuantity={bookingData.ticketQuantity}
                     onClick={handleBookingChange}
@@ -41,18 +44,17 @@ export default function BookingPage() {
                 />
             )}
             {step === 2 && (
-                <Camping
+                <Camping setBookingData={setBookingData}
                     ticketQuantity={bookingData.ticketQuantity}
                     ticketType={bookingData.ticketType}
                     campingOptions={bookingData.camping}
                     onClick={handleBookingChange}
-                    //updateBasket
                     onNext={nextStep}
                     onBack={prevStep}
                 />
             )}
             {step === 3 && (
-                <PersonalForm
+                <PersonalForm setBookingData={setBookingData}
                     personalInfo={bookingData.personalInfo}
                     ticketQuantity={bookingData.ticketQuantity}
                     ticketType={bookingData.ticketType}
@@ -64,22 +66,23 @@ export default function BookingPage() {
                 />
             )}
             {step === 4 && (
-                <SummaryPage
+                <SummaryPage setBookingData={setBookingData}
                     bookingData={bookingData}
                     onBack={prevStep}
                     onNext={nextStep}
                 />
             )}
             {step === 5 && (
-                <PaymentPage
+                <PaymentPage setBookingData={setBookingData}
                     bookingData={bookingData}
                     onBack={prevStep}
                     onNext={nextStep}
                 />
             )}
             {step === 6 && (
-                <ConfirmationPage
+                <ConfirmationPage setBookingData={setBookingData}
                     bookingData={bookingData}
+                    orderId={bookingData.orderId}
                 />
             )}
         </div>

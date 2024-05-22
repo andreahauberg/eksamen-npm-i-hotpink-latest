@@ -6,19 +6,17 @@ export default function Payment({ bookingData, onNext, onBack }) {
     personalInfo,
     ticketQuantity,
     ticketType,
+    orderId,
     totalPrice,
   } = bookingData;
 
   const handleCompletePurchase = async () => {
-    try {
-      console.log("Fulfilling reservation with ID:", reservationId);
-
       await fetchAPI("/fullfill-reservation", {
         method: "POST",
         body: JSON.stringify({ id: reservationId }),
       });
 
-      console.log("Reservation fulfilled. ID:", reservationId);
+      console.log("Reservations ID: // ordrenummer", reservationId);
 
       const orderData = personalInfo.map((info) => ({
         first_name: info.firstName,
@@ -27,16 +25,17 @@ export default function Payment({ bookingData, onNext, onBack }) {
         email: info.email,
         phone: info.phoneNumber,
         birthday: info.dateOfBirth,
-        ordrenummer: reservationId,
+        ordrenummer: orderId,
+        tickettype: ticketType,
       }));
 
-      console.log("Saving order data to Supabase:", orderData);
+      console.log("Gemt i databasen (Supabase)", orderData);
 
       await saveOrderToSupabase(orderData);
 
-      onNext({ ...bookingData, orderId: reservationId });
+      onNext({ ...bookingData, orderId: orderId});
     } catch (error) {
-      console.error("Failed to complete purchase:", error);
+      console.error("Der opstod en fejl", error);
     }
   };
 
