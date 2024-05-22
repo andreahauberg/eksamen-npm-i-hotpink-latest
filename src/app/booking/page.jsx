@@ -29,7 +29,7 @@ export default function BookingPage() {
 
   return (
     <div>
-      <ProgressBar currentStep={step} />
+      {step < 6 && <ProgressBar currentStep={step} />}
       {step === 1 && (
         <TicketsForm
           ticketType={bookingData.ticketType}
