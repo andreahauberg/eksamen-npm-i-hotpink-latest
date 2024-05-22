@@ -14,9 +14,9 @@ export default function PersonalForm({
   onClick,
   onNext,
   onBack,
-  reservationId,
 }) {
   const [localPersonalInfo, setLocalPersonalInfo] = useState(personalInfo);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     if (localPersonalInfo.length === 0) {
@@ -31,10 +31,22 @@ export default function PersonalForm({
     }
   }, [ticketQuantity]);
 
+  useEffect(() => {
+    const ticketPrice =
+      ticketQuantity * (ticketType === "regular" ? prices.regular : prices.vip);
+    const addOnPrice =
+      (campingOptions.greenCamping ? prices.greenCamping : 0) +
+      campingOptions.twoPersonTent * prices.TwoPersonsTent +
+      campingOptions.threePersonTent * prices.ThreePersonsTent;
+    setTotalPrice(ticketPrice + addOnPrice + prices.fee);
+  }, [ticketQuantity, ticketType, campingOptions]);
+
   const handleInputChange = (index, field, value) => {
-    const newPersonalInfo = [...localPersonalInfo];
-    newPersonalInfo[index] = { ...newPersonalInfo[index], [field]: value };
-    setLocalPersonalInfo(newPersonalInfo);
+    setLocalPersonalInfo((prev) => {
+      const newPersonalInfo = [...prev];
+      newPersonalInfo[index] = { ...newPersonalInfo[index], [field]: value };
+      return newPersonalInfo;
+    });
   };
 
   const handlePhoneKeyPress = (e) => {
@@ -44,24 +56,8 @@ export default function PersonalForm({
     }
   };
 
-  const calculateTotalPrice = () => {
-    const ticketPrice =
-      ticketQuantity * (ticketType === "regular" ? prices.regular : prices.vip);
-    const addOnPrice =
-      (campingOptions.greenCamping ? prices.greenCamping : 0) +
-      campingOptions.twoPersonTent * prices.TwoPersonsTent +
-      campingOptions.threePersonTent * prices.ThreePersonsTent;
-    return ticketPrice + addOnPrice + prices.fee;
-  };
-
-  useEffect(() => {
-    const totalPrice = calculateTotalPrice();
-    onClick({ personalInfo: localPersonalInfo, totalPrice: totalPrice });
-  }, [localPersonalInfo, campingOptions]);
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    const totalPrice = calculateTotalPrice();
 
     const orderData = localPersonalInfo.map((info) => ({
       first_name: info.firstName,
@@ -70,12 +66,12 @@ export default function PersonalForm({
       phone: info.phoneNumber,
       amount: ticketQuantity,
       birthday: info.dateOfBirth,
+      id: info.id,
     }));
 
     onClick({
       personalInfo: localPersonalInfo,
       totalPrice: totalPrice,
-      reservationId,
     });
     onNext();
   };
@@ -138,7 +134,6 @@ export default function PersonalForm({
                             value={info.firstName}
                             className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
                             aria-label={`Fornavn for billet ${index + 1}`}
-                            required
                             pattern="^[A-Za-z]+$"
                             title="Fornavn må kun indeholde bogstaver."
                             onChange={(e) =>
@@ -164,7 +159,6 @@ export default function PersonalForm({
                             value={info.lastName}
                             className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
                             aria-label={`Efternavn for billet ${index + 1}`}
-                            required
                             pattern="^[A-Za-z]+$"
                             title="Efternavn må kun indeholde bogstaver."
                             onChange={(e) =>
@@ -190,7 +184,6 @@ export default function PersonalForm({
                             value={info.phoneNumber}
                             className="peer w-full p-2 border bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
                             aria-label={`Phone number for ticket ${index + 1}`}
-                            required
                             pattern="^\+\d+$"
                             title="Telefonnummeret skal starte med et + og kun indeholde tal."
                             onKeyPress={handlePhoneKeyPress}
@@ -218,7 +211,6 @@ export default function PersonalForm({
                             value={info.dateOfBirth}
                             className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
                             aria-label={`Fødelsdato for billet ${index + 1}`}
-                            required
                             min="1923-01-01"
                             max={new Date().toISOString().split("T")[0]}
                             onChange={(e) => {
@@ -248,7 +240,6 @@ export default function PersonalForm({
                             value={info.email}
                             className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
                             aria-label={`Email for billet ${index + 1}`}
-                            required
                             pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
                             title="Email skal være en gyldig emailadresse."
                             onChange={(e) =>
