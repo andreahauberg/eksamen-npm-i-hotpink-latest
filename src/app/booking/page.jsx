@@ -25,8 +25,10 @@ export default function BookingPage() {
 
     const handleBookingChange = (data) => {
     console.log(data);
-        setBookingData(prevData => ({ ...prevData, ...data }));
+        setBookingData(prevData => ({ ...prevData, ...data, }));
     };
+
+   
 
     return (
         <div>
