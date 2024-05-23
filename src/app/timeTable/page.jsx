@@ -83,7 +83,7 @@ export default function Schedule() {
   return (
     <>
       <div className="">
-        <div className={`${krona_one.className} large-size text-center`}>
+        <div className={`${krona_one.className} headliner text-center`}>
           <h1>Tidsplan</h1>
         </div>
         <header className="flex justify-between px-6 py-5">
