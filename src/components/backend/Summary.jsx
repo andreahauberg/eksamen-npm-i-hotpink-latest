@@ -6,13 +6,8 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 
 export default function SummaryPage({ bookingData, onBack, onNext }) {
-  const {
-    ticketType,
-    ticketQuantity,
-    personalInfo,
-    camping,
-    totalPrice,
-  } = bookingData;
+  const { ticketType, ticketQuantity, personalInfo, camping, totalPrice } =
+    bookingData;
 
   const TicketSVG =
     ticketType.toLowerCase() === "vip" ? VIPTicketSVG : RegularTicketSVG;
@@ -27,8 +22,8 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
             Opsummering
           </h1>
           <div className="mb-6 space-y-4">
-            <div className="flex flex-wrap">
-              <div className="flex gap-2 normal-size">
+            <div className="flex flex-wrap justify-evenly items-center mb-10">
+              <div className=" normal-size">
                 <h2>
                   <b>Billetter:</b>
                 </h2>
@@ -37,7 +32,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                   billet x {ticketQuantity}
                 </p>
               </div>
-              <TicketSVG className="" />
+              <TicketSVG className=" w-72" />
             </div>
             <Tab.Group>
               <Tab.List className="flex space-x-1 rounded-xl bg-secondaryColor text-bgColor p-1">
