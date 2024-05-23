@@ -52,22 +52,15 @@ export default async function Band({ params }) {
   return (
     <>
       <section className="grid grid-cols-gridContent">
-        <div className="col-start-2 col-end-5">
+        <div className="col-start-2 col-end-5 pt-5">
           <div className="grid md:grid-cols-2">
             <div className="flex flex-col p-5">
-              <h1 className={`${krona_one.className} text-4xl text-center py-5`}>{band.name}</h1>
-              {bandSchedule.length > 0 &&
-                bandSchedule.map((schedule, index) => (
-                  <div key={index} className="flex justify-between items-center text-center pb-6">
-                    <div className="uppercase bg-labelColor text-secondaryTextColor rounded-lg w-28 lg:w-36 lg:px-5 py-3">
-                      {schedule.day.charAt(0).toUpperCase() + schedule.day.slice(1)} {schedule.start}
-                    </div>
-                    <div className="uppercase bg-labelColor text-secondaryTextColor rounded-lg w-28 lg:w-36 lg:px-5 py-3">{schedule.stage}</div>
-                    <div>
-                      <HeartIcon className="stroke-primaryTextColor stroke-2 transition duration-800 ease-in h-12 hover:fill-primaryColor" />
-                    </div>
-                  </div>
-                ))}
+              <h1 className={`${krona_one.className} text-4xl `}>{band.name}</h1>
+              <div className="flex gap-2 items-center py-5">
+                <div className={`${krona_one.className} uppercase bg-primaryColor xsmall-size text-center text-secondaryTextColor rounded-lg w-28 lg:w-32 lg:px-5 py-1`}>Genre:</div>
+                <div></div>
+                <p className={`${krona_one.className}  xsmall-size  `}>{band.genre}</p>
+              </div>
               <div className="pb-6">
                 <BandBio bio={band.bio} />
               </div>
@@ -86,10 +79,24 @@ export default async function Band({ params }) {
                 </div>
               </div>
             </div>
-            <figure className="py-5">
-              <Image src={band.logo.includes("https") ? band.logo : `/logos/${band.logo}`} width={400} height={400} alt="Picture of Artist" />
-              <p className=" text-xs text-right px-2">{band.logoCredits}</p>
-            </figure>
+            <div className="p-5">
+              {bandSchedule.length > 0 &&
+                bandSchedule.map((schedule, index) => (
+                  <div key={index} className="flex justify-between items-center text-center pb-2">
+                    <div className="uppercase bg-labelColor text-secondaryTextColor rounded-lg w-28 lg:w-36 lg:px-5 py-3">
+                      {schedule.day.charAt(0).toUpperCase() + schedule.day.slice(1)} {schedule.start}
+                    </div>
+                    <div className="uppercase bg-labelColor text-secondaryTextColor rounded-lg w-28 lg:w-36 lg:px-5 py-3">{schedule.stage}</div>
+                    <div>
+                      <HeartIcon className="stroke-primaryTextColor stroke-2 transition duration-800 ease-in h-12 hover:fill-primaryColor" />
+                    </div>
+                  </div>
+                ))}
+              <figure className="py-5">
+                <Image src={band.logo.includes("https") ? band.logo : `/logos/${band.logo}`} width={400} height={400} alt="Picture of Artist" />
+                <p className=" text-xs text-right px-2">{band.logoCredits}</p>
+              </figure>
+            </div>
           </div>
         </div>
       </section>

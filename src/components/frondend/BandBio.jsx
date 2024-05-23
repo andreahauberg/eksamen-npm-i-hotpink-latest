@@ -15,7 +15,7 @@ export default function BandBio({ bio }) {
           <div>
             <Transition enter="duration-300 ease-in-out	" enterFrom="opacity-0 -translate-y-6" enterTo="opacity-100 translate-y-0" leave="duration-300 ease-in-out" leaveFrom="opacity-100 translate-y-0" leaveTo="opacity-0 -translate-y-5">
               <DisclosurePanel className=" 	leading-relaxed	 h-72	text-secondaryTextColor px-5 py-3 overflow-auto">
-                <p className=" biotext-size">{bio ? bio : "Biografien på dette band findes ikke"}</p>
+                <p className=" xsmall-size">{bio ? bio : "Biografien på dette band findes ikke"}</p>
               </DisclosurePanel>
             </Transition>
           </div>

@@ -76,7 +76,6 @@ nav {
   font-size: var(--small-text);
   font-weight: var(--normal);
   line-height: var(--default-line-height);
-  color: var(--secondary-color-01);
 }
 
 /* .bordercolor {
