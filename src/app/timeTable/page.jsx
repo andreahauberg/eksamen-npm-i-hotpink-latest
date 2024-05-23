@@ -85,7 +85,7 @@ export default function Schedule() {
 
   return (
     <>
-      <div className="">
+      <div className=" mb-32">
         <div className={`${krona_one.className} headliner text-center`}>
           <h1>Tidsplan</h1>
         </div>
