@@ -21,7 +21,7 @@ export default function Burger() {
             </Link>
           </li>
           <li>
-            <Link href={"/timetabel"} prefetch={false}>
+            <Link href={"/timeTable"} prefetch={false}>
               <div className="">Tidsplan</div>
             </Link>
           </li>

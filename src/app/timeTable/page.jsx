@@ -106,27 +106,29 @@ export default function Schedule() {
           </div>
         </header>
 
-        <section className="grid grid-cols-gridContent px-5">
+        <section className="grid md:grid-cols-gridContent md:px-5">
           {Object.keys(groupedByTime).map((time) => (
-            <div key={time} className="col-start-2 col-end-5">
+            <div key={time} className=" col-start-2 col-end-5">
               <div className="bg-secondaryBgColor py-3 px-3 small-size">
                 <p>{time}</p>
               </div>
               <ul className="col-start-2 col-end-5 w-full">
                 {groupedByTime[time].map((act) => (
-                  <li key={`${act.act}-${act.scene}`} className="flex justify-between overflow-hidden w-full h-40 border-b border-primaryTextColor last:border-b-0">
-                    <Link href={act.band?.slug || "#"} prefetch={false} className="w-full h-40 overflow-hidden flex items-center small-size">
-                      <div className="flex flex-1">
-                        <p>
-                          {time} - {act.scene}
-                        </p>
+                  <li key={`${act.act}-${act.scene}`} className="flex justify-between overflow-hidden w-full h-24 md:h-40 border-b border-primaryTextColor last:border-b-0">
+                    <Link href={act.band?.slug || "#"} prefetch={false} className="w-full h-24 md:h-40 overflow-hidden flex jus items-center xsmall-size md:small-size pl-2 md:pl-0">
+                      <div className="flex flex-col md:flex-row md:gap-12 flex-1">
+                        <div className="flex">
+                          <p>
+                            {time} - {act.scene}
+                          </p>
+                        </div>
+                        <div className={`${krona_one.className} flex-1`}>
+                          <p>{act.act}</p>
+                        </div>
                       </div>
-                      <div className={`${krona_one.className} flex-1`}>
-                        <p>{act.act}</p>
-                      </div>
-                      <figure className="flex-1 h-40 flex justify-end items-end">
+                      <figure className="flex-1 h-24 md:h-40 flex justify-end items-end">
                         {act.band && (
-                          <div className="relative w-44 h-40 flex justify-center items-center">
+                          <div className="relative h-24 w-24 md:w-44 md:h-40 flex justify-center items-center">
                             <Image src={act.band.logo.includes("https") ? act.band.logo : `/logos/${act.band.logo}`} fill alt="Picture of Artist" className=" h-full w-full object-cover" />
                           </div>
                         )}
