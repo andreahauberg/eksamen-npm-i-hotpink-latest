@@ -1,6 +1,6 @@
 "use client";
 import { fetchAPI } from "../../app/api/api.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect, act } from "react";
 import Image from "next/image.js";
 import { krona_one } from "@/app/fonts";
 import Link from "next/link.js";
@@ -8,12 +8,11 @@ import Link from "next/link.js";
 export default function Schedule() {
   const [lineUp, setLineUp] = useState([]);
   const [schedule, setSchedule] = useState({});
-  const [filterDay, setFilterDay] = useState("all");
+  const [filterDay, setFilterDay] = useState("mon"); // Default til mandag
   const [filterScene, setFilterScene] = useState("all");
 
-  const lineUpDays = ["all", "mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+  const lineUpDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
   const days = {
-    all: "All",
     mon: "Monday",
     tue: "Tuesday",
     wed: "Wednesday",
@@ -38,30 +37,53 @@ export default function Schedule() {
     loadSchedule();
   }, []);
 
-  const filterBands = () => {
-    if (filterDay === "all") {
-      return lineUp;
-    }
-
+  const getBandSchedule = () => {
     let actsForDay = [];
     // Henter alle acts, fra alle scener på den valgte dag
     if (filterScene === "all") {
-      Object.values(schedule).forEach((scene) => {
-        actsForDay = actsForDay.concat(scene[filterDay]?.map((act) => act.act) || []);
+      Object.entries(schedule).forEach(([sceneName, sceneSchedule]) => {
+        actsForDay = actsForDay.concat(
+          sceneSchedule[filterDay]?.map((act) => ({
+            ...act,
+            scene: sceneName,
+          })) || []
+        );
       });
     } else {
-      actsForDay = schedule[filterScene]?.[filterDay]?.map((act) => act.act) || [];
+      actsForDay =
+        schedule[filterScene]?.[filterDay]?.map((act) => ({
+          ...act,
+          scene: filterScene,
+        })) || [];
     }
 
-    return lineUp.filter((band) => actsForDay.includes(band.name));
+    const bandsMap = lineUp.reduce((map, band) => {
+      map[band.name] = band;
+      return map;
+    }, {});
+
+    return actsForDay
+      .map((act) => ({
+        ...act,
+        band: bandsMap[act.act],
+      }))
+      .filter((act) => act.act !== "break");
   };
 
-  const filteredLineUp = filterBands();
+  const bandSchedule = getBandSchedule();
+
+  const groupedByTime = bandSchedule.reduce((acc, act) => {
+    if (!acc[act.start]) {
+      acc[act.start] = [];
+    }
+    acc[act.start].push(act);
+    return acc;
+  }, {});
 
   return (
     <>
       <div className="">
-        <header className="flex justify-between px-5 py-5">
+        <header className="flex justify-between px-6 py-5">
           <div className="flex justify-center mb-4 gap-2">
             <button onClick={() => setFilterScene("all")} className={`${filterScene === "all" ? "bg-secondaryColor text-bgColor border-bgColor" : "bg-bgColor text-secondaryColor border-inputFieldColor"} rounded-lg border-2 transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-4 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor`}>
               All Scenes
@@ -81,30 +103,37 @@ export default function Schedule() {
           </div>
         </header>
 
-        <section className="grid grid-cols-gridContent">
-          <div className="col-start-2 col-end-5 w-full bg-secondaryBgColor py-3 px-3">
-            <p>14:00</p>
-          </div>
-          <ul className="col-start-2 col-end-5 w-full">
-            {filteredLineUp.map((band) => (
-              <li key={band.name} className="flex justify-between overflow-hidden w-full h-40 border-b border-primaryTextColor last:border-b-0">
-                <Link href={band.slug} prefetch={false} className="w-full h-40 overflow-hidden flex items-center">
-                  <div className="flex-1">
-                    <p>14:00</p>
-                    <p>SCENE</p>
-                  </div>
-                  <div className={`${krona_one.className} flex-1`}>
-                    <p>{band.name}</p>
-                  </div>
-                  <figure className="flex-1 h-full flex justify-end items-end">
-                    <div className="relative w-full h-40 flex justify-center items-center">
-                      <Image src={band.logo.includes("https") ? band.logo : `/logos/${band.logo}`} layout="fill" objectFit="contain" alt="Picture of Artist" className="w-full h-full" />
-                    </div>
-                  </figure>
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <section className="grid grid-cols-gridContent px-5">
+          {Object.keys(groupedByTime).map((time) => (
+            <div key={time} className="col-start-2 col-end-5">
+              <div className="bg-secondaryBgColor py-3 px-3 small-size">
+                <p>{time}</p>
+              </div>
+              <ul className="col-start-2 col-end-5 w-full">
+                {groupedByTime[time].map((act) => (
+                  <li key={`${act.act}-${act.scene}`} className="flex justify-between overflow-hidden w-full h-40 border-b border-primaryTextColor last:border-b-0">
+                    <Link href={act.band?.slug || "#"} prefetch={false} className="w-full h-40 overflow-hidden flex items-center small-size">
+                      <div className="flex flex-1">
+                        <p>
+                          {time} - {act.scene}
+                        </p>
+                      </div>
+                      <div className={`${krona_one.className} flex-1`}>
+                        <p>{act.act}</p>
+                      </div>
+                      <figure className="flex-1 h-40 flex justify-end items-end">
+                        {act.band && (
+                          <div className="relative w-44 h-40 flex justify-center items-center">
+                            <Image src={act.band.logo.includes("https") ? act.band.logo : `/logos/${act.band.logo}`} fill alt="Picture of Artist" className=" h-full w-full object-cover" />
+                          </div>
+                        )}
+                      </figure>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </section>
       </div>
     </>
