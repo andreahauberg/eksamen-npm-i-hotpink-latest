@@ -43,6 +43,7 @@ export default function BookingPage() {
   return (
     <div>
       {step < 6 && <ProgressBar currentStep={step} />}
+      <BasketTimer step={step} onTimeExpired={handleTimeExpired} />
       {step === 1 && (
         <TicketsForm
           setBookingData={setBookingData}
