@@ -23,10 +23,10 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
             Opsummering
           </h1>
           <div className="mb-6 space-y-6">
-            <div className="flex flex-wrap justify-evenly items-center mb-8">
-              <div className="text-lg">
+            <div className="flex flex-wrap md:justify-evenly items-center mb-8 gap-2">
+              <div className="normal-size">
                 <h2 className="font-semibold mb-2">Billetter:</h2>
-                <p>
+                <p className="mb-2">
                   {ticketType.charAt(0).toUpperCase() + ticketType.slice(1)}{" "}
                   billet x {ticketQuantity}
                 </p>
