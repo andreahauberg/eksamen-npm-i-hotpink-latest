@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import Image from "next/image.js";
 import { krona_one } from "@/app/fonts";
 import Link from "next/link.js";
+import { Select } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import clsx from "clsx";
 
 export default function Lineup() {
   const [lineUp, setLineUp] = useState([]);
@@ -59,21 +62,50 @@ export default function Lineup() {
     <>
       <section className="min-h-screen">
         <div className="px-2 sm:px-4">
-          <h1 className={`${krona_one.className} large-size`}>Line-up</h1>
+          <h1 className={`${krona_one.className} headliner text-center py-16 `}>
+            Line-up
+          </h1>
           <div className="flex justify-end gap-4 p-5 mb-4">
-            {lineUpDays.map((day) => (
-              <button
-                key={day}
-                onClick={() => setFilterDay(day)}
-                className={`${
-                  filterDay === day
-                    ? "bg-secondaryColor text-bgColor border-bgColor"
-                    : "bg-bgColor text-secondaryColor border-inputFieldColor"
-                } rounded-lg border-2 transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-4 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor`}
-              >
-                {days[day]}
-              </button>
-            ))}
+            {/* Dropdown for small screens */}
+            <div className="w-full lg:hidden">
+              <div className="relative">
+                <Select
+                  value={filterDay}
+                  onChange={(e) => setFilterDay(e.target.value)}
+                  className={clsx(
+                    "mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
+                    "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                  )}
+                  aria-label="Vælg dag"
+                >
+                  {lineUpDays.map((day) => (
+                    <option key={day} value={day}>
+                      {days[day]}
+                    </option>
+                  ))}
+                </Select>
+                <ChevronDownIcon
+                  className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor"
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
+            {/* Buttons for larger screens */}
+            <div className="hidden lg:flex gap-4">
+              {lineUpDays.map((day) => (
+                <button
+                  key={day}
+                  onClick={() => setFilterDay(day)}
+                  className={`${
+                    filterDay === day
+                      ? "bg-secondaryColor text-bgColor border-bgColor"
+                      : "bg-bgColor text-secondaryColor border-inputFieldColor"
+                  } rounded-lg border-2 transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-4 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor`}
+                >
+                  {days[day]}
+                </button>
+              ))}
+            </div>
           </div>
           <div
             className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 ${krona_one.className}`}
@@ -89,7 +121,7 @@ export default function Lineup() {
                   prefetch={false}
                   className="flex flex-col h-full"
                 >
-                  <div className="relative w-full h-full">
+                  <div className="relative w-full h-full focus:outline-none">
                     <Image
                       src={
                         band.logo.includes("https")
@@ -97,11 +129,14 @@ export default function Lineup() {
                           : `/logos/${band.logo}`
                       }
                       fill
+                      sizes="(max-width: 768px) 100vw, 
+                             (max-width: 1200px) 50vw, 
+                             25vw"
                       alt="Picture of Artist"
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 flex items-end bg-black bg-opacity-50">
-                      <p className="text-bgColor bg-primaryColor p-1 bg-opacity-80 small-size">
+                      <p className="text-bgColor bg-primaryColor rounded-lg p-1 bg-opacity-80 small-size">
                         {band.name}
                       </p>
                     </div>
