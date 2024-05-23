@@ -68,10 +68,10 @@ export default function Home() {
         </svg>
         <div className="mt-8 flex justify-center gap-3">
           <Link href="/booking/">
-            <Button title="KØB BILLET" />
+            <Button title="Køb billet" />
           </Link>
           <Link href="/lineup/">
-            <Button title="LINE-UP" />
+            <Button title="Line-up" />
           </Link>
         </div>
       </header>
