@@ -56,7 +56,7 @@ export default function Lineup() {
   return (
     <>
       <section className="">
-        <div className="flex justify-end gap-4 p-5 mb-4">
+        <div className="flex justify-end gap-4 px-5 py-5 mb-4">
           {lineUpDays.map((day) => (
             <button key={day} onClick={() => setFilterDay(day)} className={`${filterDay === day ? "bg-secondaryColor text-bgColor border-bgColor" : "bg-bgColor text-secondaryColor border-inputFieldColor"} rounded-lg border-2 transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-4 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor`}>
               {days[day]}

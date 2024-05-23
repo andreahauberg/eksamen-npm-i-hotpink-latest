@@ -1,5 +1,5 @@
+// next.config.js
 /** @type {import('next').NextConfig} */
-
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -13,5 +13,33 @@ const nextConfig = {
       },
     ],
   },
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: {
+        and: [/\.(js|ts)x?$/],
+      },
+      use: [
+        {
+          loader: "@svgr/webpack",
+          options: {
+            svgoConfig: {
+              plugins: [
+                {
+                  name: "removeAttrs",
+                  params: {
+                    attrs: "fill",
+                  },
+                },
+              ],
+            },
+          },
+        },
+      ],
+    });
+
+    return config;
+  },
 };
+
 export default nextConfig;
