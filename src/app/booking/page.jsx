@@ -7,6 +7,7 @@ import SummaryPage from "../../components/backend/Summary";
 import PaymentPage from "../../components/backend/Payment";
 import ConfirmationPage from "../../components/backend/Confirmation";
 import ProgressBar from "../../components/backend/ProgressBar";
+import BasketTimer from '../../components/backend/BasketTimer';
 
 export default function BookingPage() {
   const [step, setStep] = useState(1);
@@ -25,6 +26,18 @@ export default function BookingPage() {
   const handleBookingChange = (data) => {
     console.log(data);
     setBookingData((prevData) => ({ ...prevData, ...data }));
+  };
+
+  const handleTimeExpired = () => {
+    setStep(1);
+    setBookingData({
+      ticketType: "regular",
+      ticketQuantity: 1,
+      camping: {},
+      personalInfo: [],
+      totalPrice: 0,
+      orderId: "",
+    });
   };
 
   return (
