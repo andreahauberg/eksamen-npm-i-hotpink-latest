@@ -12,14 +12,14 @@ export default function Lineup() {
 
   const lineUpDays = ["all", "mon", "tue", "wed", "thu", "fri", "sat", "sun"];
   const days = {
-    all: "All",
-    mon: "Monday",
-    tue: "Tuesday",
-    wed: "Wednesday",
-    thu: "Thursday",
-    fri: "Friday",
-    sat: "Saturday",
-    sun: "Sunday",
+    all: "Alle",
+    mon: "Mandag",
+    tue: "Tirsdag",
+    wed: "Onsdag",
+    thu: "Torsdag",
+    fri: "Fredag",
+    sat: "Lørdag",
+    sun: "Søndag",
   };
 
   useEffect(() => {
@@ -45,7 +45,9 @@ export default function Lineup() {
     let actsForDay = [];
     // Henter alle acts, fra alle scener på den valgte dag
     Object.values(schedule).forEach((scene) => {
-      actsForDay = actsForDay.concat(scene[filterDay]?.map((act) => act.act) || []);
+      actsForDay = actsForDay.concat(
+        scene[filterDay]?.map((act) => act.act) || []
+      );
     });
 
     return lineUp.filter((band) => actsForDay.includes(band.name));
@@ -55,27 +57,59 @@ export default function Lineup() {
 
   return (
     <>
-      <section className="">
-        <div className="flex justify-end gap-4 px-5 py-5 mb-4">
-          {lineUpDays.map((day) => (
-            <button key={day} onClick={() => setFilterDay(day)} className={`${filterDay === day ? "bg-secondaryColor text-bgColor border-bgColor" : "bg-bgColor text-secondaryColor border-inputFieldColor"} rounded-lg border-2 transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-4 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor`}>
-              {days[day]}
-            </button>
-          ))}
-        </div>
-        <div className={`${krona_one.className} md:grid md:grid-cols-4`}>
-          {filteredLineUp.map((band) => (
-            <article key={band.name} value={band.bands} className="flex flex-col pb-8">
-              <Link href={band.slug} prefetch={false} className="grid justify-center justify-items-between flex-grow">
-                <div className="flex-shrink-0 h-72 w-72 relative overflow-hidden">
-                  <Image src={band.logo.includes("https") ? band.logo : `/logos/${band.logo}`} width={400} height={400} alt="Picture of Artist" />
-                </div>
-                <div className="flex-shrink-0">
-                  <h1>{band.name}</h1>
-                </div>
-              </Link>
-            </article>
-          ))}
+      <section className="min-h-screen">
+        <div className="px-2 sm:px-4">
+          <h1 className={`${krona_one.className} large-size`}>Line-up</h1>
+          <div className="flex justify-end gap-4 p-5 mb-4">
+            {lineUpDays.map((day) => (
+              <button
+                key={day}
+                onClick={() => setFilterDay(day)}
+                className={`${
+                  filterDay === day
+                    ? "bg-secondaryColor text-bgColor border-bgColor"
+                    : "bg-bgColor text-secondaryColor border-inputFieldColor"
+                } rounded-lg border-2 transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-4 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor`}
+              >
+                {days[day]}
+              </button>
+            ))}
+          </div>
+          <div
+            className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 ${krona_one.className}`}
+          >
+            {filteredLineUp.map((band) => (
+              <article
+                key={band.name}
+                value={band.bands}
+                className="relative overflow-hidden flex flex-col h-48 md:h-72 w-full"
+              >
+                <Link
+                  href={band.slug}
+                  prefetch={false}
+                  className="flex flex-col h-full"
+                >
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={
+                        band.logo.includes("https")
+                          ? band.logo
+                          : `/logos/${band.logo}`
+                      }
+                      fill
+                      alt="Picture of Artist"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 flex items-end bg-black bg-opacity-50">
+                      <p className="text-bgColor bg-primaryColor p-1 bg-opacity-80 small-size">
+                        {band.name}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
     </>
