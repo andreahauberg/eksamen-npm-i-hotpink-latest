@@ -60,7 +60,7 @@ export default function Schedule() {
 
   return (
     <>
-      <section className="">
+      <div className="">
         <header className="flex justify-between px-5 py-5">
           <div className="flex justify-center mb-4 gap-2">
             <button onClick={() => setFilterScene("all")} className={`${filterScene === "all" ? "bg-secondaryColor text-bgColor border-bgColor" : "bg-bgColor text-secondaryColor border-inputFieldColor"} rounded-lg border-2 transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-4 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor`}>
@@ -81,21 +81,32 @@ export default function Schedule() {
           </div>
         </header>
 
-        <div className={`${krona_one.className} md:grid md:grid-cols-4`}>
-          {filteredLineUp.map((band) => (
-            <article key={band.name} value={band.bands} className="flex flex-col pb-8">
-              <Link href={band.slug} prefetch={false} className="grid justify-center justify-items-between flex-grow">
-                <div className="flex-shrink-0 h-72 w-72 relative overflow-hidden">
-                  <Image src={band.logo.includes("https") ? band.logo : `/logos/${band.logo}`} width={400} height={400} alt="Picture of Artist" />
-                </div>
-                <div className="flex-shrink-0">
-                  <h1>{band.name}</h1>
-                </div>
-              </Link>
-            </article>
-          ))}
-        </div>
-      </section>
+        <section className="grid grid-cols-gridContent">
+          <div className="col-start-2 col-end-5 w-full bg-secondaryBgColor py-3 px-3">
+            <p>14:00</p>
+          </div>
+          <ul className="col-start-2 col-end-5 w-full">
+            {filteredLineUp.map((band) => (
+              <li key={band.name} className="flex justify-between overflow-hidden w-full h-40 border-b border-primaryTextColor last:border-b-0">
+                <Link href={band.slug} prefetch={false} className="w-full h-40 overflow-hidden flex items-center">
+                  <div className="flex-1">
+                    <p>14:00</p>
+                    <p>SCENE</p>
+                  </div>
+                  <div className={`${krona_one.className} flex-1`}>
+                    <p>{band.name}</p>
+                  </div>
+                  <figure className="flex-1 h-full flex justify-end items-end">
+                    <div className="relative w-full h-40 flex justify-center items-center">
+                      <Image src={band.logo.includes("https") ? band.logo : `/logos/${band.logo}`} layout="fill" objectFit="contain" alt="Picture of Artist" className="w-full h-full" />
+                    </div>
+                  </figure>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
     </>
   );
 }
