@@ -44,7 +44,7 @@ export default function Home() {
   const time = formatTimeLeft(timeLeft);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen mb-32">
       <header
         className="relative text-center py-16 bg-cover bg-center"
         style={{ backgroundImage: "url('/images/image1.png')" }}

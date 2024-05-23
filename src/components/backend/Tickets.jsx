@@ -11,7 +11,12 @@ import {
 import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 
-export default function TicketsForm({ ticketType, ticketQuantity, onClick, onNext }) {
+export default function TicketsForm({
+  ticketType,
+  ticketQuantity,
+  onClick,
+  onNext,
+}) {
   const [localTicketType, setLocalTicketType] = useState(ticketType);
   const [localQuantity, setLocalQuantity] = useState(ticketQuantity);
   const [localTotalPrice, setLocalTotalPrice] = useState(0);
@@ -21,7 +26,8 @@ export default function TicketsForm({ ticketType, ticketQuantity, onClick, onNex
   }, [localTicketType, localQuantity]);
 
   const updatePrice = () => {
-    const pricePerTicket = localTicketType === "regular" ? prices.regular : prices.vip;
+    const pricePerTicket =
+      localTicketType === "regular" ? prices.regular : prices.vip;
     setLocalTotalPrice(localQuantity * pricePerTicket);
   };
 
