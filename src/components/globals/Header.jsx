@@ -30,7 +30,7 @@ export default function Header() {
                 <Link href={"/lineup"} prefetch={false}>
                   <div className="hover:text-primaryColor transition-colors duration-200 ease-in-out">Line-up</div>
                 </Link>
-                <Link href={"/timetabel"} prefetch={false}>
+                <Link href={"/timeTable"} prefetch={false}>
                   <div className="hover:text-primaryColor transition-colors duration-200 ease-in-out">Tidsplan</div>
                 </Link>
                 <Link href={"/booking"} prefetch={false}>
