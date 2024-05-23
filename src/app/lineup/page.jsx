@@ -60,7 +60,7 @@ export default function Lineup() {
 
   return (
     <>
-      <section className="min-h-screen">
+      <section className="min-h-screen mb-32">
         <div className="px-2 sm:px-4">
           <h1 className={`${krona_one.className} headliner text-center py-16 `}>
             Line-up
