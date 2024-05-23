@@ -1,122 +1,176 @@
 "use client";
-import { useState, useEffect } from 'react';
 import { fetchAPI } from "../../app/api/api.js";
+import { useState, useEffect } from "react";
+import Image from "next/image.js";
+import { krona_one } from "@/app/fonts";
+import Link from "next/link.js";
 
-const LiveComponent = () => {
-  const [bands, setBands] = useState([]);
+export default function Schedule() {
+  const [lineUp, setLineUp] = useState([]);
   const [schedule, setSchedule] = useState({});
-  const [currentEvent, setCurrentEvent] = useState(null);
-  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [filterScene, setFilterScene] = useState("all");
 
   useEffect(() => {
-    const fetchData = async () => {
-      const bandsData = await fetchAPI("/bands");
-      const scheduleData = await fetchAPI("/schedule");
+    const loadSchedule = async () => {
+      try {
+        const bandsData = await fetchAPI("/bands");
+        const scheduleData = await fetchAPI("/schedule");
 
-      setBands(bandsData);
-      setSchedule(scheduleData);
+        setLineUp(bandsData);
+        setSchedule(scheduleData);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
     };
-
-    fetchData();
+    loadSchedule();
   }, []);
 
-  useEffect(() => {
-    const parseEventTime = (day, time) => {
-      try {
-        const [year, month, date] = day.split('-').map(Number);
-        const [hour, minute] = time.split(':').map(Number);
+  const getBandSchedule = () => {
+    let actsForScene = [];
+    if (filterScene === "all") {
+      Object.entries(schedule).forEach(([sceneName, sceneSchedule]) => {
+        Object.entries(sceneSchedule).forEach(([day, acts]) => {
+          actsForScene = actsForScene.concat(
+            acts.map((act) => ({
+              ...act,
+              scene: sceneName,
+              day,
+            })) || []
+          );
+        });
+      });
+    } else {
+      Object.entries(schedule[filterScene] || {}).forEach(([day, acts]) => {
+        actsForScene = actsForScene.concat(
+          acts.map((act) => ({
+            ...act,
+            scene: filterScene,
+            day,
+          })) || []
+        );
+      });
+    }
 
-        if (
-          !Number.isNaN(year) &&
-          !Number.isNaN(month) &&
-          !Number.isNaN(date) &&
-          !Number.isNaN(hour) &&
-          !Number.isNaN(minute)
-        ) {
-          return new Date(year, month - 1, date, hour, minute);
-        } else {
-          throw new Error('Invalid date/time components');
-        }
-      } catch (error) {
-        console.error(`Error parsing time: ${time} on day: ${day}`, error);
-        return null;
-      }
-    };
+    const bandsMap = lineUp.reduce((map, band) => {
+      map[band.name] = band;
+      return map;
+    }, {});
 
-    const getCurrentAndUpcomingEvents = () => {
-      const now = new Date();
-      const upcoming = [];
+    return actsForScene
+      .map((act) => ({
+        ...act,
+        band: bandsMap[act.act],
+      }))
+      .filter((act) => act.act !== "break");
+  };
 
-      for (const stage in schedule) {
-        for (const day in schedule[stage]) {
-          schedule[stage][day].forEach((event) => {
-            const eventStart = parseEventTime(day, event.start);
-            const eventEnd = parseEventTime(day, event.end);
+  const bandSchedule = getBandSchedule();
 
-            if (!eventStart || !eventEnd) {
-              console.error(`Invalid date for event: ${event.act} at ${stage} on ${day}`);
-              return;
-            }
+  const getDateTime = (day, time) => {
+    const today = new Date();
+    const dayOffset = (["sun", "mon", "tue", "wed", "thu", "fri", "sat"].indexOf(day) + 7 - today.getDay()) % 7;
+    const [hours, minutes] = time.split(":").map(Number);
+    const eventDate = new Date(today);
+    eventDate.setDate(today.getDate() + dayOffset);
+    eventDate.setHours(hours);
+    eventDate.setMinutes(minutes);
+    eventDate.setSeconds(0);
+    eventDate.setMilliseconds(0);
+    return eventDate;
+  };
 
-            console.log(`Checking event: ${event.act} at ${stage} on ${day} from ${event.start} to ${event.end}`);
-            console.log(`Parsed times - Start: ${eventStart}, End: ${eventEnd}, Now: ${now}`);
+  const sortedBandSchedule = bandSchedule
+    .map((act) => ({
+      ...act,
+      startDateTime: getDateTime(act.day, act.start),
+    }))
+    .sort((a, b) => a.startDateTime - b.startDateTime)
+    .filter((act) => act.startDateTime >= new Date());
 
-            if (now >= eventStart && now <= eventEnd) {
-              console.log(`Current event found: ${event.act}`);
-              const band = bands.find(band => band.name === event.act);
-              setCurrentEvent({ ...event, stage, bandName: band?.name });
-            } else if (now < eventStart) {
-              const band = bands.find(band => band.name === event.act);
-              upcoming.push({ ...event, stage, bandName: band?.name, startTime: eventStart });
-            }
-          });
-        }
-      }
-
-      upcoming.sort((a, b) => a.startTime - b.startTime);
-      setUpcomingEvents(upcoming);
-    };
-
-    const interval = setInterval(getCurrentAndUpcomingEvents, 60000);
-    getCurrentAndUpcomingEvents();
-
-    return () => clearInterval(interval);
-  }, [schedule, bands]);
+  const groupedByTime = sortedBandSchedule.reduce((acc, act) => {
+    const time = act.start;
+    if (!acc[time]) {
+      acc[time] = [];
+    }
+    acc[time].push(act);
+    return acc;
+  }, {});
 
   return (
-    <div className="container mx-auto p-4">
-      {currentEvent ? (
-        <div className="bg-green-100 p-4 rounded-lg shadow-md mb-4">
-          <h2 className="text-2xl font-bold mb-2">Currently Playing</h2>
-          <p><span className="font-semibold">Band:</span> {currentEvent.bandName}</p>
-          <p><span className="font-semibold">Stage:</span> {currentEvent.stage}</p>
-          <p><span className="font-semibold">Start Time:</span> {currentEvent.start}</p>
-          <p><span className="font-semibold">End Time:</span> {currentEvent.end}</p>
+    <>
+      <div className="bg-gradient-to-b from-purple-600 via-pink-500 to-red-500 min-h-screen text-white">
+        <div className={`${krona_one.className} headliner text-center py-5`}>
+          <h1 className="text-4xl font-bold uppercase">Live koncerter</h1>
         </div>
-      ) : (
-        <div className="bg-red-100 p-4 rounded-lg shadow-md mb-4">
-          <p className="text-2xl font-bold mb-2">No bands are currently playing.</p>
-          {upcomingEvents.length > 0 && (
-            <div>
-              <h2 className="text-xl font-bold mb-2">Upcoming Events</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {upcomingEvents.map((event, index) => (
-                  <div key={index} className="bg-white p-4 rounded-lg shadow-md">
-                    <p><span className="font-semibold">Band:</span> {event.bandName}</p>
-                    <p><span className="font-semibold">Stage:</span> {event.stage}</p>
-                    <p><span className="font-semibold">Start Time:</span> {event.start}</p>
-                    <p><span className="font-semibold">End Time:</span> {event.end}</p>
-                    <p><span className="font-semibold">Date:</span> {event.startTime.toLocaleDateString()}</p>
-                    <p><span className="font-semibold">Time:</span> {event.startTime.toLocaleTimeString()}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
+        <header className="flex justify-center px-6 py-5 bg-gray-900 shadow-lg">
+          <div className="flex items-center space-x-4">
+            <label htmlFor="scene-filter" className="text-lg font-medium text-white">
+              Vælg Scene
+            </label>
+            <select
+              id="scene-filter"
+              className="mt-1 block pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-white text-black"
+              value={filterScene}
+              onChange={(e) => setFilterScene(e.target.value)}
+            >
+              <option value="all">Alle</option>
+              {Object.keys(schedule).map((scene) => (
+                <option key={scene} value={scene}>
+                  {scene}
+                </option>
+              ))}
+            </select>
+          </div>
+        </header>
 
-export default LiveComponent;
+        <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 py-5">
+          {Object.keys(groupedByTime).map((time) => (
+            <div key={time} className="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+              <div className="bg-yellow-400 py-2 px-3">
+                <p className="text-xl font-bold text-black">{time}</p>
+              </div>
+              <ul className="divide-y divide-gray-700">
+                {groupedByTime[time].map((act) => (
+                  <li
+                    key={`${act.act}-${act.scene}`}
+                    className="flex items-center p-4 hover:bg-gray-800 transition-colors duration-300 ease-in-out"
+                  >
+                    <Link
+                      href={act.band?.slug || "#"}
+                      prefetch={false}
+                      className="flex items-center space-x-4 w-full"
+                    >
+                      <div className="flex-shrink-0">
+                        {act.band && (
+                          <div className="relative h-24 w-24 md:w-32 md:h-32">
+                            <Image
+                              src={
+                                act.band.logo.includes("https")
+                                  ? act.band.logo
+                                  : `/logos/${act.band.logo}`
+                              }
+                              fill
+                              alt="Picture of Artist"
+                              className="rounded-full object-cover"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-lg font-medium truncate">{act.act}</p>
+                        <p className="text-sm text-gray-400">{act.scene}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-gray-400">{act.start}</p>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
+      </div>
+    </>
+  );
+}
