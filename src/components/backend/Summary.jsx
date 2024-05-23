@@ -4,6 +4,7 @@ import RegularTicketSVG from "./RegularTicketSVG";
 import VIPTicketSVG from "./VIPTicketSVG";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
+import CartSummary from "./CartSummary";
 
 export default function SummaryPage({ bookingData, onBack, onNext }) {
   const { ticketType, ticketQuantity, personalInfo, camping, totalPrice } =
@@ -15,31 +16,29 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
   return (
     <div className="grid grid-cols-gridContent">
       <div className="pt-8 pb-16 col-start-3 gap-3 flex flex-wrap items-center justify-center ">
-        <div className="bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-3xl">
+        <div className="bg-secondaryBgColor rounded-lg p-8 shadow-lg w-full max-w-lg">
           <h1
-            className={`${krona_one.className} large-size text-primaryTextColor mb-3`}
+            className={`${krona_one.className} large-size  text-primaryTextColor mb-6`}
           >
             Opsummering
           </h1>
-          <div className="mb-6 space-y-4">
-            <div className="flex flex-wrap justify-evenly items-center mb-10">
-              <div className=" normal-size">
-                <h2>
-                  <b>Billetter:</b>
-                </h2>
+          <div className="mb-6 space-y-6">
+            <div className="flex flex-wrap justify-evenly items-center mb-8">
+              <div className="text-lg">
+                <h2 className="font-semibold mb-2">Billetter:</h2>
                 <p>
                   {ticketType.charAt(0).toUpperCase() + ticketType.slice(1)}{" "}
                   billet x {ticketQuantity}
                 </p>
               </div>
-              <TicketSVG className=" w-72" />
+              <TicketSVG className=" w-64" />
             </div>
             <Tab.Group>
-              <Tab.List className="flex space-x-1 rounded-xl bg-secondaryColor text-bgColor p-1">
+              <Tab.List className="flex space-x-1 rounded-xl bg-primaryTextColor text-bgColor p-1">
                 <Tab
                   className={({ selected }) =>
                     selected
-                      ? "w-full py-2.5 small-size rounded-lg bg-bgColor text-primaryTextColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                      ? "w-full py-2.5 small-size rounded-lg bg-inputFieldColor text-bgColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                       : "w-full py-2.5 small-size rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                   }
                 >
@@ -48,7 +47,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                 <Tab
                   className={({ selected }) =>
                     selected
-                      ? "w-full py-2.5 small-size  rounded-lg bg-bgColor text-primaryTextColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                      ? "w-full py-2.5 small-size  rounded-lg bg-inputFieldColor text-bgColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                       : "w-full py-2.5 small-size  rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                   }
                 >
@@ -64,7 +63,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                           <div className="relative mb-2">
                             <Disclosure.Button
                               className={clsx(
-                                "w-full py-2.5 small-size rounded-lg bg-bgColor text-primaryTextColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
+                                "w-full py-2.5 small-size rounded-lg bg-inputFieldColor text-bgColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
                                 { " ": open }
                               )}
                             >
@@ -72,18 +71,18 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                             </Disclosure.Button>
                             {open ? (
                               <ChevronUpIcon
-                                className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-primaryTextColor"
+                                className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor"
                                 aria-hidden="true"
                               />
                             ) : (
                               <ChevronDownIcon
-                                className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-primaryTextColor"
+                                className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor"
                                 aria-hidden="true"
                               />
                             )}
                           </div>
 
-                          <Disclosure.Panel className="pt-2 mb-4  pb-4 px-5 grid md:grid-cols-2 text-bgColor bg-secondaryColor rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor">
+                          <Disclosure.Panel className=" pt-2 mb-4  pb-4 px-5 flex flex-wrap text-bgColor bg-primaryTextColor rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor">
                             <div>
                               <p className="small-size">
                                 <b>Fornavn:</b> {info.firstName}
@@ -109,7 +108,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                     </Disclosure>
                   ))}
                 </Tab.Panel>
-                <Tab.Panel className="rounded-xl p-3 bg-secondaryColor text-bgColor px-5 grid md:grid-cols-2  ">
+                <Tab.Panel className="rounded-xl  bg-primaryTextColor text-bgColor pt-2 mb-4  pb-4 px-5 ">
                   <div>
                     {camping.selectedArea && (
                       <p className="small-size">
@@ -122,8 +121,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                         {camping.greenCamping ? "Yes" : "No"}
                       </p>
                     )}
-                  </div>
-                  <div>
+
                     {camping.twoPersonTent > 0 && (
                       <p className="small-size">
                         <b>2 personers telt x</b> {camping.twoPersonTent}
@@ -138,10 +136,6 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                 </Tab.Panel>
               </Tab.Panels>
             </Tab.Group>
-            <div>
-              <h2 className="normal-size mb-2">Pris</h2>
-              <p className="small-size">I alt: {totalPrice}DKK</p>
-            </div>
           </div>
           <div className="flex justify-between">
             <button
@@ -157,6 +151,13 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
               Fortsæt til betaling
             </button>
           </div>
+        </div>
+        <div className="flex items-center justify-center w-full max-w-md md:w-44">
+          <CartSummary
+            ticketType={ticketType}
+            ticketQuantity={ticketQuantity}
+            campingOptions={camping}
+          />
         </div>
       </div>
     </div>

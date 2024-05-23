@@ -57,7 +57,7 @@ export default function Camping({
 
   useEffect(() => {
     onClick({
-      camping: { greenCamping, twoPersonTent, threePersonTent, selectedArea }
+      camping: { greenCamping, twoPersonTent, threePersonTent, selectedArea },
     });
   }, [greenCamping, twoPersonTent, threePersonTent, selectedArea]);
 
@@ -227,7 +227,8 @@ export default function Camping({
                       <button
                         type="button"
                         onClick={() =>
-                          handleQuantityChange("threePersonTent", 1)}
+                          handleQuantityChange("threePersonTent", 1)
+                        }
                         aria-label="Increase 3 person tent quantity"
                         className="px-2 py-1 rounded-lg text-white bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                       >
