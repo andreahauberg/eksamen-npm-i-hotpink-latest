@@ -83,6 +83,9 @@ export default function Schedule() {
   return (
     <>
       <div className="">
+        <div className={`${krona_one.className} large-size text-center`}>
+          <h1>Tidsplan</h1>
+        </div>
         <header className="flex justify-between px-6 py-5">
           <div className="flex justify-center mb-4 gap-2">
             <button onClick={() => setFilterScene("all")} className={`${filterScene === "all" ? "bg-secondaryColor text-bgColor border-bgColor" : "bg-bgColor text-secondaryColor border-inputFieldColor"} rounded-lg border-2 transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-4 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor`}>
