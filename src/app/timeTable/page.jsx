@@ -89,7 +89,7 @@ export default function Schedule() {
         <div className={`${krona_one.className} headliner text-center`}>
           <h1>Tidsplan</h1>
         </div>
-        <header className="flex justify-between px-6 py-5">
+        <header className="flex justify-between gap-3 px-6 py-5">
           <div className="flex justify-center mb-4 gap-2 w-full lg:w-auto">
             <div className="relative w-full lg:hidden">
               <Select
@@ -113,7 +113,7 @@ export default function Schedule() {
                 aria-hidden="true"
               />
             </div>
-            <div className="hidden lg:flex gap-4">
+            <div className="hidden lg:flex flex-wrap gap-4">
               <button
                 onClick={() => setFilterScene("all")}
                 className={`${
@@ -139,7 +139,7 @@ export default function Schedule() {
               ))}
             </div>
           </div>
-          <div className="flex justify-center mb-4 gap-2 w-full lg:w-auto">
+          <div className="flex  justify-center mb-4 gap-2 w-full lg:w-auto">
             <div className="relative w-full lg:hidden">
               <Select
                 value={filterDay}
@@ -161,7 +161,7 @@ export default function Schedule() {
                 aria-hidden="true"
               />
             </div>
-            <div className="hidden lg:flex gap-4">
+            <div className="hidden lg:flex flex-wrap gap-4">
               {lineUpDays.map((day) => (
                 <button
                   key={day}
@@ -179,7 +179,7 @@ export default function Schedule() {
           </div>
         </header>
 
-        <section className="grid md:grid-cols-gridContent md:px-5">
+        <section className="md:grid md:grid-cols-gridContent md:px-5">
           {Object.keys(groupedByTime).map((time) => (
             <div key={time} className=" col-start-2 col-end-5">
               <div className="bg-secondaryBgColor py-3 px-3 small-size">
