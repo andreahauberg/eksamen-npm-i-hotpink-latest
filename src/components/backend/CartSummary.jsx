@@ -30,12 +30,14 @@ export default function CartSummary({
           <p>Campingområde: {campingOptions.selectedArea}</p>
         )}
         {campingOptions.twoPersonTent > 0 && (
-          <p>2 pers telt x {campingOptions.twoPersonTent}</p>
+          <p>2 personers telt x {campingOptions.twoPersonTent}</p>
         )}
         {campingOptions.threePersonTent > 0 && (
-          <p>3 pers telt x {campingOptions.threePersonTent}</p>
+          <p>3 personers telt x {campingOptions.threePersonTent}</p>
         )}
-        <p>Gebyr: {prices.fee} DKK</p>
+        <p>
+          Booking gebyr: <br /> {prices.fee} kr.
+        </p>
         <h3 className="text-lg font-bold">
           I alt:{" "}
           {calculateTotalPrice(ticketQuantity, ticketType, campingOptions)} DKK

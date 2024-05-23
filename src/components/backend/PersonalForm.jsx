@@ -85,6 +85,14 @@ export default function PersonalForm({
     return !(isFutureDate || isOlderThan100);
   };
 
+  const getMaxDate = () => {
+    const today = new Date();
+    const year = today.getFullYear() - 18;
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   return (
     <div className="grid grid-cols-gridContent">
       <div className="pt-8 pb-16 col-start-3 gap-3 flex flex-wrap items-center justify-center">
@@ -176,14 +184,14 @@ export default function PersonalForm({
 
                         <Field className="space-y-2">
                           <Label htmlFor={`phoneNumber-${index}`}>
-                            Telefon:
+                            Telefonnummer:
                           </Label>
                           <input
                             id={`phoneNumber-${index}`}
                             type="tel"
                             value={info.phoneNumber}
                             className="peer w-full p-2 border bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
-                            aria-label={`Phone number for ticket ${index + 1}`}
+                            aria-label={`Telefonnummer for billet ${index + 1}`}
                             pattern="^\+\d+$"
                             title="Telefonnummeret skal starte med et + og kun indeholde tal."
                             onKeyPress={handlePhoneKeyPress}
@@ -203,16 +211,16 @@ export default function PersonalForm({
 
                         <Field className="space-y-2">
                           <Label htmlFor={`dateOfBirth-${index}`}>
-                            Fødselsdag:
+                            Fødselsdato:
                           </Label>
                           <input
                             id={`dateOfBirth-${index}`}
                             type="date"
                             value={info.dateOfBirth}
                             className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
-                            aria-label={`Fødelsdato for billet ${index + 1}`}
+                            aria-label={`Fødselsdato for billet ${index + 1}`}
                             min="1923-01-01"
-                            max={new Date().toISOString().split("T")[0]}
+                            max={getMaxDate()}
                             onChange={(e) => {
                               if (validateDateOfBirth(e.target.value)) {
                                 handleInputChange(
@@ -222,13 +230,13 @@ export default function PersonalForm({
                                 );
                               } else {
                                 alert(
-                                  "Fødselsdatoen skal være en gyldig dato, som ikke ligger i fremtiden og er mindre end 100 år gammel."
+                                  "Fødselsdatoen skal være en gyldig dato, du skal være mindst 18 år gammel."
                                 );
                               }
                             }}
                           />
                           <Description className="xsmall-size hidden peer-focus:block">
-                            Fødselsdatoen skal være en gyldig dato
+                            Du skal være mindst 18 år gammel
                           </Description>
                         </Field>
 
