@@ -101,7 +101,7 @@ export default function Lineup() {
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 flex items-end bg-black bg-opacity-50">
-                      <p className="text-bgColor bg-primaryColor p-1 opacity-80 small-size">
+                      <p className="text-bgColor bg-primaryColor p-1 bg-opacity-80 small-size">
                         {band.name}
                       </p>
                     </div>
