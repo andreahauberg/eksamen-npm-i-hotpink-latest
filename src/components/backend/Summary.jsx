@@ -38,8 +38,8 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                 <Tab
                   className={({ selected }) =>
                     selected
-                      ? "w-full py-2.5 small-size rounded-lg bg-inputFieldColor text-bgColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
-                      : "w-full py-2.5 small-size rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                      ? "w-full py-2.5 xsmall-size rounded-lg bg-inputFieldColor text-bgColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                      : "w-full py-2.5 xsmall-size rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                   }
                 >
                   Personlige oplysninger
@@ -47,8 +47,8 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                 <Tab
                   className={({ selected }) =>
                     selected
-                      ? "w-full py-2.5 small-size  rounded-lg bg-inputFieldColor text-bgColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
-                      : "w-full py-2.5 small-size  rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                      ? "w-full py-2.5 xsmall-size  rounded-lg bg-inputFieldColor text-bgColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                      : "w-full py-2.5 xsmall-size  rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                   }
                 >
                   Campingområde
