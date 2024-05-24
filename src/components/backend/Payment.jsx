@@ -40,10 +40,6 @@ export default function Payment({ bookingData, onNext, onBack }) {
         birthday: info.dateOfBirth,
         ordrenummer: orderId,
         tickettype: ticketType,
-        cardnumber: cardNumber,
-        cardname:cardName,
-        expiry: expiry,
-        cvc: cvc
 
       }));
 
