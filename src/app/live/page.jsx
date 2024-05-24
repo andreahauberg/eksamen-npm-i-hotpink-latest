@@ -94,8 +94,8 @@ export default function Schedule() {
   return (
     <>
       <div className="bg-gradient-to-b from-purple-600 via-pink-500 to-red-500 min-h-screen text-white">
-      <div className={`${krona_one.className} headliner text-center`}>
-          <h1>Spiller nu</h1>
+        <div className={`${krona_one.className} headliner text-center py-5`}>
+          <h1 className="text-4xl font-bold uppercase">Live koncerter</h1>
         </div>
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 py-5">
           {Object.keys(groupedByScene).map((scene) => (
