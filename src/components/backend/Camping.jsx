@@ -7,6 +7,16 @@ import clsx from "clsx";
 import { krona_one } from "@/app/fonts.jsx";
 import CartSummary from "./CartSummary";
 
+function calculateTotalPrice(ticketQuantity, ticketType, campingOptions) {
+  const ticketPrice =
+    ticketQuantity * (ticketType === "regular" ? prices.regular : prices.vip);
+  const addOnPrice =
+    (campingOptions.greenCamping ? prices.greenCamping : 0) +
+    campingOptions.twoPersonTent * prices.TwoPersonsTent +
+    campingOptions.threePersonTent * prices.ThreePersonsTent;
+  return ticketPrice + addOnPrice + prices.fee;
+}
+
 export default function Camping({
   ticketQuantity,
   ticketType,
@@ -29,7 +39,7 @@ export default function Camping({
   const [selectedArea, setSelectedArea] = useState(
     campingOptions.selectedArea || ""
   );
-  const [totalAddOnPrice, setTotalAddOnPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -45,15 +55,20 @@ export default function Camping({
   }, []);
 
   useEffect(() => {
-    const calculateTotalAddOnPrice = () => {
-      let addOnPrice = 0;
-      addOnPrice += greenCamping ? prices.greenCamping : 0;
-      addOnPrice += twoPersonTent * prices.TwoPersonsTent;
-      addOnPrice += threePersonTent * prices.ThreePersonsTent;
-      setTotalAddOnPrice(addOnPrice);
-    };
-    calculateTotalAddOnPrice();
-  }, [greenCamping, twoPersonTent, threePersonTent]);
+    const campingOptions = { greenCamping, twoPersonTent, threePersonTent };
+    const totalPrice = calculateTotalPrice(
+      ticketQuantity,
+      ticketType,
+      campingOptions
+    );
+    setTotalPrice(totalPrice);
+  }, [
+    greenCamping,
+    twoPersonTent,
+    threePersonTent,
+    ticketQuantity,
+    ticketType,
+  ]);
 
   useEffect(() => {
     onClick({
@@ -106,7 +121,6 @@ export default function Camping({
         greenCamping,
         twoPersonTent,
         threePersonTent,
-        totalAddOnPrice,
         orderId: reservation.id,
       }));
 
@@ -272,22 +286,16 @@ export default function Camping({
               </tbody>
               <tfoot>
                 <tr>
+                  <td colSpan="3" className="px-4 py-2 text-right">
+                    Booking gebyr: {prices.fee} DKK
+                  </td>
+                </tr>
+                <tr>
                   <td
                     colSpan="3"
                     className="text-center px-4 py-3 bg-primaryTextColor rounded-b-lg text-bgColor"
                   >
-                    <strong>
-                      Tilvalg (
-                      {twoPersonTent + threePersonTent + (greenCamping ? 1 : 0)}
-                      {""}
-                      {twoPersonTent +
-                        threePersonTent +
-                        (greenCamping ? 1 : 0) !==
-                      1
-                        ? ""
-                        : ""}
-                      ): {totalAddOnPrice} DKK
-                    </strong>
+                    <strong>Total Pris: {totalPrice} DKK</strong>
                   </td>
                 </tr>
                 {errorMessage && (
@@ -320,13 +328,12 @@ export default function Camping({
             </div>
           </fieldset>
         </form>
-        <div className="flex items-center justify-center w-full max-w-md md:w-44">
-          <CartSummary
-            ticketType={ticketType}
-            ticketQuantity={ticketQuantity}
-            campingOptions={campingOptions}
-          />
-        </div>
+
+        <CartSummary
+          ticketType={ticketType}
+          ticketQuantity={ticketQuantity}
+          campingOptions={campingOptions}
+        />
       </div>
     </div>
   );
