@@ -43,12 +43,10 @@ export default function Schedule() {
       return map;
     }, {});
 
-    return actsForScene
-      .map((act) => ({
-        ...act,
-        band: bandsMap[act.act],
-      }))
-      .filter((act) => act.act !== "break");
+    return actsForScene.map((act) => ({
+      ...act,
+      band: act.act !== "break" ? bandsMap[act.act] : null,
+    }));
   };
 
   const bandSchedule = getBandSchedule();
@@ -93,20 +91,22 @@ export default function Schedule() {
 
   return (
     <>
-      <div className="bg-gradient-to-b from-purple-600 via-pink-500 to-red-500 min-h-screen text-white">
-      <div className={`${krona_one.className} headliner text-center`}>
+      <div className="mb-32">
+        <div className={`${krona_one.className} headliner text-center`}>
           <h1>Spiller nu</h1>
         </div>
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 py-5">
           {Object.keys(groupedByScene).map((scene) => (
-            <div key={scene} className="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
-              <h2 className="bg-gray-800 text-3xl font-bold uppercase p-4">{scene}</h2>
+            <div key={scene} className="overflow-hidden bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor">
+              <div className="large-size mb-1 text-primaryTextColor">
+                <h2 className="text-3xl p-4">{scene}</h2>
+              </div>
               {groupedByScene[scene].length > 0 ? (
                 <ul className="divide-y divide-gray-700">
                   {groupedByScene[scene].map((act) => (
                     <li
                       key={`${act.act}-${act.scene}`}
-                      className="flex items-center p-4 hover:bg-gray-800 transition-colors duration-300 ease-in-out"
+                      className="flex items-center p-4"
                     >
                       <Link
                         href={act.band?.slug || "#"}
@@ -114,7 +114,7 @@ export default function Schedule() {
                         className="flex items-center space-x-4 w-full"
                       >
                         <div className="flex-shrink-0">
-                          {act.band && (
+                          {act.band ? (
                             <div className="relative h-24 w-24 md:w-32 md:h-32">
                               <Image
                                 src={
@@ -123,18 +123,21 @@ export default function Schedule() {
                                     : `/logos/${act.band.logo}`
                                 }
                                 fill
-                                alt="Picture of Artist"
+                                alt="Billede af band der spiller"
                                 className="rounded-full object-cover"
                               />
+                            </div>
+                          ) : (
+                            <div className="relative h-24 w-24 md:w-32 md:h-32 flex items-center justify-center">
+                              <span className={`${krona_one.className} text-lg`}>Break</span>
                             </div>
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-lg font-medium truncate">{act.act}</p>
-                          <p className="text-sm text-gray-400">{act.scene}</p>
+                          <p className={`${krona_one.className} text-lg`}>{act.act !== "break" ? act.act : ""}</p>
                         </div>
                         <div className="text-right">
-                          <p className="text-sm text-gray-400">{act.start}</p>
+                          <p className="text-sm text-input-bg-color">{act.start}</p>
                         </div>
                       </Link>
                     </li>
