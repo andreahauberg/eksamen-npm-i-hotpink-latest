@@ -97,9 +97,14 @@ export default function Schedule() {
         </div>
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 py-5">
           {Object.keys(groupedByScene).map((scene) => (
-            <div key={scene} className="overflow-hidden bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor">
-              <div className="large-size mb-1 text-primaryTextColor">
+            <div key={scene} className="overflow-hidden bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor relative">
+              <div className="large-size mb-1 text-primaryTextColor flex justify-between items-center">
                 <h2 className="text-3xl p-4">{scene}</h2>
+                {groupedByScene[scene].length > 0 && (
+                  <span className="text-3xl p-4">
+                    {groupedByScene[scene][0].start}
+                  </span>
+                )}
               </div>
               {groupedByScene[scene].length > 0 ? (
                 <ul className="divide-y divide-gray-700">
@@ -136,9 +141,7 @@ export default function Schedule() {
                         <div className="flex-1 min-w-0">
                           <p className={`${krona_one.className} text-lg`}>{act.act !== "break" ? act.act : ""}</p>
                         </div>
-                        <div className="text-right">
-                          <p className="text-sm text-input-bg-color">{act.start}</p>
-                        </div>
+                     
                       </Link>
                     </li>
                   ))}
