@@ -93,3 +93,19 @@ nav {
   max-width: 400px;
   max-height: 00px;
 }
+
+@keyframes pulse {
+  0% {
+    fill: currentColor;
+  }
+  50% {
+    fill: var(--primary-color-01); /* Ensure this is set to your hover color */
+  }
+  100% {
+    fill: currentColor;
+  }
+}
+
+.pulse {
+  animation: pulse 4s infinite;
+}
