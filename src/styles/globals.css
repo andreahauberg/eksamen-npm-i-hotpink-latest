@@ -57,6 +57,11 @@ nav {
   padding-bottom: 3rem;
 }
 
+.bandheader {
+  font-size: clamp(1.5rem, 4.5vw, 5.5rem);
+  padding-top: 4rem;
+}
+
 .large-size {
   font-size: var(--heading01);
   line-height: var(--heading-large-line-height);
