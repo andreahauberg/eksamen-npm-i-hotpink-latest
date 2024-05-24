@@ -75,9 +75,7 @@ export default function Schedule() {
   const now = new Date();
 
   const groupedByScene = Object.keys(schedule).reduce((acc, scene) => {
-    const currentAct = sortedBandSchedule.find(
-      (act) => act.scene === scene && now >= act.startDateTime && now <= act.endDateTime
-    );
+    const currentAct = sortedBandSchedule.find((act) => act.scene === scene && now >= act.startDateTime && now <= act.endDateTime);
 
     let nextAct = null;
     if (!currentAct) {
@@ -91,7 +89,7 @@ export default function Schedule() {
 
   return (
     <>
-      <div className="mb-32">
+      <div>
         <div className={`${krona_one.className} headliner text-center`}>
           <h1>Spiller nu</h1>
         </div>
@@ -100,37 +98,17 @@ export default function Schedule() {
             <div key={scene} className="overflow-hidden bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor relative">
               <div className="large-size mb-1 text-primaryTextColor flex justify-between items-center">
                 <h2 className="text-3xl p-4">{scene}</h2>
-                {groupedByScene[scene].length > 0 && (
-                  <span className="text-3xl p-4">
-                    {groupedByScene[scene][0].start}
-                  </span>
-                )}
+                {groupedByScene[scene].length > 0 && <span className="text-3xl p-4">{groupedByScene[scene][0].start}</span>}
               </div>
               {groupedByScene[scene].length > 0 ? (
                 <ul className="divide-y divide-gray-700">
                   {groupedByScene[scene].map((act) => (
-                    <li
-                      key={`${act.act}-${act.scene}`}
-                      className="flex items-center p-4"
-                    >
-                      <Link
-                        href={act.band?.slug || "#"}
-                        prefetch={false}
-                        className="flex items-center space-x-4 w-full"
-                      >
+                    <li key={`${act.act}-${act.scene}`} className="flex items-center p-4">
+                      <Link href={act.band?.slug || "#"} prefetch={false} className="flex items-center space-x-4 w-full">
                         <div className="flex-shrink-0">
                           {act.band ? (
                             <div className="relative h-24 w-24 md:w-32 md:h-32">
-                              <Image
-                                src={
-                                  act.band.logo.includes("https")
-                                    ? act.band.logo
-                                    : `/logos/${act.band.logo}`
-                                }
-                                fill
-                                alt="Billede af band der spiller"
-                                className="rounded-full object-cover"
-                              />
+                              <Image src={act.band.logo.includes("https") ? act.band.logo : `/logos/${act.band.logo}`} fill alt="Billede af band der spiller" className="rounded-full object-cover" />
                             </div>
                           ) : (
                             <div className="relative h-24 w-24 md:w-32 md:h-32 flex items-center justify-center">
@@ -141,7 +119,6 @@ export default function Schedule() {
                         <div className="flex-1 min-w-0">
                           <p className={`${krona_one.className} text-lg`}>{act.act !== "break" ? act.act : ""}</p>
                         </div>
-                     
                       </Link>
                     </li>
                   ))}
