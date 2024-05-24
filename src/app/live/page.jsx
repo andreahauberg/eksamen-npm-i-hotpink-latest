@@ -4,138 +4,144 @@ import { useState, useEffect } from "react";
 import Image from "next/image.js";
 import { krona_one } from "@/app/fonts";
 import Link from "next/link.js";
+import { Select } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import clsx from "clsx";
 
-export default function Schedule() {
+export default function Lineup() {
   const [lineUp, setLineUp] = useState([]);
   const [schedule, setSchedule] = useState({});
+  const [filterDay, setFilterDay] = useState("all");
+  const [filterGenre, setFilterGenre] = useState("all");
+  const [genres, setGenres] = useState([]);
+
+  const lineUpDays = ["all", "mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+  const days = {
+    all: "Alle dage",
+    mon: "Mandag",
+    tue: "Tirsdag",
+    wed: "Onsdag",
+    thu: "Torsdag",
+    fri: "Fredag",
+    sat: "Lørdag",
+    sun: "Søndag",
+  };
 
   useEffect(() => {
-    const loadSchedule = async () => {
+    const loadLineup = async () => {
       try {
         const bandsData = await fetchAPI("/bands");
         const scheduleData = await fetchAPI("/schedule");
 
         setLineUp(bandsData);
         setSchedule(scheduleData);
+
+        // Henter genre fra bands data
+        const bandsGenres = ["all", ...new Set(bandsData.map((band) => band.genre))];
+        setGenres(bandsGenres);
       } catch (error) {
         console.error("Error loading data:", error);
       }
     };
-    loadSchedule();
+    loadLineup();
   }, []);
 
-  const getBandSchedule = () => {
-    let actsForScene = [];
-    Object.entries(schedule).forEach(([sceneName, sceneSchedule]) => {
-      Object.entries(sceneSchedule).forEach(([day, acts]) => {
-        actsForScene = actsForScene.concat(
-          acts.map((act) => ({
-            ...act,
-            scene: sceneName,
-            day,
-          })) || []
-        );
+  const filterBands = () => {
+    let filteredBands = lineUp;
+
+    if (filterDay !== "all") {
+      let actsForDay = [];
+      // Henter alle acts, fra alle scener på den valgte dag
+      Object.values(schedule).forEach((scene) => {
+        actsForDay = actsForDay.concat(scene[filterDay]?.map((act) => act.act) || []);
       });
-    });
 
-    const bandsMap = lineUp.reduce((map, band) => {
-      map[band.name] = band;
-      return map;
-    }, {});
-
-    return actsForScene.map((act) => ({
-      ...act,
-      band: act.act !== "break" ? bandsMap[act.act] : null,
-    }));
-  };
-
-  const bandSchedule = getBandSchedule();
-
-  const getDateTime = (day, time) => {
-    const today = new Date();
-    const dayOffset = (["sun", "mon", "tue", "wed", "thu", "fri", "sat"].indexOf(day) + 7 - today.getDay()) % 7;
-    const [hours, minutes] = time.split(":").map(Number);
-    const eventDate = new Date(today);
-    eventDate.setDate(today.getDate() + dayOffset);
-    eventDate.setHours(hours);
-    eventDate.setMinutes(minutes);
-    eventDate.setSeconds(0);
-    eventDate.setMilliseconds(0);
-    return eventDate;
-  };
-
-  const sortedBandSchedule = bandSchedule
-    .map((act) => ({
-      ...act,
-      startDateTime: getDateTime(act.day, act.start),
-      endDateTime: getDateTime(act.day, act.end),
-    }))
-    .sort((a, b) => a.startDateTime - b.startDateTime);
-
-  const now = new Date();
-
-  const groupedByScene = Object.keys(schedule).reduce((acc, scene) => {
-    const currentAct = sortedBandSchedule.find((act) => act.scene === scene && now >= act.startDateTime && now <= act.endDateTime);
-
-    let nextAct = null;
-    if (!currentAct) {
-      nextAct = sortedBandSchedule.find((act) => act.scene === scene && now < act.startDateTime);
+      filteredBands = filteredBands.filter((band) => actsForDay.includes(band.name));
     }
 
-    const currentOrNextAct = currentAct ? [currentAct] : nextAct ? [nextAct] : [];
-    acc[scene] = currentOrNextAct;
-    return acc;
-  }, {});
+    if (filterGenre !== "all") {
+      filteredBands = filteredBands.filter((band) => band.genre === filterGenre);
+    }
+
+    return filteredBands;
+  };
+
+  const filteredLineUp = filterBands();
 
   return (
     <>
-      <div>
+      <section className="min-h-screen mb-32 md:px-2">
         <div className={`${krona_one.className} headliner text-center`}>
-          <h1>Spiller nu</h1>
+          <h1>Line-up</h1>
         </div>
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 py-5">
-          {Object.keys(groupedByScene).map((scene) => (
-            <div key={scene} className="overflow-hidden bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor relative">
-              <div className="large-size mb-1 text-primaryTextColor flex justify-between items-center">
-                <h2 className="text-3xl p-4">{scene}</h2>
-                {groupedByScene[scene].length > 0 && <span className="text-sm text-input-bg-color">{groupedByScene[scene][0].start}</span>}
-              </div>
-              {groupedByScene[scene].length > 0 ? (
-                <ul className="divide-y divide-gray-700">
-                  {groupedByScene[scene].map((act) => (
-                    <li key={`${act.act}-${act.scene}`} className="flex items-center p-4">
-                      {act.act && (
-                        <Link href={act.band?.slug || "#"} prefetch={false} className="flex items-center space-x-4 w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor" tabIndex={0}>
-                          <div className="flex-shrink-0">
-                            {act.band && (
-                              <div className="relative h-24 w-24 md:w-32 md:h-32">
-                                <Image src={act.band.logo.includes("https") ? act.band.logo : `/logos/${act.band.logo}`} fill alt="Billede af band der spiller" className="rounded-full object-cover" />
-                              </div>
-                            )}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className={`${krona_one.className} text-lg`}>{act.act}</p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-sm text-input-bg-color">{act.start}</p>
-                          </div>
-                        </Link>
-                      )}
-                      {act.act === "break" && (
-                        <div className="relative h-24 w-24 md:w-32 md:h-32 flex items-center justify-center">
-                          <span className={`${krona_one.className} text-lg`}>Break</span>
-                        </div>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="p-4">På nuværende tidspunkt, er der ingen der spiller.</p>
-              )}
+        <header className="flex justify-between gap-4 py-5 px-2 sm:px-4">
+          {/* Dropdown for genres */}
+          <div className="w-1/2 lg:w-1/4">
+            <div className="relative">
+              <Select value={filterGenre} onChange={(e) => setFilterGenre(e.target.value)} className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")} aria-label="Vælg genre">
+                {genres.map((genre) =>
+                  genre === "all" ? (
+                    <option key={genre} value={genre}>
+                      Alle genre
+                    </option>
+                  ) : (
+                    <option key={genre} value={genre}>
+                      {genre}
+                    </option>
+                  )
+                )}
+              </Select>
+              <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor" aria-hidden="true" />
             </div>
+          </div>
+
+          {/* Dropdown for small screens */}
+          <div className="w-1/2 lg:w-auto lg:hidden">
+            <div className="relative">
+              <Select value={filterDay} onChange={(e) => setFilterDay(e.target.value)} className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")} aria-label="Vælg dag">
+                {lineUpDays.map((day) => (
+                  <option key={day} value={day}>
+                    {days[day]}
+                  </option>
+                ))}
+              </Select>
+              <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor" aria-hidden="true" />
+            </div>
+          </div>
+
+          {/* Buttons for larger screens */}
+          <div className="hidden h-fit lg:flex flex-wrap gap-4">
+            {lineUpDays.map((day) => (
+              <button key={day} onClick={() => setFilterDay(day)} className={`${filterDay === day ? "bg-secondaryColor text-bgColor border-bgColor" : "bg-bgColor text-secondaryColor border-inputFieldColor"} rounded-lg border-2 transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-4 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor`}>
+                {days[day]}
+              </button>
+            ))}
+          </div>
+        </header>
+        <div className={`grid grid-cols-2 px-6 py-5 sm:grid-cols-3 lg:grid-cols-4 gap-4 ${krona_one.className}`}>
+          {filteredLineUp.map((band) => (
+            <article key={band.name} tabIndex={0} className="relative overflow-hidden flex flex-col h-48 md:h-72 w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
+              <Link href={band.slug} prefetch={false} className="flex flex-col h-full">
+                <div className="relative w-full h-full">
+                  <Image
+                    src={band.logo.includes("https") ? band.logo : `/logos/${band.logo}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 
+                             (max-width: 1200px) 50vw, 
+                             25vw"
+                    alt="Picture of Artist"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 flex items-end bg-black bg-opacity-50">
+                    <p className="text-bgColor bg-primaryColor rounded-lg p-1 bg-opacity-80 small-size">{band.name}</p>
+                  </div>
+                </div>
+              </Link>
+            </article>
           ))}
-        </section>
-      </div>
+        </div>
+      </section>
     </>
   );
 }
+    
