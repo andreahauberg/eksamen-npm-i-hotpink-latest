@@ -11,6 +11,9 @@ import {
 import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 
+import RegularTicketSVG from "./RegularTicketSVG";
+import VIPTicketSVG from "./VIPTicketSVG";
+
 export default function TicketsForm({
   ticketType,
   ticketQuantity,
@@ -38,12 +41,12 @@ export default function TicketsForm({
   };
 
   const ticketOptions = [
-    { name: "Regular", price: prices.regular },
-    { name: "VIP", price: prices.vip },
+    { name: "Regular", price: prices.regular, SVG: RegularTicketSVG },
+    { name: "VIP", price: prices.vip, SVG: VIPTicketSVG },
   ];
 
   return (
-    <div className=" grid grid-cols-gridContent ">
+    <div className="grid grid-cols-gridContent">
       <div className="pt-8 pb-16 col-start-3 flex items-center justify-center">
         <form
           onSubmit={handleSubmit}
@@ -79,7 +82,8 @@ export default function TicketsForm({
                 >
                   {({ checked }) => (
                     <div className="flex w-full items-center justify-between">
-                      <div className="small-size">
+                      <div className="small-size flex items-center gap-3">
+                        <option.SVG className="h-12 w-12" />
                         <p className="text-primaryTextColor">
                           {option.name} {option.price} DKK
                         </p>
