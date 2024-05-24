@@ -74,8 +74,8 @@ export default function Lineup() {
         <div className={`${krona_one.className} headliner text-center`}>
           <h1>Line-up</h1>
         </div>
-        <header className="flex justify-between gap-4  py-5 px-2 sm:px-4">
-          {/* Dropdown for genres, måske sæt items-center på over?? */}
+        <header className="flex justify-between gap-4 py-5 px-2 sm:px-4">
+          {/* Dropdown for genres */}
           <div className="w-1/2 lg:w-1/4">
             <div className="relative">
               <Select value={filterGenre} onChange={(e) => setFilterGenre(e.target.value)} className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")} aria-label="Vælg genre">
@@ -120,9 +120,9 @@ export default function Lineup() {
         </header>
         <div className={`grid grid-cols-2 px-6 py-5 sm:grid-cols-3 lg:grid-cols-4 gap-4 ${krona_one.className}`}>
           {filteredLineUp.map((band) => (
-            <article key={band.name} value={band.bands} className="relative overflow-hidden flex flex-col h-48 md:h-72 w-full">
+            <article key={band.name} tabIndex={0} className="relative overflow-hidden flex flex-col h-48 md:h-72 w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
               <Link href={band.slug} prefetch={false} className="flex flex-col h-full">
-                <div className="relative w-full h-full focus:outline-none">
+                <div className="relative w-full h-full">
                   <Image
                     src={band.logo.includes("https") ? band.logo : `/logos/${band.logo}`}
                     fill
@@ -144,3 +144,4 @@ export default function Lineup() {
     </>
   );
 }
+    
