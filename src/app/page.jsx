@@ -44,7 +44,7 @@ export default function Home() {
   const time = formatTimeLeft(timeLeft);
 
   return (
-    <div className="min-h-screen mb-32">
+    <div className="min-h-screen">
       <header className="relative text-center py-16 bg-cover bg-center" style={{ backgroundImage: "url('/images/image1.png')" }}>
         <svg className=" h-28 md:h-40" xmlns="http://www.w3.org/2000/svg" width="200" height="74" viewBox="0 0 200 74" fill="none">
           <path
@@ -92,20 +92,20 @@ export default function Home() {
         )}
       </div>
 
-      <div className="flex flex-row overflow-x-auto snap-x scroll-px-8 justify-start md:justify-center items-center  space-x-4 md:space-x-8 px-12 md:px-0 py-8 space-y-0 w-full">
-        <div className="relative snap-always snap-center w-72 h-72 min-w-72 flex-shrink-0">
+      <div className="flex flex-row overflow-x-auto snap-x scroll-px-8 justify-start lg:justify-center items-center  space-x-4 md:space-x-8 px-12 md:px-0 py-8 space-y-0 w-full">
+        <div className="relative snap-always snap-center w-72 h-72 min-w-72 lg:min-w-96 lg:h-96 flex-shrink-0">
           <img src="/images/image2.png" alt="Bands 1" className="w-full h-full object-cover" />
           <Link href="/lineup/" className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
             <Button title="Line-up" />
           </Link>
         </div>
-        <div className="relative snap-always snap-center w-72 h-72 min-w-72 flex-shrink-0">
+        <div className="relative snap-always snap-center w-72 h-72 min-w-72 lg:min-w-96 lg:h-96 flex-shrink-0">
           <img src="/images/image3.png" alt="Bands 2" className="w-full h-full object-cover" />
           <Link href="/booking/" className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
             <Button title="Billetter" />
           </Link>
         </div>
-        <div className="relative snap-always snap-center w-72 h-72 min-w-72 flex-shrink-0">
+        <div className="relative snap-always snap-center w-72 h-72 min-w-72 lg:min-w-96 lg:h-96 flex-shrink-0">
           <img src="/images/image4.png" alt="Bands 3" className="w-full h-full object-cover" />
           <Link href="/timeTable/" className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
             <Button title="Tidsplan" />
