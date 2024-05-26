@@ -11,7 +11,7 @@ export async function generateMetadata({ params }) {
   const band = filterData[0];
   // Husk at sætte en if statement på, så der er fejl hvis den ikke finder data...
   if (!band) {
-    return { title: "Band Not Found" };
+    return error();
   }
   return {
     title: `FooFest - ${band.name}`,
