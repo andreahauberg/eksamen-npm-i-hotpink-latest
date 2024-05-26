@@ -121,7 +121,7 @@ export default function Schedule() {
                         )}
                         {act.act === "break" && (
                           <div className="relative h-24 w-24 md:w-32 md:h-32 flex items-center justify-center">
-                            <span className={`${krona_one.className} text-lg`}>Break</span>
+                            <span className={`${krona_one.className} text-lg`}></span>
                           </div>
                         )}
                       </li>
