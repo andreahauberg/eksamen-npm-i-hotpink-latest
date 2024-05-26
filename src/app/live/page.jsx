@@ -96,9 +96,9 @@ export default function Schedule() {
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 py-5">
           {Object.keys(groupedByScene).map((scene) => (
             <div key={scene}>
-              <div className="flex mb-4">
-                <h2 className="text-3xl">{scene} - </h2>
-                {groupedByScene[scene].length > 0 && <span className="text-3xl">{groupedByScene[scene][0].start}</span>}
+              <div className="flex items-center mb-4">
+                <h2 className="text-2xl mr-2">{scene}</h2>
+                {groupedByScene[scene].length > 0 && <span className="text-2xl">{groupedByScene[scene][0].start}</span>}
               </div>
               <div className="overflow-hidden bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor relative">
                 {groupedByScene[scene].length > 0 ? (
