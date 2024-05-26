@@ -67,7 +67,7 @@ export default async function Band({ params }) {
               <div className="pb-6">
                 <BandBio bio={band.bio} />
               </div>
-              <div className="">
+              <div className="py-5">
                 <div className="rounded-lg overflow-hidden">
                   <iframe
                     title="playliste"

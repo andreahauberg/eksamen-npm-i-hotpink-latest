@@ -92,7 +92,7 @@ export default function Home() {
         )}
       </div>
 
-      <div className="flex flex-row overflow-x-auto snap-x scroll-px-8 justify-start lg:justify-center items-center  space-x-4 md:space-x-8 px-12 lg:px-0 py-8 space-y-0 w-full">
+      <div className="flex flex-row overflow-x-auto snap-x scroll-px-8 justify-start lg:justify-center items-center  space-x-4 md:space-x-8 px-12 lg:px-0 py-5 space-y-0 w-full">
         <div className="relative snap-always snap-center w-72 h-72 min-w-72 lg:min-w-96 lg:h-96 flex-shrink-0">
           <img src="/images/image2.png" alt="Bands 1" className="w-full h-full object-cover" />
           <Link href="/lineup/" className="absolute bottom-4 left-1/2 transform -translate-x-1/2">

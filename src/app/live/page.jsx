@@ -75,9 +75,7 @@ export default function Schedule() {
   const now = new Date();
 
   const groupedByScene = Object.keys(schedule).reduce((acc, scene) => {
-    const currentAct = sortedBandSchedule.find(
-      (act) => act.scene === scene && now >= act.startDateTime && now <= act.endDateTime
-    );
+    const currentAct = sortedBandSchedule.find((act) => act.scene === scene && now >= act.startDateTime && now <= act.endDateTime);
 
     let nextAct = null;
     if (!currentAct) {
@@ -91,7 +89,7 @@ export default function Schedule() {
 
   return (
     <>
-      <article className="mb-32" >
+      <article>
         <div className={`${krona_one.className} headliner text-center`}>
           <h1>Spiller nu</h1>
         </div>
@@ -100,40 +98,19 @@ export default function Schedule() {
             <div key={scene}>
               <div className="flex mb-4">
                 <h2 className="text-3xl">{scene} - </h2>
-                {groupedByScene[scene].length > 0 && (
-                  <span className="text-3xl">
-                     {groupedByScene[scene][0].start} 
-                   </span>
-                )}
+                {groupedByScene[scene].length > 0 && <span className="text-3xl">{groupedByScene[scene][0].start}</span>}
               </div>
               <div className="overflow-hidden bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor relative">
                 {groupedByScene[scene].length > 0 ? (
                   <ul className="divide-y divide-gray-700">
                     {groupedByScene[scene].map((act) => (
-                      <li
-                        key={`${act.act}-${act.scene}`}
-                        className="flex items-center p-4"
-                      >
+                      <li key={`${act.act}-${act.scene}`} className="flex items-center p-4">
                         {act.act && (
-                          <Link
-                            href={act.band?.slug || "#"}
-                            prefetch={false}
-                            className="flex items-center space-x-4 w-full focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
-                            tabIndex={0}
-                          >
+                          <Link href={act.band?.slug || "#"} prefetch={false} className="flex items-center space-x-4 w-full focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor" tabIndex={0}>
                             <div className="flex-shrink-0">
                               {act.band && (
                                 <div className="relative h-24 w-24 md:w-32 md:h-32">
-                                  <Image
-                                    src={
-                                      act.band.logo.includes("https")
-                                        ? act.band.logo
-                                        : `/logos/${act.band.logo}`
-                                    }
-                                    fill
-                                    alt="Billede af band der spiller"
-                                    className="rounded-full object-cover"
-                                  />
+                                  <Image src={act.band.logo.includes("https") ? act.band.logo : `/logos/${act.band.logo}`} fill alt="Billede af band der spiller" className="rounded-full object-cover" />
                                 </div>
                               )}
                             </div>
