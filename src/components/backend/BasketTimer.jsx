@@ -31,7 +31,7 @@ function BasketTimer({ step, onTimeExpired }) {
 
   return (
     <>
-      {step >= 3 && (
+  {step >= 3 && step !== 6 && (
         <div className="relative flex flex-col items-center justify-center h-full">
         <h1 className={`${krona_one.className} text-2xl font-bold text-center bg-gray-100 text-gray-800 py-2 px-4 rounded-lg shadow-md`}>
             Tid tilbage: {formatTime(timeLeft)}
