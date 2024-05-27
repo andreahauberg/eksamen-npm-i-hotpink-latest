@@ -29,7 +29,7 @@ export default function CartSummary({
     <>
       <button
         onClick={() => setOpen(!isOpen)}
-        className="fixed bottom-4 right-4 bg-primaryColor text-white p-3 rounded-full shadow-lg focus:outline-none"
+        className="fixed bottom-4 right-4 bg-primaryColor text-white p-3 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
         aria-expanded={isOpen}
         aria-controls="cart-summary"
         aria-label="Åbn kurv"
@@ -47,7 +47,7 @@ export default function CartSummary({
           <div className="relative bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-md ">
             <button
               onClick={() => setOpen(false)}
-              className="absolute top-2 right-3 text-3xl"
+              className="absolute top-2 right-3 text-3xl focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor rounded-lg"
               aria-expanded={isOpen}
               aria-controls="cart-summary"
               aria-label="Luk kurv"
