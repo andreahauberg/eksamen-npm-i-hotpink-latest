@@ -35,7 +35,10 @@ export default function Lineup() {
       setLineUp(bandsData);
       setSchedule(scheduleData);
 
-      const bandsGenres = ["all", ...new Set(bandsData.map((band) => band.genre))];
+      const bandsGenres = [
+        "all",
+        ...new Set(bandsData.map((band) => band.genre)),
+      ];
       setGenres(bandsGenres);
     };
 
@@ -51,11 +54,15 @@ export default function Lineup() {
         actsDay = actsDay.concat(scene[filterDay]?.map((act) => act.act) || []);
       });
 
-      filteredBands = filteredBands.filter((band) => actsDay.includes(band.name));
+      filteredBands = filteredBands.filter((band) =>
+        actsDay.includes(band.name)
+      );
     }
 
     if (filterGenre !== "all") {
-      filteredBands = filteredBands.filter((band) => band.genre === filterGenre);
+      filteredBands = filteredBands.filter(
+        (band) => band.genre === filterGenre
+      );
     }
 
     return filteredBands;
@@ -64,75 +71,129 @@ export default function Lineup() {
   const filteredLineUp = filterBands();
 
   return (
-    <>
-      <section className="min-h-screen md:px-2">
-        <div className={`${krona_one.className} headliner text-center`}>
-          <h1>Line-up</h1>
-        </div>
-        <header className="flex justify-between gap-4 py-5 px-2 sm:px-4">
-          <div className="w-1/2 lg:w-1/4">
-            <div className="relative">
-              <Select value={filterGenre} onChange={(e) => setFilterGenre(e.target.value)} className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")} aria-label="Vælg genre">
-                {genres.map((genre) =>
-                  genre === "all" ? (
-                    <option key={genre} value={genre}>
-                      Alle genre
-                    </option>
-                  ) : (
-                    <option key={genre} value={genre}>
-                      {genre}
-                    </option>
-                  )
-                )}
-              </Select>
-              <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor" aria-hidden="true" />
-            </div>
-          </div>
-
-          <div className="w-1/2 lg:w-auto lg:hidden">
-            <div className="relative">
-              <Select value={filterDay} onChange={(e) => setFilterDay(e.target.value)} className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")} aria-label="Vælg dag">
-                {lineUpDays.map((day) => (
-                  <option key={day} value={day}>
-                    {days[day]}
+    <section className="min-h-screen md:px-2">
+      <div className={`${krona_one.className} headliner text-center`}>
+        <h1>Line-up</h1>
+      </div>
+      <header className="flex justify-between gap-4 py-5 px-2 sm:px-4">
+        <div className="w-1/2 lg:w-1/4">
+          <div className="relative">
+            <label htmlFor="genre-select" className="sr-only">
+              Vælg genre
+            </label>
+            <Select
+              id="genre-select"
+              value={filterGenre}
+              onChange={(e) => setFilterGenre(e.target.value)}
+              className={clsx(
+                "mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
+                "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+              )}
+              aria-label="Vælg genre"
+            >
+              {genres.map((genre) =>
+                genre === "all" ? (
+                  <option key={genre} value={genre}>
+                    Alle genre
                   </option>
-                ))}
-              </Select>
-              <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor" aria-hidden="true" />
-            </div>
+                ) : (
+                  <option key={genre} value={genre}>
+                    {genre}
+                  </option>
+                )
+              )}
+            </Select>
+            <ChevronDownIcon
+              className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor"
+              aria-hidden="true"
+            />
           </div>
-          <div className="hidden h-fit lg:flex flex-wrap gap-4">
-            {lineUpDays.map((day) => (
-              <button key={day} onClick={() => setFilterDay(day)} className={`${filterDay === day ? "bg-secondaryColor text-bgColor border-bgColor" : "bg-bgColor text-secondaryColor border-inputFieldColor"} rounded-lg border-2 transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-4 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor`}>
-                {days[day]}
-              </button>
-            ))}
+        </div>
+
+        <div className="w-1/2 lg:w-auto lg:hidden">
+          <div className="relative">
+            <label htmlFor="day-select" className="sr-only">
+              Vælg dag
+            </label>
+            <Select
+              id="day-select"
+              value={filterDay}
+              onChange={(e) => setFilterDay(e.target.value)}
+              className={clsx(
+                "mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
+                "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+              )}
+              aria-label="Vælg dag"
+            >
+              {lineUpDays.map((day) => (
+                <option key={day} value={day}>
+                  {days[day]}
+                </option>
+              ))}
+            </Select>
+            <ChevronDownIcon
+              className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor"
+              aria-hidden="true"
+            />
           </div>
-        </header>
-        <div className={`grid grid-cols-2 px-6 py-5 sm:grid-cols-3 lg:grid-cols-4 gap-4 ${krona_one.className}`}>
-          {filteredLineUp.map((band) => (
-            <article key={band.name} tabIndex={0} className="relative overflow-hidden flex flex-col h-48 md:h-72 w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
-              <Link href={band.slug} prefetch={false} className="flex flex-col h-full overflow-hidden group">
-                <figure className="relative w-full h-full  transform transition">
-                  <Image
-                    src={band.logo.includes("https") ? band.logo : `/logos/${band.logo}`}
-                    fill
-                    loading="lazy"
-                    sizes="(max-width: 768px) 100vw, 
-                             (max-width: 1200px) 50vw, 
-                             25vw"
-                    alt="Picture of Artist"
-                    className="absolute inset-0 w-full h-full object-cover duration-300 transform group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 flex items-end bg-black bg-opacity-50">
-                    <p className="text-bgColor bg-primaryColor rounded-lg p-1 bg-opacity-80 small-size">{band.name}</p>
-                  </div>
-                </figure>
-              </Link>
-            </article>
+        </div>
+
+        <div className="hidden h-fit lg:flex flex-wrap gap-4">
+          {lineUpDays.map((day) => (
+            <button
+              key={day}
+              onClick={() => setFilterDay(day)}
+              className={`${
+                filterDay === day
+                  ? "bg-secondaryColor text-bgColor border-bgColor"
+                  : "bg-bgColor text-secondaryColor border-inputFieldColor"
+              } rounded-lg border-2 transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-4 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor`}
+              aria-pressed={filterDay === day}
+              aria-label={`Filter bands by ${days[day]}`}
+            >
+              {days[day]}
+            </button>
           ))}
         </div>
-      </section>
-    </>
+      </header>
+      <div
+        className={`grid grid-cols-2 px-6 py-5 sm:grid-cols-3 lg:grid-cols-4 gap-4 ${krona_one.className}`}
+      >
+        {filteredLineUp.map((band) => (
+          <article
+            key={band.name}
+            tabIndex={0}
+            className="relative overflow-hidden flex flex-col h-48 md:h-72 w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+          >
+            <Link
+              href={band.slug}
+              prefetch={false}
+              className="flex flex-col h-full overflow-hidden group"
+              aria-label={`Link to ${band.name} details`}
+            >
+              <figure className="relative w-full h-full transform transition">
+                <Image
+                  src={
+                    band.logo.includes("https")
+                      ? band.logo
+                      : `/logos/${band.logo}`
+                  }
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  alt={`Logo of ${band.name}`}
+                  className="absolute inset-0 w-full h-full object-cover duration-300 transform group-hover:scale-110"
+                />
+                <figcaption className="absolute inset-0 flex items-end bg-black bg-opacity-50">
+                  <p className="text-bgColor bg-primaryColor rounded-lg p-1 bg-opacity-80 small-size">
+                    {band.name}
+                  </p>
+                </figcaption>
+              </figure>
+            </Link>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
