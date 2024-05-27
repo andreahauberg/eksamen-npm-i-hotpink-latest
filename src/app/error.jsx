@@ -13,11 +13,11 @@ export default function error() {
     <>
       <section className="grid grid-cols-gridContent">
         <article className="col-start-2 col-end-5">
-          <h1 className={`${krona_one.className} bandheader`}>Bandet findes ikke</h1>
-          <p className="pb-8 small-size max-w-2xl">Det band du leder efter du leder efter spiller desværre ikke på FooFest 2024.</p>
+          <h1 className={`${krona_one.className} bandheader`}>Der er sket en fejl</h1>
+          <p className="pb-8 small-size max-w-2xl">Der er desværre sket en fejl. Det beklager vi meget.</p>
           <div className="flex items-center">
-            <Link href="/lineup/">
-              <Button title="Gå tilbage til line-up" />
+            <Link href="/">
+              <Button title="Gå tilbage til forsiden" />
             </Link>
           </div>
         </article>

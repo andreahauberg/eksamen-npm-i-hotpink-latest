@@ -27,15 +27,11 @@ export default function Schedule() {
 
   useEffect(() => {
     const loadSchedule = async () => {
-      try {
-        const bandsData = await fetchAPI("/bands");
-        const scheduleData = await fetchAPI("/schedule");
+      const bandsData = await fetchAPI("/bands");
+      const scheduleData = await fetchAPI("/schedule");
 
-        setLineUp(bandsData);
-        setSchedule(scheduleData);
-      } catch (error) {
-        console.error("Error loading data:", error);
-      }
+      setLineUp(bandsData);
+      setSchedule(scheduleData);
     };
     loadSchedule();
   }, []);

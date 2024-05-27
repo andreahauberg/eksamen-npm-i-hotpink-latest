@@ -29,20 +29,16 @@ export default function Lineup() {
 
   useEffect(() => {
     const loadLineup = async () => {
-      try {
-        const bandsData = await fetchAPI("/bands");
-        const scheduleData = await fetchAPI("/schedule");
+      const bandsData = await fetchAPI("/bands");
+      const scheduleData = await fetchAPI("/schedule");
 
-        setLineUp(bandsData);
-        setSchedule(scheduleData);
+      setLineUp(bandsData);
+      setSchedule(scheduleData);
 
-        // Henter genre fra bands data
-        const bandsGenres = ["all", ...new Set(bandsData.map((band) => band.genre))];
-        setGenres(bandsGenres);
-      } catch (error) {
-        console.error("Error loading data:", error);
-      }
+      const bandsGenres = ["all", ...new Set(bandsData.map((band) => band.genre))];
+      setGenres(bandsGenres);
     };
+
     loadLineup();
   }, []);
 
@@ -50,13 +46,12 @@ export default function Lineup() {
     let filteredBands = lineUp;
 
     if (filterDay !== "all") {
-      let actsForDay = [];
-      // Henter alle acts, fra alle scener på den valgte dag
+      let actsDay = [];
       Object.values(schedule).forEach((scene) => {
-        actsForDay = actsForDay.concat(scene[filterDay]?.map((act) => act.act) || []);
+        actsDay = actsDay.concat(scene[filterDay]?.map((act) => act.act) || []);
       });
 
-      filteredBands = filteredBands.filter((band) => actsForDay.includes(band.name));
+      filteredBands = filteredBands.filter((band) => actsDay.includes(band.name));
     }
 
     if (filterGenre !== "all") {

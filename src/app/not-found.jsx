@@ -9,9 +9,9 @@ export default function NotFound() {
         <div>
           <h1 className={`${krona_one.className} bandheader`}>Siden findes ikke</h1>
         </div>
-        <p className="pb-8 small-size max-w-2xl">Siden du prøver at finde, findes desværre ikke. </p>
+        <p className="pb-8 small-size max-w-2xl">Siden du prøver at finde, findes desværre ikke på FooFest 2024.</p>
         <div className="flex items-center">
-          <Link href="/lineup/">
+          <Link href="/">
             <Button title="Gå tilbage til forsiden" />
           </Link>
         </div>
