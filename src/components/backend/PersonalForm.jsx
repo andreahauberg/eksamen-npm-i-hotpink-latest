@@ -279,12 +279,14 @@ export default function PersonalForm({
               type="button"
               onClick={onBack}
               className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+              aria-label="Tilbage"
             >
               Tilbage
             </button>
             <button
               type="submit"
               className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+              aria-label="Fortsæt"
             >
               Forsæt
             </button>
