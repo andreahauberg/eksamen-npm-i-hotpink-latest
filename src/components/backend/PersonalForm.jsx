@@ -282,7 +282,7 @@ export default function PersonalForm({
             </button>
           </div>
         </form>
-        <div className="flex items-center justify-center w-full max-w-md md:w-44">
+        <div className="flex items-center justify-center fixed w-full max-w-md md:w-44">
           <CartSummary
             ticketType={ticketType}
             ticketQuantity={ticketQuantity}
