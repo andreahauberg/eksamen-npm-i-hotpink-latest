@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { fetchAPI } from "./api/api";
 import moment from "moment";
 import { krona_one } from "./fonts";
@@ -77,7 +78,7 @@ export default function Home() {
         </div>
       </header>
 
-      <div className="text-center pt-16 pb-8">
+      <section className="text-center pt-16 pb-8">
         {isMounted && (
           <div
             className={`${krona_one.className} text-3xl flex justify-center text-white space-x-1 md:space-x-3`}
@@ -111,14 +112,16 @@ export default function Home() {
             </div>
           </div>
         )}
-      </div>
+      </section>
 
-      <div className="flex flex-row overflow-x-auto snap-x scroll-px-8 justify-start lg:justify-center items-center  space-x-4 md:space-x-8 px-12 lg:px-0 py-5 space-y-0 w-full">
+      <section className="flex flex-row overflow-x-auto snap-x scroll-px-8 justify-start lg:justify-center items-center  space-x-4 md:space-x-8 px-12 lg:px-0 py-5 space-y-0 w-full">
         <div className="relative snap-always snap-center w-72 h-72 min-w-72 lg:min-w-96 lg:h-96 flex-shrink-0">
-          <img
+          <Image
             src="/images/image2.png"
             alt="Bands 1"
             className="w-full h-full object-cover"
+            width={500}
+            height={500}
           />
           <Link
             href="/lineup/"
@@ -128,10 +131,12 @@ export default function Home() {
           </Link>
         </div>
         <div className="relative snap-always snap-center w-72 h-72 min-w-72 lg:min-w-96 lg:h-96 flex-shrink-0">
-          <img
+          <Image
             src="/images/image3.png"
             alt="Bands 2"
             className="w-full h-full object-cover"
+            width={500}
+            height={500}
           />
           <Link
             href="/booking/"
@@ -141,10 +146,12 @@ export default function Home() {
           </Link>
         </div>
         <div className="relative snap-always snap-center w-72 h-72 min-w-72 lg:min-w-96 lg:h-96 flex-shrink-0">
-          <img
+          <Image
             src="/images/image4.png"
             alt="Bands 3"
             className="w-full h-full object-cover"
+            width={500}
+            height={500}
           />
           <Link
             href="/timeTable/"
@@ -153,7 +160,7 @@ export default function Home() {
             <Button title="Tidsplan" />
           </Link>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
