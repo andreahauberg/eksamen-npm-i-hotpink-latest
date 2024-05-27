@@ -53,7 +53,11 @@ export default function Schedule() {
 
   const getDateTime = (day, time) => {
     const today = new Date();
-    const dayOffset = (["sun", "mon", "tue", "wed", "thu", "fri", "sat"].indexOf(day) + 7 - today.getDay()) % 7;
+    const dayOffset =
+      (["sun", "mon", "tue", "wed", "thu", "fri", "sat"].indexOf(day) +
+        7 -
+        today.getDay()) %
+      7;
     const [hours, minutes] = time.split(":").map(Number);
     const eventDate = new Date(today);
     eventDate.setDate(today.getDate() + dayOffset);
@@ -75,66 +79,103 @@ export default function Schedule() {
   const now = new Date();
 
   const groupedByScene = Object.keys(schedule).reduce((acc, scene) => {
-    const currentAct = sortedBandSchedule.find((act) => act.scene === scene && now >= act.startDateTime && now <= act.endDateTime);
+    const currentAct = sortedBandSchedule.find(
+      (act) =>
+        act.scene === scene &&
+        now >= act.startDateTime &&
+        now <= act.endDateTime
+    );
 
     let nextAct = null;
     if (!currentAct) {
-      nextAct = sortedBandSchedule.find((act) => act.scene === scene && now < act.startDateTime);
+      nextAct = sortedBandSchedule.find(
+        (act) => act.scene === scene && now < act.startDateTime
+      );
     }
 
-    const currentOrNextAct = currentAct ? [currentAct] : nextAct ? [nextAct] : [];
+    const currentOrNextAct = currentAct
+      ? [currentAct]
+      : nextAct
+      ? [nextAct]
+      : [];
     acc[scene] = currentOrNextAct;
     return acc;
   }, {});
 
   return (
-    <>
-      <article>
-        <div className={`${krona_one.className} headliner text-center`}>
-          <h1>Spiller nu</h1>
-        </div>
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 py-5">
-          {Object.keys(groupedByScene).map((scene) => (
-            <div key={scene}>
-              <div className="flex items-center mb-4">
-                <h2 className="text-2xl mr-2">{scene}</h2>
-                {groupedByScene[scene].length > 0 && <span className="text-2xl">{groupedByScene[scene][0].start}</span>}
-              </div>
-              <div className="overflow-hidden bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor relative">
-                {groupedByScene[scene].length > 0 ? (
-                  <ul className="divide-y divide-gray-700">
-                    {groupedByScene[scene].map((act) => (
-                      <li key={`${act.act}-${act.scene}`} className="flex items-center p-4">
-                        {act.act && (
-                          <Link href={act.band?.slug || "#"} prefetch={false} className="flex items-center space-x-4 w-full focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor" tabIndex={0}>
-                            <div className="flex-shrink-0">
-                              {act.band && (
-                                <div className="relative h-24 w-24 md:w-32 md:h-32">
-                                  <Image src={act.band.logo.includes("https") ? act.band.logo : `/logos/${act.band.logo}`} fill loading="lazy" alt="Billede af band der spiller" className="rounded-full object-cover" />
-                                </div>
-                              )}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className={`${krona_one.className} text-lg`}>{act.act}</p>
-                            </div>
-                          </Link>
-                        )}
-                        {act.act === "break" && (
-                          <div className="relative h-24 w-24 md:w-32 md:h-32 flex items-center justify-center">
-                            <span className={`${krona_one.className} text-lg`}></span>
-                          </div>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="p-4">På nuværende tidspunkt, er der ingen der spiller.</p>
-                )}
-              </div>
+    <article>
+      <h1 className={`${krona_one.className} headliner text-center`}>
+        {" "}
+        Spiller nu
+      </h1>
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 py-5">
+        {Object.keys(groupedByScene).map((scene) => (
+          <div key={scene}>
+            <div className="flex items-center mb-4">
+              <h2 className="text-2xl mr-2">{scene}</h2>
+              {groupedByScene[scene].length > 0 && (
+                <time className="text-2xl">
+                  {groupedByScene[scene][0].start}
+                </time>
+              )}
             </div>
-          ))}
-        </section>
-      </article>
-    </>
+            <div className="overflow-hidden bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor relative">
+              {groupedByScene[scene].length > 0 ? (
+                <ul className="divide-y divide-gray-700">
+                  {groupedByScene[scene].map((act) => (
+                    <li
+                      key={`${act.act}-${act.scene}`}
+                      className="flex items-center p-4"
+                    >
+                      {act.act && (
+                        <Link
+                          href={act.band?.slug || "#"}
+                          prefetch={false}
+                          className="flex items-center space-x-4 w-full focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                        >
+                          <div className="flex-shrink-0">
+                            {act.band && (
+                              <div className="relative h-24 w-24 md:w-32 md:h-32">
+                                <Image
+                                  src={
+                                    act.band.logo.includes("https")
+                                      ? act.band.logo
+                                      : `/logos/${act.band.logo}`
+                                  }
+                                  fill
+                                  loading="lazy"
+                                  alt={`Billede af ${act.act}`}
+                                  className="rounded-full object-cover"
+                                />
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={`${krona_one.className} text-lg`}>
+                              {act.act}
+                            </p>
+                          </div>
+                        </Link>
+                      )}
+                      {act.act === "break" && (
+                        <div className="relative h-24 w-24 md:w-32 md:h-32 flex items-center justify-center">
+                          <span
+                            className={`${krona_one.className} text-lg`}
+                          ></span>
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="p-4">
+                  På nuværende tidspunkt, er der ingen der spiller.
+                </p>
+              )}
+            </div>
+          </div>
+        ))}
+      </section>
+    </article>
   );
 }
