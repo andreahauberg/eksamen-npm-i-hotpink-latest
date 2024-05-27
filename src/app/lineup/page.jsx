@@ -116,8 +116,8 @@ export default function Lineup() {
         <div className={`grid grid-cols-2 px-6 py-5 sm:grid-cols-3 lg:grid-cols-4 gap-4 ${krona_one.className}`}>
           {filteredLineUp.map((band) => (
             <article key={band.name} tabIndex={0} className="relative overflow-hidden flex flex-col h-48 md:h-72 w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
-              <Link href={band.slug} prefetch={false} className="flex flex-col h-full">
-                <div className="relative w-full h-full">
+              <Link href={band.slug} prefetch={false} className="flex flex-col h-full overflow-hidden group">
+                <figure className="relative w-full h-full  transform transition">
                   <Image
                     src={band.logo.includes("https") ? band.logo : `/logos/${band.logo}`}
                     fill
@@ -125,12 +125,12 @@ export default function Lineup() {
                              (max-width: 1200px) 50vw, 
                              25vw"
                     alt="Picture of Artist"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover duration-300 transform group-hover:scale-110"
                   />
                   <div className="absolute inset-0 flex items-end bg-black bg-opacity-50">
                     <p className="text-bgColor bg-primaryColor rounded-lg p-1 bg-opacity-80 small-size">{band.name}</p>
                   </div>
-                </div>
+                </figure>
               </Link>
             </article>
           ))}
