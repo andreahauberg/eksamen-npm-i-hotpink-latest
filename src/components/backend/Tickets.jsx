@@ -6,7 +6,8 @@ import {
   RadioGroup,
   Field,
   Label,
-  Description,
+  Legend,
+  Fieldset,
 } from "@headlessui/react";
 import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
@@ -52,12 +53,12 @@ export default function TicketsForm({
           onSubmit={handleSubmit}
           className="bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor w-full max-w-md"
         >
-          <fieldset className="space-y-6">
-            <legend
+          <Fieldset className="space-y-6">
+            <Legend
               className={`${krona_one.className} large-size mb-1 text-primaryTextColor`}
             >
               Vælg billettype
-            </legend>
+            </Legend>
             <RadioGroup
               value={localTicketType}
               onChange={setLocalTicketType}
@@ -100,9 +101,6 @@ export default function TicketsForm({
               <Label htmlFor="ticketQuantity" className="mb-1 font-bold">
                 Vælg antal billetter:
               </Label>
-              {/* <Description id="ticketQuantity-description" className="mb-1">
-                Vælg antal billetter fra 1 til 10
-              </Description> */}
               <div className="relative">
                 <Select
                   id="ticketQuantity"
@@ -140,7 +138,7 @@ export default function TicketsForm({
                 Køb billetter
               </button>
             </div>
-          </fieldset>
+          </Fieldset>
         </form>
       </div>
     </div>
