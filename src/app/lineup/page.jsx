@@ -46,7 +46,7 @@ export default function Lineup() {
       <div className={`${krona_one.className} headliner text-center`}>
         <h1>Line-up</h1>
       </div>
-      <header className="flex justify-between gap-4 py-5 px-2 sm:px-4">
+      <header className="flex justify-between gap-4 py-5 px-2 md:px-4">
         <div className="w-1/2 lg:w-1/4">
           <Listbox value={filterGenre} onChange={setFilterGenre}>
             {({ open }) => (

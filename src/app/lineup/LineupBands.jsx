@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image.js";
 import Link from "next/link.js";
 import { krona_one } from "@/app/fonts";
