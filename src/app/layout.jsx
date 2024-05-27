@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={lato.className}>
+    <html lang="da" className={lato.className}>
       <body>
         <Header />
         <main className="pb-10">

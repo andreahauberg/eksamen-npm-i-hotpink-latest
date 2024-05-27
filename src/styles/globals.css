@@ -110,7 +110,9 @@ nav {
   animation: pulse 4s infinite;
 }
 
-svg {
+svg,
+img,
+iframe {
   inline-size: 100%;
   display: block;
   block-size: auto;

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image.js";
 import { krona_one } from "@/app/fonts";
 import Link from "next/link.js";
-import { Select } from "@headlessui/react";
+import { Listbox } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 
@@ -90,27 +90,60 @@ export default function Schedule() {
               <label htmlFor="scene-select" className="sr-only">
                 Vælg scene
               </label>
-              <Select
-                id="scene-select"
-                value={filterScene}
-                onChange={(e) => setFilterScene(e.target.value)}
-                className={clsx(
-                  "mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
-                  "focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
-                )}
-                aria-label="Vælg scene"
-              >
-                <option value="all">Alle scener</option>
-                {Object.keys(schedule).map((scene) => (
-                  <option key={scene} value={scene}>
-                    {scene}
-                  </option>
-                ))}
-              </Select>
-              <ChevronDownIcon
-                className="pointer-events-none absolute top-2.5 right-2.5 h-5 w-5 text-bgColor"
-                aria-hidden="true"
-              />
+              <Listbox value={filterScene} onChange={setFilterScene}>
+                <div className="relative mt-1">
+                  <Listbox.Button
+                    className={clsx(
+                      "mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
+                      "focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                    )}
+                  >
+                    {filterScene === "all" ? "Alle scener" : filterScene}
+                    <ChevronDownIcon
+                      className="pointer-events-none absolute top-2.5 right-2.5 h-5 w-5 text-bgColor"
+                      aria-hidden="true"
+                    />
+                  </Listbox.Button>
+                  <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-base shadow-lg small-size border-none rounded-lg bg-inputFieldColor text-bgColor focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor">
+                    <Listbox.Option key="all" value="all">
+                      {({ selected }) => (
+                        <div
+                          className={`cursor-default select-none relative py-2 pl-10 pr-4 ${
+                            selected ? "font-medium" : "font-normal"
+                          }`}
+                        >
+                          Alle scener
+                        </div>
+                      )}
+                    </Listbox.Option>
+                    {Object.keys(schedule).map((scene) => (
+                      <Listbox.Option
+                        key={scene}
+                        className={({ active }) =>
+                          clsx(
+                            active ? "bg-accentColor" : "",
+                            "cursor-default select-none relative py-2 pl-10 pr-4"
+                          )
+                        }
+                        value={scene}
+                      >
+                        {({ selected }) => (
+                          <>
+                            <span
+                              className={clsx(
+                                selected ? "font-semibold" : "font-normal",
+                                "block truncate"
+                              )}
+                            >
+                              {scene}
+                            </span>
+                          </>
+                        )}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </div>
+              </Listbox>
             </div>
             <div className="hidden lg:flex flex-wrap gap-4">
               <button
@@ -145,26 +178,49 @@ export default function Schedule() {
               <label htmlFor="day-select" className="sr-only">
                 Vælg dag
               </label>
-              <Select
-                id="day-select"
-                value={filterDay}
-                onChange={(e) => setFilterDay(e.target.value)}
-                className={clsx(
-                  "mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
-                  "focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
-                )}
-                aria-label="Vælg dag"
-              >
-                {lineUpDays.map((day) => (
-                  <option key={day} value={day}>
-                    {days[day]}
-                  </option>
-                ))}
-              </Select>
-              <ChevronDownIcon
-                className="pointer-events-none absolute top-2.5 right-2.5 h-5 w-5 text-bgColor"
-                aria-hidden="true"
-              />
+              <Listbox value={filterDay} onChange={setFilterDay}>
+                <div className="relative mt-1">
+                  <Listbox.Button
+                    className={clsx(
+                      "mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
+                      "focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                    )}
+                  >
+                    {days[filterDay]}
+                    <ChevronDownIcon
+                      className="pointer-events-none absolute top-2.5 right-2.5 h-5 w-5 text-bgColor"
+                      aria-hidden="true"
+                    />
+                  </Listbox.Button>
+                  <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-base shadow-lg  small-size border-none rounded-lg bg-inputFieldColor text-bgColor focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor z-10">
+                    {lineUpDays.map((day) => (
+                      <Listbox.Option
+                        key={day}
+                        className={({ active }) =>
+                          clsx(
+                            active ? "bg-accentColor" : "",
+                            "cursor-default select-none relative py-2 pl-10 pr-4"
+                          )
+                        }
+                        value={day}
+                      >
+                        {({ selected }) => (
+                          <>
+                            <span
+                              className={clsx(
+                                selected ? "font-semibold" : "font-normal",
+                                "block truncate"
+                              )}
+                            >
+                              {days[day]}
+                            </span>
+                          </>
+                        )}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </div>
+              </Listbox>
             </div>
             <div className="hidden lg:flex flex-wrap gap-4">
               {lineUpDays.map((day) => (
