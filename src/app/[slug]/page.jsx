@@ -2,26 +2,25 @@ import { fetchAPI } from "../../app/api/api.js";
 import Image from "next/image.js";
 import { krona_one } from "@/app/fonts";
 import BandBio from "@/components/frondend/BandBio.jsx";
+import { notFound } from "next/navigation.js";
 
-export async function generateMetadata({ params }) {
-  const { slug } = params;
-  const fetchData = await fetchAPI("/bands");
-  const filterData = fetchData.filter((band) => band.slug === slug);
-  const band = filterData[0];
-  if (!band) {
-    return error();
-  }
-  return {
-    title: `FooFest - ${band.name}`,
-  };
-}
+// export async function generateMetadata({ params }) {
+//   const { slug } = params;
+//   const fetchData = await fetchAPI("/bands");
+//   const filterData = fetchData.filter((band) => band.slug === slug);
+//   const band = filterData[0];
 
-export async function generateStaticParams() {
-  const data = await fetchAPI("/bands");
-  return data.map((band) => ({
-    slug: band.slug,
-  }));
-}
+//   return {
+//     title: `FooFest - ${band.name}`,
+//   };
+// }
+
+// export async function generateStaticParams() {
+//   const data = await fetchAPI("/bands");
+//   return data.map((band) => ({
+//     slug: band.slug,
+//   }));
+// }
 
 export default async function Band({ params }) {
   const { slug } = params;
@@ -31,21 +30,21 @@ export default async function Band({ params }) {
   const filterBandsData = fetchBandsData.filter((band) => band.slug === slug);
   const band = filterBandsData[0];
 
-  if (!band) {
-    return error();
-  }
-
   let bandSchedule = [];
 
-  Object.keys(fetchScheduleData).forEach((stage) => {
-    Object.keys(fetchScheduleData[stage]).forEach((day) => {
-      fetchScheduleData[stage][day].forEach((event) => {
-        if (event.act === band.name) {
-          bandSchedule.push({ ...event, stage, day });
-        }
+  if (band) {
+    Object.keys(fetchScheduleData).forEach((stage) => {
+      Object.keys(fetchScheduleData[stage]).forEach((day) => {
+        fetchScheduleData[stage][day].forEach((event) => {
+          if (event.act === band.name) {
+            bandSchedule.push({ ...event, stage, day });
+          }
+        });
       });
     });
-  });
+  } else {
+    return notFound();
+  }
 
   return (
     <>
