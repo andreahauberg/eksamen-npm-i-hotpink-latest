@@ -117,6 +117,8 @@ export default function PersonalForm({
                           "w-full py-2 text-center small-size rounded-lg bg-bgColor text-primaryTextColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
                           { "": open }
                         )}
+                        aria-expanded={open}
+                        aria-controls={`panel-${index}`}
                       >
                         Billet {index + 1} ({ticketType})
                       </Disclosure.Button>
@@ -132,7 +134,7 @@ export default function PersonalForm({
                         />
                       )}
                     </div>
-                    <Disclosure.Panel className="pb-2">
+                    <Disclosure.Panel className="pb-2" id={`panel-${index}`}>
                       <div className="space-y-4">
                         <Field className="space-y-2">
                           <Label htmlFor={`firstName-${index}`}>Fornavn:</Label>
