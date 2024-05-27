@@ -146,6 +146,7 @@ export default function PersonalForm({
                             aria-label={`Fornavn for billet ${index + 1}`}
                             pattern="^[A-Za-zæøåÆØÅ ]+$"
                             title="Fornavn må kun indeholde bogstaver."
+                            required
                             onChange={(e) =>
                               handleInputChange(
                                 index,
@@ -171,6 +172,7 @@ export default function PersonalForm({
                             aria-label={`Efternavn for billet ${index + 1}`}
                             pattern="^[A-Za-zæøåÆØÅ ]+$"
                             title="Efternavn må kun indeholde bogstaver."
+                            required
                             onChange={(e) =>
                               handleInputChange(
                                 index,
@@ -197,6 +199,7 @@ export default function PersonalForm({
                             pattern="^\+\d+$"
                             title="Telefonnummeret skal starte med et + og kun indeholde tal."
                             onKeyPress={handlePhoneKeyPress}
+                            required
                             onChange={(e) =>
                               handleInputChange(
                                 index,
@@ -223,6 +226,7 @@ export default function PersonalForm({
                             aria-label={`Fødselsdato for billet ${index + 1}`}
                             min="1923-01-01"
                             max={getMaxDate()}
+                            required
                             onChange={(e) => {
                               if (validateDateOfBirth(e.target.value)) {
                                 handleInputChange(
@@ -252,12 +256,14 @@ export default function PersonalForm({
                             aria-label={`Email for billet ${index + 1}`}
                             pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
                             title="Email skal være en gyldig emailadresse."
+                            required
                             onChange={(e) =>
                               handleInputChange(index, "email", e.target.value)
                             }
                           />
                           <Description className="xsmall-size hidden peer-focus:block">
-                            Email skal være en gyldig emailadresse
+                            Email skal være en gyldig emailadresse og indeholde
+                            @
                           </Description>
                         </Field>
                       </div>
