@@ -7,7 +7,7 @@ import SummaryPage from "../../components/backend/Summary";
 import PaymentPage from "../../components/backend/Payment";
 import ConfirmationPage from "../../components/backend/Confirmation";
 import ProgressBar from "../../components/backend/ProgressBar";
-import BasketTimer from '../../components/backend/BasketTimer';
+import BasketTimer from "../../components/backend/BasketTimer";
 
 export default function BookingPage() {
   const [step, setStep] = useState(1);
@@ -42,6 +42,7 @@ export default function BookingPage() {
 
   return (
     <div>
+      <h1 className="hidden">Bookingside</h1>
       {step < 6 && <ProgressBar currentStep={step} />}
       <BasketTimer step={step} onTimeExpired={handleTimeExpired} />
       {step === 1 && (

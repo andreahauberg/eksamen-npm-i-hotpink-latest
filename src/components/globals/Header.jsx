@@ -6,8 +6,8 @@ export default function Header() {
   return (
     <>
       <header className={krona_one.className}>
-        <nav className=" relative flex items-center justify-between h-21 p-6 normal-size">
-          <div className="">
+        <nav className="relative flex items-center justify-between h-21 p-6 normal-size">
+          <div className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
             <Link href={"/"} prefetch={false}>
               <svg className="h-12" xmlns="http://www.w3.org/2000/svg" width="200" height="74" viewBox="0 0 200 74" fill="none">
                 <path
