@@ -59,10 +59,10 @@ export default function Home() {
           />
         </svg>
         <div className="mt-8 flex justify-center gap-4 md:gap-6">
-          <Link href="/booking/" className="w-36 md:w-48">
+          <Link href="/booking/" className="w-36 md:w-48 focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
             <Button title="Køb billetter" />
           </Link>
-          <Link href="/lineup/" className="w-36 md:w-48	">
+          <Link href="/lineup/" className="w-36 md:w-48	 focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
             <Button title="Line-up" />
           </Link>
         </div>
@@ -97,19 +97,19 @@ export default function Home() {
       <section className="flex flex-row overflow-x-auto snap-x scroll-px-8 justify-start lg:justify-center items-center  space-x-4 md:space-x-8 px-12 lg:px-0 py-5 space-y-0 w-full">
         <div className="relative snap-always snap-center w-72 h-72 min-w-72 lg:min-w-96 lg:h-96 flex-shrink-0 overflow-hidden">
           <Image src="/images/image2.png" alt="Bands 1" className="w-full h-full object-cover duration-300 transform hover:scale-105" width={500} height={500} />
-          <Link href="/lineup/" className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+          <Link href="/lineup/" className="absolute bottom-4 left-1/2 transform -translate-x-1/2  focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
             <Button title="Line-up" />
           </Link>
         </div>
         <div className="relative snap-always snap-center w-72 h-72 min-w-72 lg:min-w-96 lg:h-96 flex-shrink-0 overflow-hidden">
           <Image src="/images/image3.png" alt="Bands 2" className="w-full h-full object-cover duration-300 transform hover:scale-105" width={500} height={500} />
-          <Link href="/booking/" className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+          <Link href="/booking/" className="absolute bottom-4 left-1/2 transform -translate-x-1/2 focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor">
             <Button title="Billetter" />
           </Link>
         </div>
         <div className="relative snap-always snap-center w-72 h-72 min-w-72 lg:min-w-96 lg:h-96 flex-shrink-0 overflow-hidden">
           <Image src="/images/image4.png" alt="Bands 3" className="w-full h-full object-cover duration-300 transform hover:scale-105" width={500} height={500} />
-          <Link href="/timeTable/" className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+          <Link href="/timeTable/" className="absolute bottom-4 left-1/2 transform -translate-x-1/2 focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
             <Button title="Tidsplan" />
           </Link>
         </div>

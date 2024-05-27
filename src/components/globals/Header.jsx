@@ -9,7 +9,7 @@ export default function Header() {
         <Link
           href="/"
           prefetch={false}
-          className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+          className="focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
         >
           <svg
             className="h-12"
@@ -29,16 +29,16 @@ export default function Header() {
             />
           </svg>
         </Link>
-        <div className="flex items-center gap-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
+        <div className="flex items-center gap-4 focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
           <div className="md:hidden">
             <Burger />
           </div>
-          <ul className="hidden md:flex gap-8 items-center hover:text-primaryColor transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
+          <ul className="hidden md:flex gap-8 items-center focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
             <li>
               <Link
                 href="/lineup/"
                 prefetch={false}
-                className="hover:text-primaryColor transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                className="hover:text-primaryColor transition-colors duration-200 ease-in-out focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
               >
                 Lineup
               </Link>
@@ -47,7 +47,7 @@ export default function Header() {
               <Link
                 href="/timeTable/"
                 prefetch={false}
-                className="hover:text-primaryColor transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                className="hover:text-primaryColor transition-colors duration-200 ease-in-out focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
               >
                 Tidsplan
               </Link>
@@ -56,7 +56,7 @@ export default function Header() {
               <Link
                 href="/booking/"
                 prefetch={false}
-                className="hover:text-primaryColor transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                className="hover:text-primaryColor transition-colors duration-200 ease-in-out focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
               >
                 Billetter
               </Link>
@@ -65,10 +65,10 @@ export default function Header() {
                 <Link
                 href="/live/"
                 prefetch={false}
-                className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus: rounded-lg focus:ring-accentColor"
               >
                 <svg
-                  className="pulse transition duration-600 ease-in h-10 w-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                  className="pulse transition duration-600 ease-in h-10 w-10 focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
                   xmlns="http://www.w3.org/2000/svg"
                   width="46"
                   height="46"
