@@ -37,10 +37,10 @@ export default function Schedule() {
   }, []);
 
   const getBandSchedule = () => {
-    let actsForDay = [];
+    let actsDay = [];
     if (filterScene === "all") {
       Object.entries(schedule).forEach(([sceneName, sceneSchedule]) => {
-        actsForDay = actsForDay.concat(
+        actsDay = actsDay.concat(
           sceneSchedule[filterDay]?.map((act) => ({
             ...act,
             scene: sceneName,
@@ -48,7 +48,7 @@ export default function Schedule() {
         );
       });
     } else {
-      actsForDay =
+      actsDay =
         schedule[filterScene]?.[filterDay]?.map((act) => ({
           ...act,
           scene: filterScene,
@@ -60,7 +60,7 @@ export default function Schedule() {
       return map;
     }, {});
 
-    return actsForDay
+    return actsDay
       .map((act) => ({
         ...act,
         band: bandsMap[act.act],
