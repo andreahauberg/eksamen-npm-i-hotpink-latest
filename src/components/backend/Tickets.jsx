@@ -82,13 +82,16 @@ export default function TicketsForm({
                   {({ checked }) => (
                     <div className="flex w-full items-center justify-between">
                       <div className="small-size flex items-center gap-3">
-                        <option.SVG className="h-12 w-12" />
+                        <option.SVG className="h-12 w-12" aria-hidden="true" />
                         <p className="text-primaryTextColor">
                           {option.name} {option.price} DKK
                         </p>
                       </div>
                       {checked && (
-                        <CheckCircleIcon className="size-7 fill-accentColor" />
+                        <CheckCircleIcon
+                          className="size-7 fill-accentColor"
+                          aria-hidden="true"
+                        />
                       )}
                     </div>
                   )}
