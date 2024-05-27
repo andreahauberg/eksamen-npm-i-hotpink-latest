@@ -137,7 +137,7 @@ export default function Schedule() {
               </div>
               <ul className="col-start-2 col-end-5 w-full">
                 {groupedByTime[time].map((act) => (
-                  <li key={`${act.act}-${act.scene}`} tabIndex={0} className="flex justify-between overflow-hidden w-full h-24 md:h-40 border-b border-primaryTextColor last:border-b-0 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor">
+                  <li key={`${act.act}-${act.scene}`} tabIndex={0} className="flex justify-between overflow-hidden w-full h-24 md:h-40 border-b border-primaryTextColor last:border-b-0 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor hover:bg-secondaryBgColor hover:bg-opacity-30 group">
                     <Link href={act.band?.slug || "#"} prefetch={false} className="w-full h-24 md:h-40 overflow-hidden flex jus items-center xsmall-size md:small-size pl-2 md:pl-0">
                       <div className="flex flex-col md:flex-row md:gap-12 flex-1">
                         <div className="flex">
@@ -149,7 +149,7 @@ export default function Schedule() {
                           <p>{act.act}</p>
                         </div>
                       </div>
-                      <figure className="flex-1 h-24 md:h-40 flex justify-end items-end">
+                      <figure className="flex-1 h-24 md:h-40 flex justify-end items-end overflow-hidden">
                         {act.band && (
                           <div className="relative h-24 w-24 md:w-44 md:h-40 flex justify-center items-center">
                             <Image
@@ -159,7 +159,7 @@ export default function Schedule() {
                                      (max-width: 1200px) 50vw, 
                                      25vw"
                               alt="Picture of Artist"
-                              className="h-full w-full object-cover"
+                              className="h-full w-full object-cover duration-300 transform group-hover:scale-110"
                             />
                           </div>
                         )}
