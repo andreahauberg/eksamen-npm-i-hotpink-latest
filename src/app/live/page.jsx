@@ -110,7 +110,7 @@ export default function Schedule() {
                             <div className="flex-shrink-0">
                               {act.band && (
                                 <div className="relative h-24 w-24 md:w-32 md:h-32">
-                                  <Image src={act.band.logo.includes("https") ? act.band.logo : `/logos/${act.band.logo}`} fill alt="Billede af band der spiller" className="rounded-full object-cover" />
+                                  <Image src={act.band.logo.includes("https") ? act.band.logo : `/logos/${act.band.logo}`} fill loading="lazy" alt="Billede af band der spiller" className="rounded-full object-cover" />
                                 </div>
                               )}
                             </div>

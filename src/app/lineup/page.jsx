@@ -117,6 +117,7 @@ export default function Lineup() {
                   <Image
                     src={band.logo.includes("https") ? band.logo : `/logos/${band.logo}`}
                     fill
+                    loading="lazy"
                     sizes="(max-width: 768px) 100vw, 
                              (max-width: 1200px) 50vw, 
                              25vw"

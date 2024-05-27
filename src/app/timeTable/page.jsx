@@ -155,6 +155,7 @@ export default function Schedule() {
                             <Image
                               src={act.band.logo.includes("https") ? act.band.logo : `/logos/${act.band.logo}`}
                               fill
+                              loading="lazy"
                               sizes="(max-width: 768px) 100vw, 
                                      (max-width: 1200px) 50vw, 
                                      25vw"
