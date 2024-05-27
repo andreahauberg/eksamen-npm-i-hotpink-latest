@@ -4,9 +4,9 @@ export default function Footer() {
   return (
     <>
       <footer className="bg-secondaryBgColor md:place-items-center md:grid md:grid-cols-3 p-6 small-size">
-        <div className="grid">
+        <div className="grid focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
           <svg
-            className="h-20 pb-2"
+            className="h-20 pb-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
             xmlns="http://www.w3.org/2000/svg"
             width="200"
             height="74"
@@ -23,9 +23,9 @@ export default function Footer() {
             />
           </svg>
           <div className="flex gap-3 justify-center">
-            <Link href="/#">
+            <Link href="/#" className="focus:outline-none focus:rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
               <svg
-                className="h-10"
+                className="h-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
                 xmlns="http://www.w3.org/2000/svg"
                 width="53"
                 height="53"
@@ -50,9 +50,9 @@ export default function Footer() {
                 />
               </svg>
             </Link>
-            <Link href="/#">
+            <Link href="/#" className="focus:outline-none focus: rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
               <svg
-                className="h-10"
+                className="h-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor focus:rounded-lg"
                 xmlns="http://www.w3.org/2000/svg"
                 width="54"
                 height="53"
@@ -67,9 +67,9 @@ export default function Footer() {
                 />
               </svg>
             </Link>
-            <Link href="/#">
+            <Link href="/#" className="focus:outline-none focus: rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
               <svg
-                className="h-10"
+                className="h-10 focus:outline-none focus: rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
                 xmlns="http://www.w3.org/2000/svg"
                 width="53"
                 height="53"

@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
 import prices from "../backend/settings.js";
 import { fetchAPI } from "../../app/api/api.js";
-import { Field, Label, Select, Checkbox } from "@headlessui/react";
+import {
+  Field,
+  Label,
+  Select,
+  Checkbox,
+  Fieldset,
+  Legend,
+} from "@headlessui/react";
 import { ChevronDownIcon, CheckIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import { krona_one } from "@/app/fonts.jsx";
@@ -141,12 +148,12 @@ export default function Camping({
           onSubmit={handleSubmit}
           className="bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-md"
         >
-          <fieldset className="space-y-6">
-            <legend
+          <Fieldset className="space-y-6">
+            <Legend
               className={`${krona_one.className} large-size text-primaryTextColor`}
             >
               Camping Tilvalg
-            </legend>
+            </Legend>
             <p className="text-sm">
               Bemærk: Prisen inkluderer opsætning af dit telt af vores team
             </p>
@@ -316,17 +323,19 @@ export default function Camping({
                 type="button"
                 onClick={onBack}
                 className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                aria-label="Tilbage"
               >
                 Tilbage
               </button>
               <button
                 type="submit"
                 className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                aria-label="Fortsæt"
               >
                 Fortsæt
               </button>
             </div>
-          </fieldset>
+          </Fieldset>
         </form>
 
         <CartSummary

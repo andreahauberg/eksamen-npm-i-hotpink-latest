@@ -29,20 +29,35 @@ export default function CartSummary({
     <>
       <button
         onClick={() => setOpen(!isOpen)}
-        className="fixed bottom-4 right-4 bg-primaryColor text-white p-3 rounded-full shadow-lg focus:outline-none"
+        className="fixed bottom-4 right-4 bg-primaryColor text-white p-3 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+        aria-expanded={isOpen}
+        aria-controls="cart-summary"
+        aria-label="Åbn kurv"
       >
         <ShoppingCartIcon className="w-6 h-6" aria-hidden="true" />
       </button>
       {isOpen && (
-        <div className="backdrop-blur-md fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-30">
+        <div
+          id="cart-summary"
+          className="backdrop-blur-md fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-30"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="cart-summary-title"
+        >
           <div className="relative bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-md ">
             <button
               onClick={() => setOpen(false)}
-              className="absolute top-2 right-3 text-3xl"
+              className="absolute top-2 right-3 text-3xl focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor rounded-lg"
+              aria-expanded={isOpen}
+              aria-controls="cart-summary"
+              aria-label="Luk kurv"
             >
               ×
             </button>
-            <h2 className="medium-size font-semibold text-primaryTextColor">
+            <h2
+              id="cart-summary-title"
+              className="medium-size font-semibold text-primaryTextColor"
+            >
               Kurvens indhold
             </h2>
             <div className="mt-4 space-y-4">
@@ -72,7 +87,7 @@ export default function CartSummary({
                   </p>
                 </div>
                 <div className="flex justify-center ">
-                  <TicketSVG className=" h-40 w-40" />
+                  <TicketSVG className=" h-40 w-40" aria-hidden="true" />
                 </div>
               </div>
               <h3 className="medium-size font-bold text-right">

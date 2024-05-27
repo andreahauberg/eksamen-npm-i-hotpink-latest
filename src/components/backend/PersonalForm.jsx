@@ -117,6 +117,8 @@ export default function PersonalForm({
                           "w-full py-2 text-center small-size rounded-lg bg-bgColor text-primaryTextColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
                           { "": open }
                         )}
+                        aria-expanded={open}
+                        aria-controls={`panel-${index}`}
                       >
                         Billet {index + 1} ({ticketType})
                       </Disclosure.Button>
@@ -132,7 +134,7 @@ export default function PersonalForm({
                         />
                       )}
                     </div>
-                    <Disclosure.Panel className="pb-2">
+                    <Disclosure.Panel className="pb-2" id={`panel-${index}`}>
                       <div className="space-y-4">
                         <Field className="space-y-2">
                           <Label htmlFor={`firstName-${index}`}>Fornavn:</Label>
@@ -144,6 +146,7 @@ export default function PersonalForm({
                             aria-label={`Fornavn for billet ${index + 1}`}
                             pattern="^[A-Za-zæøåÆØÅ ]+$"
                             title="Fornavn må kun indeholde bogstaver."
+                            required
                             onChange={(e) =>
                               handleInputChange(
                                 index,
@@ -169,6 +172,7 @@ export default function PersonalForm({
                             aria-label={`Efternavn for billet ${index + 1}`}
                             pattern="^[A-Za-zæøåÆØÅ ]+$"
                             title="Efternavn må kun indeholde bogstaver."
+                            required
                             onChange={(e) =>
                               handleInputChange(
                                 index,
@@ -195,6 +199,7 @@ export default function PersonalForm({
                             pattern="^\+\d+$"
                             title="Telefonnummeret skal starte med et + og kun indeholde tal."
                             onKeyPress={handlePhoneKeyPress}
+                            required
                             onChange={(e) =>
                               handleInputChange(
                                 index,
@@ -221,6 +226,7 @@ export default function PersonalForm({
                             aria-label={`Fødselsdato for billet ${index + 1}`}
                             min="1923-01-01"
                             max={getMaxDate()}
+                            required
                             onChange={(e) => {
                               if (validateDateOfBirth(e.target.value)) {
                                 handleInputChange(
@@ -250,12 +256,14 @@ export default function PersonalForm({
                             aria-label={`Email for billet ${index + 1}`}
                             pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
                             title="Email skal være en gyldig emailadresse."
+                            required
                             onChange={(e) =>
                               handleInputChange(index, "email", e.target.value)
                             }
                           />
                           <Description className="xsmall-size hidden peer-focus:block">
-                            Email skal være en gyldig emailadresse
+                            Email skal være en gyldig emailadresse og indeholde
+                            @
                           </Description>
                         </Field>
                       </div>
@@ -271,18 +279,20 @@ export default function PersonalForm({
               type="button"
               onClick={onBack}
               className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+              aria-label="Tilbage"
             >
               Tilbage
             </button>
             <button
               type="submit"
               className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+              aria-label="Fortsæt"
             >
               Forsæt
             </button>
           </div>
         </form>
-        <div className="flex items-center justify-center w-full max-w-md md:w-44">
+        <div className="flex items-center justify-center fixed w-full max-w-md md:w-44">
           <CartSummary
             ticketType={ticketType}
             ticketQuantity={ticketQuantity}

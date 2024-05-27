@@ -17,21 +17,21 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
     <div className="grid grid-cols-gridContent">
       <div className="pt-8 pb-16 col-start-3 gap-3 flex flex-wrap items-center justify-center ">
         <div className="bg-secondaryBgColor rounded-lg p-8 shadow-lg w-full max-w-lg">
-          <h1
+          <h2
             className={`${krona_one.className} large-size  text-primaryTextColor mb-6`}
           >
             Opsummering
-          </h1>
+          </h2>
           <div className="mb-6 space-y-6">
             <div className="flex flex-wrap md:justify-evenly items-center mb-8 gap-2">
               <div className="normal-size">
-                <h2 className="font-semibold mb-2 ">Billetter:</h2>
+                <p className="font-semibold mb-2 ">Billetter:</p>
                 <p className="mb-2">
                   {ticketType.charAt(0).toUpperCase() + ticketType.slice(1)}{" "}
                   billet x {ticketQuantity}
                 </p>
               </div>
-              <TicketSVG className=" w-64" />
+              <TicketSVG className=" w-64" aria-hidden="true" />
             </div>
             <Tab.Group>
               <Tab.List className="flex space-x-1 rounded-xl bg-primaryTextColor text-bgColor p-1">
@@ -66,6 +66,8 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                                 "w-full py-2.5 small-size rounded-lg bg-inputFieldColor text-bgColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
                                 { " ": open }
                               )}
+                              aria-expanded={open}
+                              aria-controls={`panel-${index}`}
                             >
                               <b>Billet</b> {index + 1} ({ticketType})
                             </Disclosure.Button>
@@ -82,7 +84,10 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                             )}
                           </div>
 
-                          <Disclosure.Panel className=" pt-2 mb-4  pb-4 px-5 flex flex-wrap text-bgColor bg-primaryTextColor rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor">
+                          <Disclosure.Panel
+                            className=" pt-2 mb-4  pb-4 px-5 flex flex-wrap text-bgColor bg-primaryTextColor rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+                            id={`panel-${index}`}
+                          >
                             <div>
                               <p className="small-size">
                                 <b>Fornavn:</b> {info.firstName}
@@ -141,18 +146,20 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
             <button
               onClick={onBack}
               className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
+              aria-label="Tilbage"
             >
               Tilbage
             </button>
             <button
               onClick={onNext}
               className="bg-bgColor border-2 rounded-lg border-inputFieldColor text-secondaryColor transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor ml-4"
+              aria-label="Fortsæt til betaling"
             >
               Fortsæt til betaling
             </button>
           </div>
         </div>
-        <div className="flex items-center justify-center w-full max-w-md md:w-44">
+        <div className="flex items-center justify-center fixed w-full max-w-md md:w-44">
           <CartSummary
             ticketType={ticketType}
             ticketQuantity={ticketQuantity}
