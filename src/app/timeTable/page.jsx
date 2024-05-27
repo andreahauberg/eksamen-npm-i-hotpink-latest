@@ -11,7 +11,7 @@ import clsx from "clsx";
 export default function Schedule() {
   const [lineUp, setLineUp] = useState([]);
   const [schedule, setSchedule] = useState({});
-  const [filterDay, setFilterDay] = useState("mon"); // Default to Monday
+  const [filterDay, setFilterDay] = useState("mon");
   const [filterScene, setFilterScene] = useState("all");
 
   const lineUpDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
@@ -42,7 +42,6 @@ export default function Schedule() {
 
   const getBandSchedule = () => {
     let actsForDay = [];
-    // Fetch all acts from all scenes for the selected day
     if (filterScene === "all") {
       Object.entries(schedule).forEach(([sceneName, sceneSchedule]) => {
         actsForDay = actsForDay.concat(
