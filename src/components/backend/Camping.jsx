@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
 import prices from "../backend/settings.js";
 import { fetchAPI } from "../../app/api/api.js";
-import { Field, Label, Select, Checkbox } from "@headlessui/react";
+import {
+  Field,
+  Label,
+  Select,
+  Checkbox,
+  Fieldset,
+  Legend,
+} from "@headlessui/react";
 import { ChevronDownIcon, CheckIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import { krona_one } from "@/app/fonts.jsx";
@@ -141,12 +148,12 @@ export default function Camping({
           onSubmit={handleSubmit}
           className="bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-md"
         >
-          <fieldset className="space-y-6">
-            <legend
+          <Fieldset className="space-y-6">
+            <Legend
               className={`${krona_one.className} large-size text-primaryTextColor`}
             >
               Camping Tilvalg
-            </legend>
+            </Legend>
             <p className="text-sm">
               Bemærk: Prisen inkluderer opsætning af dit telt af vores team
             </p>
@@ -326,7 +333,7 @@ export default function Camping({
                 Fortsæt
               </button>
             </div>
-          </fieldset>
+          </Fieldset>
         </form>
 
         <CartSummary
