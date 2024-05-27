@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import RegularTicketSVG from "./RegularTicketSVG";
 import VIPTicketSVG from "./VIPTicketSVG";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
