@@ -64,9 +64,7 @@ export default function TicketsForm({
               onChange={setLocalTicketType}
               className="space-y-6"
             >
-              <RadioGroup.Label className="sr-only">
-                Billettype
-              </RadioGroup.Label>
+              <RadioGroup.Label>Billettype</RadioGroup.Label>
               {ticketOptions.map((option) => (
                 <RadioGroup.Option
                   key={option.name}
