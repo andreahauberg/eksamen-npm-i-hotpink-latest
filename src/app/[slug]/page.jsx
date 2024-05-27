@@ -2,14 +2,12 @@ import { fetchAPI } from "../../app/api/api.js";
 import Image from "next/image.js";
 import { krona_one } from "@/app/fonts";
 import BandBio from "@/components/frondend/BandBio.jsx";
-import { HeartIcon } from "@heroicons/react/24/outline";
 
 export async function generateMetadata({ params }) {
   const { slug } = params;
   const fetchData = await fetchAPI("/bands");
   const filterData = fetchData.filter((band) => band.slug === slug);
   const band = filterData[0];
-  // Husk at sætte en if statement på, så der er fejl hvis den ikke finder data...
   if (!band) {
     return error();
   }
@@ -34,7 +32,7 @@ export default async function Band({ params }) {
   const band = filterBandsData[0];
 
   if (!band) {
-    return <div>Band not found</div>;
+    return error();
   }
 
   let bandSchedule = [];
@@ -69,16 +67,7 @@ export default async function Band({ params }) {
               </div>
               <div className="py-5">
                 <div className="rounded-lg overflow-hidden">
-                  <iframe
-                    title="playliste"
-                    src="https://open.spotify.com/embed/artist/08GQAI4eElDnROBrJRGE0X?utm_source=generator"
-                    width="100%"
-                    height="352"
-                    frameBorder="0"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                    className="w-full h-88" // Tailwind classes for width and height
-                  ></iframe>
+                  <iframe title="playliste" src="https://open.spotify.com/embed/artist/08GQAI4eElDnROBrJRGE0X?utm_source=generator" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" className="w-full h-88"></iframe>
                 </div>
               </div>
             </div>
