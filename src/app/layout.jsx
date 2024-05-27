@@ -1,5 +1,4 @@
 import "../styles/globals.css";
-import "../styles/reset.css";
 import { lato } from "./fonts";
 import Header from "../components/globals/Header";
 import Footer from "../components/globals/Footer";

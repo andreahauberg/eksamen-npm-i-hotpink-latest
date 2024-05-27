@@ -44,7 +44,6 @@ body {
 }
 main {
   flex-grow: 1;
-  /* color skal sættes et andet sted */
 }
 
 nav {
@@ -90,10 +89,6 @@ nav {
   line-height: var(--default-line-height);
 }
 
-/* .bordercolor {
-  border: 0.1rem solid var(--tab-border-color);
-} */
-
 .image {
   max-width: 400px;
   max-height: 00px;
@@ -104,7 +99,7 @@ nav {
     fill: currentColor;
   }
   50% {
-    fill: var(--primary-color-01); /* Ensure this is set to your hover color */
+    fill: var(--primary-color-01);
   }
   100% {
     fill: currentColor;
@@ -113,4 +108,10 @@ nav {
 
 .pulse {
   animation: pulse 4s infinite;
+}
+
+svg {
+  inline-size: 100%;
+  display: block;
+  block-size: auto;
 }
