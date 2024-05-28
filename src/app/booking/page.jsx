@@ -29,7 +29,6 @@ export default function BookingPage() {
   };
 
   const handleTimeExpired = () => {
-    setStep(1);
     setBookingData({
       ticketType: "regular",
       ticketQuantity: 1,
