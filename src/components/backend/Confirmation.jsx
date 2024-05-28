@@ -15,7 +15,7 @@ export default function ConfirmationPage({ bookingData }) {
       <div className="my-24 col-start-3 gap-3 flex flex-wrap items-center justify-center">
         <div className="bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-md">
           <h2
-            className={`${krona_one.className} text-center large-size text-labelColor `}
+            className={`${krona_one.className} text-center large-size text-primaryTextColor `}
           >
             Ordrebekræftelse
           </h2>
