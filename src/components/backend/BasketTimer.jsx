@@ -40,7 +40,7 @@ function BasketTimer({ step, onTimeExpired }) {
           {popup && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
               <div className="absolute inset-0 backdrop-blur-sm"></div>
-              <div className="relative bg-white <div overflow-hidden bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor relative rounded-lg p-8 shadow-lg text-center max-w-md mx-auto text-gray-900">
+              <div className="relative bg-white bg-secondaryBgColor p-8 shadow-primaryColor rounded-lg shadow-lg text-center max-w-md mx-auto text-gray-900">
                 <h2 className="text-xl font-bold mb-4">Tiden er udløbet</h2>
                 <p className="mb-4">
                   Du kan starte dit køb forfra igen.
