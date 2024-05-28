@@ -77,7 +77,7 @@ export default function TimeTableBands({ lineUp, schedule, filterDay, filterScen
                                  (max-width: 1200px) 50vw, 
                                  25vw"
                           alt={`Picture of ${act.act}`}
-                          className="h-full w-full object-cover duration-300 transform group-hover:scale-110"
+                          className="h-full grayscale w-full object-cover duration-300 transform group-hover:grayscale-0 group-hover:scale-110"
                         />
                       </div>
                     )}
