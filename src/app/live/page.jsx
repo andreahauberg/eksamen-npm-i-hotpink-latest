@@ -103,11 +103,11 @@ export default function Schedule() {
                   {groupedByScene[scene].map((act) => (
                     <li key={`${act.act}-${act.scene}`} className="flex items-center p-4">
                       {act.act && (
-                        <Link href={act.band?.slug || "#"} prefetch={false} className="flex items-center space-x-4 w-full focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor duration-300 transform hover:grayscale-0 hover:scale-105">
+                        <Link href={act.band?.slug || "#"} prefetch={false} className="flex items-center space-x-4 w-full focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor duration-300 transform hover:scale-105 group">
                           <div className="flex-shrink-0">
                             {act.band && (
                               <div className="relative h-24 w-24 md:w-32 md:h-32">
-                                <Image src={act.band.logo.includes("https") ? act.band.logo : `/logos/${act.band.logo}`} fill loading="lazy" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw" alt={`Billede af ${act.act}`} className="rounded-full grayscale object-cover" />
+                                <Image src={act.band.logo.includes("https") ? act.band.logo : `/logos/${act.band.logo}`} fill loading="lazy" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw" alt={`Billede af ${act.act}`} className="rounded-full object-cover grayscale duration-300 transform group-hover:grayscale-0" />
                               </div>
                             )}
                           </div>
