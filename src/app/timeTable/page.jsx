@@ -71,7 +71,7 @@ export default function Schedule() {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-base shadow-lg small-size border-none rounded-lg bg-inputFieldColor text-bgColor focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor">
+                  <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto py-1 shadow-lg small-size border-none rounded-lg bg-inputFieldColor text-bgColor focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor">
                     <ListboxOption key="all" value="all">
                       {({ selected }) => (
                         <div
@@ -165,7 +165,7 @@ export default function Schedule() {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-base shadow-lg  small-size border-none rounded-lg bg-inputFieldColor text-bgColor focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor z-10">
+                  <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto py-1 shadow-lg  small-size border-none rounded-lg bg-inputFieldColor text-bgColor focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor z-10">
                     {lineUpDays.map((day) => (
                       <ListboxOption
                         key={day}
