@@ -2,16 +2,10 @@
 import { fetchAPI } from "../../app/api/api.js";
 import { useState, useEffect } from "react";
 import { krona_one } from "@/app/fonts";
-import {
-  Listbox,
-  ListboxButton,
-  ListboxOption,
-  ListboxOptions,
-  Transition,
-} from "@headlessui/react";
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
-import LineupBands from "./LineupBands";
+import LineupBands from "@/components/frondend/LineupBands.jsx";
 
 export default function Lineup() {
   const [lineUp, setLineUp] = useState([]);
@@ -40,10 +34,7 @@ export default function Lineup() {
       setLineUp(bandsData);
       setSchedule(scheduleData);
 
-      const bandsGenres = [
-        "all",
-        ...new Set(bandsData.map((band) => band.genre)),
-      ];
+      const bandsGenres = ["all", ...new Set(bandsData.map((band) => band.genre))];
       setGenres(bandsGenres);
     };
 
@@ -64,53 +55,17 @@ export default function Lineup() {
                   <label htmlFor="genre-select" className="sr-only">
                     Vælg genre
                   </label>
-                  <ListboxButton
-                    id="genre-select"
-                    className={clsx(
-                      "mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
-                      "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
-                    )}
-                  >
-                    <span className="block truncate">
-                      {filterGenre === "all" ? "Alle genre" : filterGenre}
-                    </span>
-                    <ChevronDownIcon
-                      className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor"
-                      aria-hidden="true"
-                    />
+                  <ListboxButton id="genre-select" className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")}>
+                    <span className="block truncate">{filterGenre === "all" ? "Alle genre" : filterGenre}</span>
+                    <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor" aria-hidden="true" />
                   </ListboxButton>
-                  <Transition
-                    leave="transition ease-in duration-100"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                  >
-                    <ListboxOptions
-                      className={clsx(
-                        "absolute mt-1 w-full max-h-60 overflow-auto rounded-lg bg-inputFieldColor py-1 text-bgColor shadow-lg ring-1 ring-black ring-opacity-5",
-                        "focus:outline-none small-size z-10 "
-                      )}
-                    >
+                  <Transition leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
+                    <ListboxOptions className={clsx("absolute mt-1 w-full max-h-60 overflow-auto rounded-lg bg-inputFieldColor py-1 text-bgColor shadow-lg ring-1 ring-black ring-opacity-5", "focus:outline-none small-size z-10 ")}>
                       {genres.map((genre) => (
-                        <ListboxOption
-                          key={genre}
-                          className={({ active }) =>
-                            clsx(
-                              active ? "bg-accentColor" : "",
-                              "cursor-default select-none relative py-2 pl-10 pr-4"
-                            )
-                          }
-                          value={genre}
-                        >
+                        <ListboxOption key={genre} className={({ active }) => clsx(active ? "bg-accentColor" : "", "cursor-default select-none relative py-2 pl-10 pr-4")} value={genre}>
                           {({ selected }) => (
                             <>
-                              <span
-                                className={clsx(
-                                  selected ? "font-semibold" : "font-normal",
-                                  "block truncate"
-                                )}
-                              >
-                                {genre === "all" ? "Alle genre" : genre}
-                              </span>
+                              <span className={clsx(selected ? "font-semibold" : "font-normal", "block truncate")}>{genre === "all" ? "Alle genre" : genre}</span>
                             </>
                           )}
                         </ListboxOption>
@@ -131,51 +86,17 @@ export default function Lineup() {
                   <label htmlFor="day-select" className="sr-only">
                     Vælg dag
                   </label>
-                  <ListboxButton
-                    id="day-select"
-                    className={clsx(
-                      "mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
-                      "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
-                    )}
-                  >
+                  <ListboxButton id="day-select" className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")}>
                     <span className="block truncate">{days[filterDay]}</span>
-                    <ChevronDownIcon
-                      className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor"
-                      aria-hidden="true"
-                    />
+                    <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor" aria-hidden="true" />
                   </ListboxButton>
-                  <Transition
-                    leave="transition ease-in duration-100"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                  >
-                    <ListboxOptions
-                      className={clsx(
-                        "absolute mt-1 w-full rounded-lg bg-inputFieldColor py-1 text-bgColor shadow-lg ring-1 ring-black ring-opacity-5",
-                        "focus:outline-none small-size z-10"
-                      )}
-                    >
+                  <Transition leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
+                    <ListboxOptions className={clsx("absolute mt-1 w-full rounded-lg bg-inputFieldColor py-1 text-bgColor shadow-lg ring-1 ring-black ring-opacity-5", "focus:outline-none small-size z-10")}>
                       {lineUpDays.map((day) => (
-                        <ListboxOption
-                          key={day}
-                          className={({ active }) =>
-                            clsx(
-                              active ? "bg-accentColor" : "",
-                              "cursor-default select-none relative py-2 pl-10 pr-4"
-                            )
-                          }
-                          value={day}
-                        >
+                        <ListboxOption key={day} className={({ active }) => clsx(active ? "bg-accentColor" : "", "cursor-default select-none relative py-2 pl-10 pr-4")} value={day}>
                           {({ selected }) => (
                             <>
-                              <span
-                                className={clsx(
-                                  selected ? "font-semibold" : "font-normal",
-                                  "block truncate"
-                                )}
-                              >
-                                {days[day]}
-                              </span>
+                              <span className={clsx(selected ? "font-semibold" : "font-normal", "block truncate")}>{days[day]}</span>
                             </>
                           )}
                         </ListboxOption>
@@ -190,28 +111,13 @@ export default function Lineup() {
 
         <div className="hidden h-fit lg:flex flex-wrap gap-4">
           {lineUpDays.map((day) => (
-            <button
-              key={day}
-              onClick={() => setFilterDay(day)}
-              className={`${
-                filterDay === day
-                  ? "bg-secondaryColor text-bgColor border-bgColor"
-                  : "bg-bgColor text-secondaryColor border-inputFieldColor"
-              } rounded-lg border-2 transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-4 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor`}
-              aria-pressed={filterDay === day}
-              aria-label={`Filter bands by ${days[day]}`}
-            >
+            <button key={day} onClick={() => setFilterDay(day)} className={`${filterDay === day ? "bg-secondaryColor text-bgColor border-bgColor" : "bg-bgColor text-secondaryColor border-inputFieldColor"} rounded-lg border-2 transition-colors duration-100 ease-in-out hover:bg-secondaryColor hover:text-bgColor hover:border-bgColor px-4 py-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor`} aria-pressed={filterDay === day} aria-label={`Filter bands by ${days[day]}`}>
               {days[day]}
             </button>
           ))}
         </div>
       </header>
-      <LineupBands
-        lineUp={lineUp}
-        schedule={schedule}
-        filterDay={filterDay}
-        filterGenre={filterGenre}
-      />
+      <LineupBands lineUp={lineUp} schedule={schedule} filterDay={filterDay} filterGenre={filterGenre} />
     </section>
   );
 }
