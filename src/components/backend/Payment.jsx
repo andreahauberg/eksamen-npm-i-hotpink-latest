@@ -92,11 +92,11 @@ export default function Payment({ bookingData, onNext, onBack }) {
     <div className="grid grid-cols-gridContent">
       <div className="pt-8 pb-16 col-start-3 gap-3 flex flex-wrap items-center justify-center">
         <div className="bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-md">
-          <h1
+          <h2
             className={`${krona_one.className} large-size text-primaryTextColor mb-5`}
           >
             Betalingsside
-          </h1>
+          </h2>
           <div className="mb-6">
             <Cards
               number={cardNumber}
