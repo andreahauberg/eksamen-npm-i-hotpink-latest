@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { Disclosure, Field, Label, Description } from "@headlessui/react";
+import {
+  Disclosure,
+  DisclosurePanel,
+  DisclosureButton,
+  Field,
+  Label,
+  Description,
+} from "@headlessui/react";
 import clsx from "clsx";
 import prices from "../backend/settings.js";
 import { krona_one } from "@/app/fonts.jsx";
@@ -112,7 +119,7 @@ export default function PersonalForm({
                 {({ open }) => (
                   <>
                     <div className="relative mb-2">
-                      <Disclosure.Button
+                      <DisclosureButton
                         className={clsx(
                           "w-full py-2 text-center small-size rounded-lg bg-bgColor text-primaryTextColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
                           { "": open }
@@ -121,7 +128,7 @@ export default function PersonalForm({
                         aria-controls={`panel-${index}`}
                       >
                         Billet {index + 1} ({ticketType})
-                      </Disclosure.Button>
+                      </DisclosureButton>
                       {open ? (
                         <ChevronUpIcon
                           className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-primaryTextColor"
@@ -134,7 +141,7 @@ export default function PersonalForm({
                         />
                       )}
                     </div>
-                    <Disclosure.Panel className="pb-2" id={`panel-${index}`}>
+                    <DisclosurePanel className="pb-2" id={`panel-${index}`}>
                       <div className="space-y-4">
                         <Field className="space-y-2">
                           <Label htmlFor={`firstName-${index}`}>Fornavn:</Label>
@@ -267,7 +274,7 @@ export default function PersonalForm({
                           </Description>
                         </Field>
                       </div>
-                    </Disclosure.Panel>
+                    </DisclosurePanel>
                   </>
                 )}
               </Disclosure>

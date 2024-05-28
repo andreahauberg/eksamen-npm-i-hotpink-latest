@@ -1,5 +1,14 @@
 import { krona_one } from "@/app/fonts.jsx";
-import { Tab, Disclosure } from "@headlessui/react";
+import {
+  Tab,
+  TabGroup,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Disclosure,
+  DisclosurePanel,
+  DisclosureButton,
+} from "@headlessui/react";
 import RegularTicketSVG from "./RegularTicketSVG";
 import VIPTicketSVG from "./VIPTicketSVG";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
@@ -33,8 +42,8 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
               </div>
               <TicketSVG className=" w-64" aria-hidden="true" />
             </div>
-            <Tab.Group>
-              <Tab.List className="flex space-x-1 rounded-xl bg-primaryTextColor text-bgColor p-1">
+            <TabGroup>
+              <TabList className="flex space-x-1 rounded-xl bg-primaryTextColor text-bgColor p-1">
                 <Tab
                   className={({ selected }) =>
                     selected
@@ -53,15 +62,15 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                 >
                   Campingområde
                 </Tab>
-              </Tab.List>
-              <Tab.Panels className="mt-2">
-                <Tab.Panel className="rounded-xl p-3">
+              </TabList>
+              <TabPanels className="mt-2">
+                <TabPanel className="rounded-xl p-3">
                   {personalInfo.map((info, index) => (
                     <Disclosure key={index} defaultOpen={index === 0}>
                       {({ open }) => (
                         <>
                           <div className="relative mb-2">
-                            <Disclosure.Button
+                            <DisclosureButton
                               className={clsx(
                                 "w-full py-2.5 small-size rounded-lg bg-inputFieldColor text-bgColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
                                 { " ": open }
@@ -70,7 +79,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                               aria-controls={`panel-${index}`}
                             >
                               <b>Billet</b> {index + 1} ({ticketType})
-                            </Disclosure.Button>
+                            </DisclosureButton>
                             {open ? (
                               <ChevronUpIcon
                                 className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor"
@@ -84,7 +93,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                             )}
                           </div>
 
-                          <Disclosure.Panel
+                          <DisclosurePanel
                             className=" pt-2 mb-4  pb-4 px-5 flex flex-wrap text-bgColor bg-primaryTextColor rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                             id={`panel-${index}`}
                           >
@@ -107,13 +116,13 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                                 <b>Email:</b> {info.email}
                               </p>
                             </div>
-                          </Disclosure.Panel>
+                          </DisclosurePanel>
                         </>
                       )}
                     </Disclosure>
                   ))}
-                </Tab.Panel>
-                <Tab.Panel className="rounded-xl  bg-primaryTextColor text-bgColor pt-2 mb-4  pb-4 px-5 ">
+                </TabPanel>
+                <TabPanel className="rounded-xl  bg-primaryTextColor text-bgColor pt-2 mb-4  pb-4 px-5 ">
                   <div>
                     {camping.selectedArea && (
                       <p className="small-size">
@@ -138,9 +147,9 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                       </p>
                     )}
                   </div>
-                </Tab.Panel>
-              </Tab.Panels>
-            </Tab.Group>
+                </TabPanel>
+              </TabPanels>
+            </TabGroup>
           </div>
           <div className="flex justify-between">
             <button

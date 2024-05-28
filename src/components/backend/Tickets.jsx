@@ -4,6 +4,7 @@ import { krona_one } from "@/app/fonts.jsx";
 import {
   Select,
   RadioGroup,
+  Radio,
   Field,
   Label,
   Legend,
@@ -64,9 +65,9 @@ export default function TicketsForm({
               onChange={setLocalTicketType}
               className="space-y-6"
             >
-              <RadioGroup.Label>Billettype</RadioGroup.Label>
+              <Label>Billettype</Label>
               {ticketOptions.map((option) => (
-                <RadioGroup.Option
+                <Radio
                   key={option.name}
                   value={option.name.toLowerCase()}
                   className={({ active, checked }) =>
@@ -95,7 +96,7 @@ export default function TicketsForm({
                       )}
                     </div>
                   )}
-                </RadioGroup.Option>
+                </Radio>
               ))}
             </RadioGroup>
             <Field className="flex flex-col small-size">
