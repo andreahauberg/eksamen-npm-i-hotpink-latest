@@ -2,7 +2,7 @@
 import { fetchAPI } from "../../app/api/api.js";
 import { useState, useEffect } from "react";
 import { krona_one } from "@/app/fonts";
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition, Label } from "@headlessui/react";
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import TimeTableBands from "./TimeTableBands";
@@ -43,7 +43,9 @@ export default function Schedule() {
       <header className="flex justify-between gap-3 px-2 md:px-4 py-5">
         <div className="flex justify-center mb-4 gap-2 w-full lg:w-auto">
           <div className="relative w-full lg:hidden">
-            <Label className="sr-only">Vælg scene</Label>
+            <label htmlFor="scene-select" className="sr-only">
+              Vælg scene
+            </label>
             <Listbox value={filterScene} onChange={setFilterScene}>
               <div className="relative mt-1">
                 <ListboxButton className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor")}>
@@ -82,7 +84,9 @@ export default function Schedule() {
         </div>
         <div className="flex justify-center mb-4 gap-2 w-full lg:w-auto">
           <div className="relative w-full lg:hidden">
-            <Label className="sr-only">VVælg dag</Label>
+            <label htmlFor="day-select" className="sr-only">
+              Vælg dag
+            </label>
             <Listbox value={filterDay} onChange={setFilterDay}>
               <div className="relative mt-1">
                 <ListboxButton className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor")}>

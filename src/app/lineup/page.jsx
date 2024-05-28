@@ -2,7 +2,7 @@
 import { fetchAPI } from "../../app/api/api.js";
 import { useState, useEffect } from "react";
 import { krona_one } from "@/app/fonts";
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition, Label } from "@headlessui/react";
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import LineupBands from "./LineupBands";
@@ -52,7 +52,9 @@ export default function Lineup() {
             {({ open }) => (
               <>
                 <div className="relative">
-                  <Label className="sr-only">Vælg genre</Label>
+                  <label htmlFor="day-select" className="sr-only">
+                    Vælg genre
+                  </label>
                   <ListboxButton className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")}>
                     <span className="block truncate">{filterGenre === "all" ? "Alle genre" : filterGenre}</span>
                     <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor" aria-hidden="true" />
@@ -81,7 +83,9 @@ export default function Lineup() {
             {({ open }) => (
               <>
                 <div className="relative">
-                  <Label className="sr-only">Vælg dag</Label>
+                  <label htmlFor="day-select" className="sr-only">
+                    Vælg dag
+                  </label>
                   <ListboxButton className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")}>
                     <span className="block truncate">{days[filterDay]}</span>
                     <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor" aria-hidden="true" />
