@@ -5,7 +5,7 @@ import { krona_one } from "@/app/fonts";
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
-import TimeTableBands from "./TimeTableBands";
+import TimeTableBands from "../../components/frondend/TimeTableBands.jsx/index.js";
 
 export default function Schedule() {
   const [lineUp, setLineUp] = useState([]);
