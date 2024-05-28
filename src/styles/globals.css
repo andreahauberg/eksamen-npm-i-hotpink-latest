@@ -23,7 +23,7 @@
   --label-color: #ff69b4;
 
   /* text */
-  --heading01: clamp(1.5rem, 2.5vw, 2.5rem);
+  --heading01: clamp(1.5rem, 2.3vw, 2.5rem);
   --headliner: clamp(3rem, 6vw, 5.5rem);
   --heading02: clamp(1.4rem, 2.3vw, 2.3125rem);
   --heading03: clamp(1.1rem, 1.6vw, 1.2625rem);
