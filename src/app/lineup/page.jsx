@@ -2,7 +2,7 @@
 import { fetchAPI } from "../../app/api/api.js";
 import { useState, useEffect } from "react";
 import { krona_one } from "@/app/fonts";
-import { Listbox } from "@headlessui/react";
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition, Label } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 import LineupBands from "./LineupBands";
@@ -52,22 +52,24 @@ export default function Lineup() {
             {({ open }) => (
               <>
                 <div className="relative">
-                  <Listbox.Label className="sr-only">Vælg genre</Listbox.Label>
-                  <Listbox.Button className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")}>
+                  <Label className="sr-only">Vælg genre</Label>
+                  <ListboxButton className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")}>
                     <span className="block truncate">{filterGenre === "all" ? "Alle genre" : filterGenre}</span>
                     <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor" aria-hidden="true" />
-                  </Listbox.Button>
-                  <Listbox.Options className={clsx("absolute mt-1 w-full max-h-60 overflow-auto rounded-lg bg-inputFieldColor py-1 text-bgColor shadow-lg ring-1 ring-black ring-opacity-5", "focus:outline-none small-size z-10 ")}>
-                    {genres.map((genre) => (
-                      <Listbox.Option key={genre} className={({ active }) => clsx(active ? "bg-accentColor" : "", "cursor-default select-none relative py-2 pl-10 pr-4")} value={genre}>
-                        {({ selected }) => (
-                          <>
-                            <span className={clsx(selected ? "font-semibold" : "font-normal", "block truncate")}>{genre === "all" ? "Alle genre" : genre}</span>
-                          </>
-                        )}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
+                  </ListboxButton>
+                  <Transition leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
+                    <ListboxOptions className={clsx("absolute mt-1 w-full max-h-60 overflow-auto rounded-lg bg-inputFieldColor py-1 text-bgColor shadow-lg ring-1 ring-black ring-opacity-5", "focus:outline-none small-size z-10 ")}>
+                      {genres.map((genre) => (
+                        <ListboxOption key={genre} className={({ active }) => clsx(active ? "bg-accentColor" : "", "cursor-default select-none relative py-2 pl-10 pr-4")} value={genre}>
+                          {({ selected }) => (
+                            <>
+                              <span className={clsx(selected ? "font-semibold" : "font-normal", "block truncate")}>{genre === "all" ? "Alle genre" : genre}</span>
+                            </>
+                          )}
+                        </ListboxOption>
+                      ))}
+                    </ListboxOptions>
+                  </Transition>
                 </div>
               </>
             )}
@@ -79,22 +81,24 @@ export default function Lineup() {
             {({ open }) => (
               <>
                 <div className="relative">
-                  <Listbox.Label className="sr-only">Vælg dag</Listbox.Label>
-                  <Listbox.Button className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")}>
+                  <Label className="sr-only">Vælg dag</Label>
+                  <ListboxButton className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")}>
                     <span className="block truncate">{days[filterDay]}</span>
                     <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor" aria-hidden="true" />
-                  </Listbox.Button>
-                  <Listbox.Options className={clsx("absolute mt-1 w-full rounded-lg bg-inputFieldColor py-1 text-bgColor shadow-lg ring-1 ring-black ring-opacity-5", "focus:outline-none small-size z-10")}>
-                    {lineUpDays.map((day) => (
-                      <Listbox.Option key={day} className={({ active }) => clsx(active ? "bg-accentColor" : "", "cursor-default select-none relative py-2 pl-10 pr-4")} value={day}>
-                        {({ selected }) => (
-                          <>
-                            <span className={clsx(selected ? "font-semibold" : "font-normal", "block truncate")}>{days[day]}</span>
-                          </>
-                        )}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
+                  </ListboxButton>
+                  <Transition leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
+                    <ListboxOptions className={clsx("absolute mt-1 w-full rounded-lg bg-inputFieldColor py-1 text-bgColor shadow-lg ring-1 ring-black ring-opacity-5", "focus:outline-none small-size z-10")}>
+                      {lineUpDays.map((day) => (
+                        <ListboxOption key={day} className={({ active }) => clsx(active ? "bg-accentColor" : "", "cursor-default select-none relative py-2 pl-10 pr-4")} value={day}>
+                          {({ selected }) => (
+                            <>
+                              <span className={clsx(selected ? "font-semibold" : "font-normal", "block truncate")}>{days[day]}</span>
+                            </>
+                          )}
+                        </ListboxOption>
+                      ))}
+                    </ListboxOptions>
+                  </Transition>
                 </div>
               </>
             )}

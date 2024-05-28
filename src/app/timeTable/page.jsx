@@ -2,7 +2,7 @@
 import { fetchAPI } from "../../app/api/api.js";
 import { useState, useEffect } from "react";
 import { krona_one } from "@/app/fonts";
-import { Listbox } from "@headlessui/react";
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition, Label } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import TimeTableBands from "./TimeTableBands";
@@ -43,29 +43,29 @@ export default function Schedule() {
       <header className="flex justify-between gap-3 px-2 md:px-4 py-5">
         <div className="flex justify-center mb-4 gap-2 w-full lg:w-auto">
           <div className="relative w-full lg:hidden">
-            <label htmlFor="scene-select" className="sr-only">
-              Vælg scene
-            </label>
+            <Label className="sr-only">Vælg scene</Label>
             <Listbox value={filterScene} onChange={setFilterScene}>
               <div className="relative mt-1">
                 <ListboxButton className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor")}>
                   {filterScene === "all" ? "Alle scener" : filterScene}
                   <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 h-5 w-5 text-bgColor" aria-hidden="true" />
                 </ListboxButton>
-                <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-base shadow-lg small-size border-none rounded-lg bg-inputFieldColor text-bgColor focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor">
-                  <ListboxOption key="all" value="all">
-                    {({ selected }) => <div className={`cursor-default select-none relative py-2 pl-10 pr-4 ${selected ? "font-medium" : "font-normal"}`}>Alle scener</div>}
-                  </ListboxOption>
-                  {Object.keys(schedule).map((scene) => (
-                    <ListboxOption key={scene} className={({ active }) => clsx(active ? "bg-accentColor" : "", "cursor-default select-none relative py-2 pl-10 pr-4")} value={scene}>
-                      {({ selected }) => (
-                        <>
-                          <span className={clsx(selected ? "font-semibold" : "font-normal", "block truncate")}>{scene}</span>
-                        </>
-                      )}
+                <Transition leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
+                  <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-base shadow-lg small-size border-none rounded-lg bg-inputFieldColor text-bgColor focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor">
+                    <ListboxOption key="all" value="all">
+                      {({ selected }) => <div className={`cursor-default select-none relative py-2 pl-10 pr-4 ${selected ? "font-medium" : "font-normal"}`}>Alle scener</div>}
                     </ListboxOption>
-                  ))}
-                </ListboxOptions>
+                    {Object.keys(schedule).map((scene) => (
+                      <ListboxOption key={scene} className={({ active }) => clsx(active ? "bg-accentColor" : "", "cursor-default select-none relative py-2 pl-10 pr-4")} value={scene}>
+                        {({ selected }) => (
+                          <>
+                            <span className={clsx(selected ? "font-semibold" : "font-normal", "block truncate")}>{scene}</span>
+                          </>
+                        )}
+                      </ListboxOption>
+                    ))}
+                  </ListboxOptions>
+                </Transition>
               </div>
             </Listbox>
           </div>
@@ -82,26 +82,26 @@ export default function Schedule() {
         </div>
         <div className="flex justify-center mb-4 gap-2 w-full lg:w-auto">
           <div className="relative w-full lg:hidden">
-            <label htmlFor="day-select" className="sr-only">
-              Vælg dag
-            </label>
+            <Label className="sr-only">VVælg dag</Label>
             <Listbox value={filterDay} onChange={setFilterDay}>
               <div className="relative mt-1">
                 <ListboxButton className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor")}>
                   {days[filterDay]}
                   <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 h-5 w-5 text-bgColor" aria-hidden="true" />
                 </ListboxButton>
-                <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-base shadow-lg  small-size border-none rounded-lg bg-inputFieldColor text-bgColor focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor z-10">
-                  {lineUpDays.map((day) => (
-                    <ListboxOption key={day} className={({ active }) => clsx(active ? "bg-accentColor" : "", "cursor-default select-none relative py-2 pl-10 pr-4")} value={day}>
-                      {({ selected }) => (
-                        <>
-                          <span className={clsx(selected ? "font-semibold" : "font-normal", "block truncate")}>{days[day]}</span>
-                        </>
-                      )}
-                    </ListboxOption>
-                  ))}
-                </ListboxOptions>
+                <Transition leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
+                  <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto bg-white py-1 text-base shadow-lg  small-size border-none rounded-lg bg-inputFieldColor text-bgColor focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor z-10">
+                    {lineUpDays.map((day) => (
+                      <ListboxOption key={day} className={({ active }) => clsx(active ? "bg-accentColor" : "", "cursor-default select-none relative py-2 pl-10 pr-4")} value={day}>
+                        {({ selected }) => (
+                          <>
+                            <span className={clsx(selected ? "font-semibold" : "font-normal", "block truncate")}>{days[day]}</span>
+                          </>
+                        )}
+                      </ListboxOption>
+                    ))}
+                  </ListboxOptions>
+                </Transition>
               </div>
             </Listbox>
           </div>
