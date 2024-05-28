@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { krona_one } from "@/app/fonts";
-import Burger from "./burger";
+import Burger from "../globals/Burger";
 
 export default function Header() {
   return (
