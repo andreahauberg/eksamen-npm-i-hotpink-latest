@@ -14,11 +14,11 @@ export default function ConfirmationPage({ bookingData }) {
     <div className="grid grid-cols-gridContent">
       <div className="my-24 col-start-3 gap-3 flex flex-wrap items-center justify-center">
         <div className="bg-secondaryBgColor rounded-lg p-8 shadow-md shadow-primaryColor w-full max-w-md">
-          <h1
+          <p
             className={`${krona_one.className} text-center large-size text-primaryTextColor `}
           >
             Ordrebekræftelse
-          </h1>
+          </p>
           <div className="flex items-center justify-center gap-10">
             <p className="normal-size ">Tak for dit køb! </p>
             <div className="flex justify-center ">
