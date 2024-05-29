@@ -83,23 +83,6 @@ export default function PersonalForm({
     onNext();
   };
 
-  const validateDateOfBirth = (date) => {
-    const today = new Date();
-    const birthDate = new Date(date);
-    const age = today.getFullYear() - birthDate.getFullYear();
-    const isFutureDate = birthDate > today;
-    const isOlderThan100 = age > 100;
-    return !(isFutureDate || isOlderThan100);
-  };
-
-  const getMaxDate = () => {
-    const today = new Date();
-    const year = today.getFullYear() - 18;
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-
   return (
     <div className="grid grid-cols-gridContent">
       <div className="pt-8 pb-16 col-start-3 gap-3 flex flex-wrap items-center justify-center">
@@ -232,21 +215,14 @@ export default function PersonalForm({
                             className="peer w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
                             aria-label={`Fødselsdato for billet ${index + 1}`}
                             min="1923-01-01"
-                            max={getMaxDate()}
                             required
-                            onChange={(e) => {
-                              if (validateDateOfBirth(e.target.value)) {
-                                handleInputChange(
-                                  index,
-                                  "dateOfBirth",
-                                  e.target.value
-                                );
-                              } else {
-                                alert(
-                                  "Fødselsdatoen skal være en gyldig dato, du skal være mindst 18 år gammel."
-                                );
-                              }
-                            }}
+                            onChange={(e) =>
+                              handleInputChange(
+                                index,
+                                "dateOfBirth",
+                                e.target.value
+                              )
+                            }
                           />
                           <Description className="xsmall-size hidden peer-focus:block">
                             Du skal være mindst 18 år gammel

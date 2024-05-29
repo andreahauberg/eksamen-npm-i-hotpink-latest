@@ -39,7 +39,7 @@ export default function CartSummary({
       {isOpen && (
         <div
           id="cart-summary"
-          className="backdrop-blur-md fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-30"
+          className="backdrop-blur-md fixed inset-0 z-50 flex items-center justify-center p-4 bg-opacity-30"
           role="dialog"
           aria-modal="true"
           aria-labelledby="cart-summary-title"
@@ -54,12 +54,12 @@ export default function CartSummary({
             >
               ×
             </button>
-            <h2
+            <p
               id="cart-summary-title"
               className="medium-size font-semibold text-primaryTextColor"
             >
               Kurvens indhold
-            </h2>
+            </p>
             <div className="mt-4 space-y-4">
               <div className="flex items-center justify-center gap-10">
                 <div>
@@ -90,7 +90,7 @@ export default function CartSummary({
                   <TicketSVG className=" h-40 w-40" aria-hidden="true" />
                 </div>
               </div>
-              <h3 className="medium-size font-bold text-right">
+              <p className="medium-size font-bold text-right">
                 I alt:{" "}
                 {calculateTotalPrice(
                   ticketQuantity,
@@ -98,7 +98,7 @@ export default function CartSummary({
                   campingOptions
                 )}{" "}
                 DKK
-              </h3>
+              </p>
             </div>
           </div>
         </div>

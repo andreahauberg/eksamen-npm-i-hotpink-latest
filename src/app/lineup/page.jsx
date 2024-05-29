@@ -5,7 +5,7 @@ import { krona_one } from "@/app/fonts";
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
-import LineupBands from "./LineupBands";
+import LineupBands from "@/components/frondend/LineupBands.jsx";
 
 export default function Lineup() {
   const [lineUp, setLineUp] = useState([]);
@@ -52,10 +52,10 @@ export default function Lineup() {
             {({ open }) => (
               <>
                 <div className="relative">
-                  <label htmlFor="day-select" className="sr-only">
+                  <label htmlFor="genre-select" className="sr-only">
                     Vælg genre
                   </label>
-                  <ListboxButton className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")}>
+                  <ListboxButton id="genre-select" className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")}>
                     <span className="block truncate">{filterGenre === "all" ? "Alle genre" : filterGenre}</span>
                     <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor" aria-hidden="true" />
                   </ListboxButton>
@@ -86,7 +86,7 @@ export default function Lineup() {
                   <label htmlFor="day-select" className="sr-only">
                     Vælg dag
                   </label>
-                  <ListboxButton className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")}>
+                  <ListboxButton id="day-select" className={clsx("mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5", "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor")}>
                     <span className="block truncate">{days[filterDay]}</span>
                     <ChevronDownIcon className="pointer-events-none absolute top-2.5 right-2.5 size-5 fill-bgColor" aria-hidden="true" />
                   </ListboxButton>

@@ -72,10 +72,10 @@ export default function TicketsForm({
                   value={option.name.toLowerCase()}
                   className={({ active, checked }) =>
                     clsx(
-                      "relative flex cursor-pointer rounded-lg bg-bgColor py-4 px-5 text-white shadow-md transition focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
+                      "relative flex cursor-pointer rounded-lg bg-bgColor py-4 px-5 shadow-md transition focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
                       {
                         "ring-2 ring-offset-2 ring-accentColor": active,
-                        "bg-white/10": checked,
+                        "bg-primaryTextColor/10": checked,
                       }
                     )
                   }
@@ -117,11 +117,16 @@ export default function TicketsForm({
                   aria-describedby="ticketQuantity-description"
                   required
                 >
-                  {[...Array(10).keys()].map((i) => (
-                    <option key={i + 1} value={i + 1}>
-                      {i + 1}
-                    </option>
-                  ))}
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
                 </Select>
                 <ChevronDownIcon
                   className="pointer-events-none absolute top-3.5 left-20 size-5 fill-bgColor"

@@ -17,16 +17,6 @@ module.exports = {
       inputFieldColor: "#AFC2C3",
       accentColor: "#FFD700",
       labelColor: "#FF69B4",
-
-      //     --primary-color-01: #2ca3a8;
-      // --primary-text-color: #fff0f5;
-      // --secondary-color-01: #ffc0cb;
-      // --secondary-color-02: #eb8899;
-      // --primary-color-bg: #1b2020;
-      // --secondary-color-text: #1b2020;
-      // --secondary-color-bg: #333838;
-      // --input-bg-color: #afc2c3;
-      // --accent-color:#ffd700;
     },
     extend: {
       backgroundImage: {
