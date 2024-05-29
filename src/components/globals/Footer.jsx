@@ -23,7 +23,10 @@ export default function Footer() {
             />
           </svg>
           <div className="flex gap-3 justify-center">
-            <Link href="/#" className="focus:outline-none focus:rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
+            <Link
+              href="/#"
+              className="focus:outline-none focus:rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+            >
               <svg
                 className="h-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
                 xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +53,10 @@ export default function Footer() {
                 />
               </svg>
             </Link>
-            <Link href="/#" className="focus:outline-none focus: rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
+            <Link
+              href="/#"
+              className="focus:outline-none focus: rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+            >
               <svg
                 className="h-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor focus:rounded-lg"
                 xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +73,10 @@ export default function Footer() {
                 />
               </svg>
             </Link>
-            <Link href="/#" className="focus:outline-none focus: rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
+            <Link
+              href="/#"
+              className="focus:outline-none focus: rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+            >
               <svg
                 className="h-10 focus:outline-none focus: rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
                 xmlns="http://www.w3.org/2000/svg"
