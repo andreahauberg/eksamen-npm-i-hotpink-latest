@@ -11,16 +11,6 @@ export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const getBands = async () => {
-      try {
-        const bands = await fetchAPI("/bands");
-        console.log("Fetched bands:", bands);
-      } catch (error) {
-        console.error("Failed to fetch bands:", error);
-      }
-    };
-
-    getBands();
     //isMounted er true, viser at komponenten er monteret
     setIsMounted(true);
   }, []); //tomt array sørger for den kun kører en gang (componentDiMount)
@@ -65,7 +55,7 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="text-center pt-16 pb-8">
+      <section className="text-center pt-12 pb-8">
         {/* Render CountdownTimer kun efter komponenten er monteret */}
         {isMounted && (
           <CountdownTimer targetDate={new Date("2024-07-01T00:00:00")} />
