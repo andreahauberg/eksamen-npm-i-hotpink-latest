@@ -1,4 +1,3 @@
-// api.js
 const baseURL = process.env.NEXT_PUBLIC_API;
 const supabaseURL = process.env.NEXT_PUBLIC_SUPABASE;
 const supabaseKey = process.env.NEXT_PUBLIC_KEY;
