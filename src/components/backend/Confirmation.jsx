@@ -7,7 +7,6 @@ import VIPTicketSVG from "./VIPTicketSVG";
 export default function ConfirmationPage({ bookingData }) {
   const { orderId, personalInfo, totalPrice, ticketType } = bookingData;
 
-  // Determine which SVG to display based on the ticket type
   const TicketSVG = ticketType === "regular" ? RegularTicketSVG : VIPTicketSVG;
 
   return (
