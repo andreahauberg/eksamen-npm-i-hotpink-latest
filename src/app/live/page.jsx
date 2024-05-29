@@ -10,17 +10,14 @@ export default function Schedule() {
   const [schedule, setSchedule] = useState({});
 
   useEffect(() => {
-    const loadSchedule = async () => {
-      try {
+    const loadSchedule = async () =>  {
         const bandsData = await fetchAPI("/bands");
         const scheduleData = await fetchAPI("/schedule");
 
         setLineUp(bandsData);
         setSchedule(scheduleData);
-      } catch (error) {
-        console.error("Error loading data:", error);
-      }
-    };
+      } 
+    
     loadSchedule();
   }, []);
 
