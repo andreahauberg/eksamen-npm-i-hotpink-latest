@@ -28,28 +28,27 @@ export default function Payment({ bookingData, onNext, onBack }) {
       form.reportValidity();
       return;
     }
-  
-      await fetchAPI("/fullfill-reservation", {
-        method: "POST",
-        body: JSON.stringify({ id: reservationId }),
-      });
 
-      const orderData = personalInfo.map((info) => ({
-        first_name: info.firstName,
-        last_name: info.lastName,
-        amount: ticketQuantity,
-        email: info.email,
-        phone: info.phoneNumber,
-        birthday: info.dateOfBirth,
-        ordrenummer: orderId,
-        tickettype: ticketType,
-      }));
+    await fetchAPI("/fullfill-reservation", {
+      method: "POST",
+      body: JSON.stringify({ id: reservationId }),
+    });
 
-      await saveOrderToSupabase(orderData);
+    const orderData = personalInfo.map((info) => ({
+      first_name: info.firstName,
+      last_name: info.lastName,
+      amount: ticketQuantity,
+      email: info.email,
+      phone: info.phoneNumber,
+      birthday: info.dateOfBirth,
+      ordrenummer: orderId,
+      tickettype: ticketType,
+    }));
 
-      onNext({ ...bookingData, orderId });
-    };
-  
+    await saveOrderToSupabase(orderData);
+
+    onNext({ ...bookingData, orderId });
+  };
 
   const handleCardNumberChange = (e) => {
     const value = e.target.value.replace(/\D/g, "");

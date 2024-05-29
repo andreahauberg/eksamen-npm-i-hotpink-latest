@@ -43,7 +43,9 @@ export default function BookingPage() {
     <div>
       <h1 className="hidden">Bookingside</h1>
       {step < 6 && <ProgressBar currentStep={step} />}
-      {step < 6 && <BasketTimer step={step} onTimeExpired={handleTimeExpired} />}
+      {step < 6 && (
+        <BasketTimer step={step} onTimeExpired={handleTimeExpired} />
+      )}
       {step === 1 && (
         <TicketsForm
           setBookingData={setBookingData}

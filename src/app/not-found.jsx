@@ -7,9 +7,13 @@ export default function NotFound() {
     <section className="grid grid-cols-gridContent">
       <div className="col-start-2 col-end-5">
         <div>
-          <h1 className={`${krona_one.className} bandheader`}>Siden findes ikke</h1>
+          <h1 className={`${krona_one.className} bandheader`}>
+            Siden findes ikke
+          </h1>
         </div>
-        <p className="pb-8 small-size max-w-2xl">Siden du prøver at finde, findes desværre ikke på FooFest 2024.</p>
+        <p className="pb-8 small-size max-w-2xl">
+          Siden du prøver at finde, findes desværre ikke på FooFest 2024.
+        </p>
         <div className="flex items-center">
           <Link href="/">
             <Button title="Gå tilbage til forsiden" />
