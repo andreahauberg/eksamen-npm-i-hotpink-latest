@@ -28,15 +28,11 @@ export default function Payment({ bookingData, onNext, onBack }) {
       form.reportValidity();
       return;
     }
-    try {
-      console.log("Reservations ID: // ordrenummer", reservationId);
-
+  
       await fetchAPI("/fullfill-reservation", {
         method: "POST",
         body: JSON.stringify({ id: reservationId }),
       });
-
-      console.log("Betalingen er gennemført:", reservationId);
 
       const orderData = personalInfo.map((info) => ({
         first_name: info.firstName,
@@ -49,15 +45,11 @@ export default function Payment({ bookingData, onNext, onBack }) {
         tickettype: ticketType,
       }));
 
-      console.log("Gemt i databasen (Supabase)", orderData);
-
       await saveOrderToSupabase(orderData);
 
       onNext({ ...bookingData, orderId });
-    } catch (error) {
-      console.error("Der opstod en fejl", error);
-    }
-  };
+    };
+  
 
   const handleCardNumberChange = (e) => {
     const value = e.target.value.replace(/\D/g, "");
