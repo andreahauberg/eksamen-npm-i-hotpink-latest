@@ -51,12 +51,8 @@ export default function Camping({
 
   useEffect(() => {
     const loadCampingAreas = async () => {
-      try {
-        const data = await fetchAPI("/available-spots");
-        setCampingAreas(data);
-      } catch (error) {
-        console.error("Error loading camping areas:", error);
-      }
+      const data = await fetchAPI("/available-spots");
+      setCampingAreas(data);
     };
     loadCampingAreas();
   }, []);
@@ -109,32 +105,26 @@ export default function Camping({
       return;
     }
 
-    try {
-      const reservation = await fetchAPI("/reserve-spot", {
-        method: "PUT",
-        body: JSON.stringify({
-          area: selectedArea,
-          amount: ticketQuantity,
-        }),
-      });
-
-      console.log("Reservation successful. ID:", reservation.id);
-
-      setBookingData((old) => ({
-        ...old,
+    const reservation = await fetchAPI("/reserve-spot", {
+      method: "PUT",
+      body: JSON.stringify({
         area: selectedArea,
-        ticketQuantity,
-        ticketType,
-        greenCamping,
-        twoPersonTent,
-        threePersonTent,
-        orderId: reservation.id,
-      }));
+        amount: ticketQuantity,
+      }),
+    });
 
-      onNext();
-    } catch (error) {
-      console.error("Error reserving spot:", error);
-    }
+    setBookingData((old) => ({
+      ...old,
+      area: selectedArea,
+      ticketQuantity,
+      ticketType,
+      greenCamping,
+      twoPersonTent,
+      threePersonTent,
+      orderId: reservation.id,
+    }));
+
+    onNext();
   };
 
   const filteredCampingAreas = campingAreas.filter(
