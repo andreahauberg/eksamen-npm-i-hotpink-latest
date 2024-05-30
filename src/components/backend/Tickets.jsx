@@ -12,6 +12,7 @@ import {
 } from "@headlessui/react";
 import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
+
 import RegularTicketSVG from "./RegularTicketSVG";
 import VIPTicketSVG from "./VIPTicketSVG";
 
@@ -21,10 +22,6 @@ export default function TicketsForm({
   onClick,
   onNext,
 }) {
-
-
-
-
   const [localTicketType, setLocalTicketType] = useState(ticketType);
   const [localQuantity, setLocalQuantity] = useState(ticketQuantity);
   const [localTotalPrice, setLocalTotalPrice] = useState(0);
@@ -40,23 +37,10 @@ export default function TicketsForm({
   };
 
   const handleSubmit = (event) => {
-  event.preventDefault();
+    event.preventDefault();
     onClick({ ticketType: localTicketType, ticketQuantity: localQuantity });
     onNext();
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
+  };
 
   const ticketOptions = [
     { name: "Regular", price: prices.regular, SVG: RegularTicketSVG },
