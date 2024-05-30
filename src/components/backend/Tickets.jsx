@@ -21,10 +21,6 @@ export default function TicketsForm({
   onClick,
   onNext,
 }) {
-
-
-
-
   const [localTicketType, setLocalTicketType] = useState(ticketType);
   const [localQuantity, setLocalQuantity] = useState(ticketQuantity);
   const [localTotalPrice, setLocalTotalPrice] = useState(0);
@@ -44,20 +40,6 @@ export default function TicketsForm({
     onClick({ ticketType: localTicketType, ticketQuantity: localQuantity });
     onNext();
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const ticketOptions = [
     { name: "Regular", price: prices.regular, SVG: RegularTicketSVG },
     { name: "VIP", price: prices.vip, SVG: VIPTicketSVG },
