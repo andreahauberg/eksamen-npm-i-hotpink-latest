@@ -64,6 +64,7 @@ export default function CartSummary({
               <div className="flex items-center justify-center gap-10">
                 <div>
                   <p className="small-size">
+                    {/* ChatGpt prompt: Jeg arbejder på en React-komponent og jeg vil gerne vise billettypen (`ticketType`) med det første bogstav som stort og resten som småt*/}
                     {ticketType.charAt(0).toUpperCase() + ticketType.slice(1)}{" "}
                     billet x {ticketQuantity}
                   </p>

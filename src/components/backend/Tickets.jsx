@@ -67,6 +67,7 @@ export default function TicketsForm({
             >
               <Label>Billettype</Label>
               {ticketOptions.map((option) => (
+                //ChatGpt prompt: Jeg har brug for en generel introduktion til `clsx`-biblioteket. Hvordan bruger jeg `clsx` til at tilføje CSS-klasser i en React-komponent?
                 <Radio
                   key={option.name}
                   value={option.name.toLowerCase()}

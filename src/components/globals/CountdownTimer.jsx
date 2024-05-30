@@ -2,7 +2,7 @@ import React from "react";
 import Countdown from "react-countdown";
 import { krona_one } from "@/app/fonts";
 
-// CountdownTimer komponenten tager en targetDate som prop
+// CountdownTimer tager en targetDate som prop
 const CountdownTimer = ({ targetDate }) => (
   <Countdown date={targetDate} renderer={renderer} />
 );
