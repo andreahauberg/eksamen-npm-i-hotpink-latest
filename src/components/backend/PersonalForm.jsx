@@ -56,6 +56,8 @@ export default function PersonalForm({
     });
   };
 
+  //ChatGpt prompt: Jeg arbejder på en React-komponent, hvor jeg har brug for hjælp til at implementere patterns i input felter. Kan du forklare, hvordan jeg kan tilføje patterns for at validere data som fornavn (kun bogstaver), efternavn (kun bogstaver), telefonnummer (starter med + og kun tal), og email (gyldig email format)? Jeg vil også gerne vide, hvordan jeg kan bruge ARIA-attributter for tilgængelighed.
+
   const handlePhoneKeyPress = (e) => {
     const allowedChars = /^[0-9+]+$/;
     if (!allowedChars.test(e.key) && !e.ctrlKey && e.key !== "Backspace") {
@@ -108,6 +110,8 @@ export default function PersonalForm({
                           { "": open }
                         )}
                         aria-expanded={open}
+                        //ChatGpt prompt: Jeg udvikler en formular i React og ønsker at forbedre tilgængeligheden ved at bruge ARIA-attributter. Kan du forklare, hvordan jeg kan tilføje ARIA labels for input felter som fornavn, efternavn, telefonnummer, fødselsdato, og email? Jeg vil gerne sikre, at skærmlæsere korrekt kan identificere hvert felt og dets formål.
+
                         aria-controls={`panel-${index}`}
                       >
                         Billet {index + 1} ({ticketType})
