@@ -23,12 +23,13 @@ export default function Burger() {
         tabIndex="0"
         onClick={handleClick}
         onKeyPress={handleKeyPress}
+        aria-label="Toggle menu"
       >
         <Hamburger toggled={isOpen} toggle={setOpen} />
       </header>
       {isOpen && (
         <ul
-          className={`absolute grid justify-center justify-items-center gap-4 py-6 right-0 z-10 bg-secondaryBgColor ${
+          className={`absolute grid justify-center gap-4 py-6 right-0 z-10 bg-secondaryBgColor ${
             isOpen ? "w-full fixed top-20" : "w-0"
           } overflow-hidden transition-all duration-300 ease-in-out`}
         >
@@ -38,6 +39,7 @@ export default function Burger() {
               href="/lineup/"
               prefetch={false}
               className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+              aria-label="Lineup"
             >
               Line-up
             </Link>
@@ -48,6 +50,7 @@ export default function Burger() {
               href="/timeTable"
               prefetch={false}
               className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+              aria-label="Timetable"
             >
               Tidsplan
             </Link>
@@ -58,6 +61,7 @@ export default function Burger() {
               href="/booking"
               prefetch={false}
               className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+              aria-label="Booking"
             >
               Billetter
             </Link>
@@ -68,6 +72,7 @@ export default function Burger() {
               href="/live"
               prefetch={false}
               className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+              aria-label="Live now"
             >
               <div className="flex gap-2 justify-center items-center">
                 Spiller nu
@@ -78,6 +83,7 @@ export default function Burger() {
                   height="46"
                   fill="currentColor"
                   viewBox="0 0 16 16"
+                  aria-hidden="true"
                 >
                   <path d="M3.05 3.05a7 7 0 0 0 0 9.9.5.5 0 0 1-.707.707 8 8 0 0 1 0-11.314.5.5 0 0 1 .707.707zm2.122 2.122a4 4 0 0 0 0 5.656.5.5 0 0 1-.708.708 5 5 0 0 1 0-7.072.5.5 0 0 1 .708.708zm5.656-.708a.5.5 0 0 1 .708 0 5 5 0 0 1 0 7.072.5.5 0 1 1-.708-.708 4 4 0 0 0 0-5.656.5.5 0 0 1 0-.708zm2.122-2.12a.5.5 0 0 1 .707 0 8 8 0 0 1 0 11.313.5.5 0 0 1-.707-.707 7 7 0 0 0 0-9.9.5.5 0 0 1 0-.707zM10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
                 </svg>

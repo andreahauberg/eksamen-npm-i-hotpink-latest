@@ -1,15 +1,7 @@
 import { useState, useEffect } from "react";
 import prices from "../backend/settings.js";
 import { krona_one } from "@/app/fonts.jsx";
-import {
-  Select,
-  RadioGroup,
-  Radio,
-  Field,
-  Label,
-  Legend,
-  Fieldset,
-} from "@headlessui/react";
+import { RadioGroup, Radio } from "@headlessui/react";
 import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 
@@ -54,20 +46,22 @@ export default function TicketsForm({
           onSubmit={handleSubmit}
           className="bg-secondaryBgColor p-8 rounded-lg shadow-md shadow-primaryColor w-full max-w-md"
         >
-          <Fieldset className="space-y-6">
-            <Legend
+          <fieldset className="space-y-6">
+            <legend
               className={`${krona_one.className} large-size mb-1 text-primaryTextColor`}
             >
               Vælg billettype
-            </Legend>
+            </legend>
             <RadioGroup
               value={localTicketType}
               onChange={setLocalTicketType}
               className="space-y-6"
+              aria-labelledby="ticket-type-label"
             >
-              <Label>Billettype</Label>
+              <label id="ticket-type-label" className="block mb-2 sr-only">
+                Billettype
+              </label>
               {ticketOptions.map((option) => (
-                //ChatGpt prompt: Jeg har brug for en generel introduktion til `clsx`-biblioteket. Hvordan bruger jeg `clsx` til at tilføje CSS-klasser i en React-komponent?
                 <Radio
                   key={option.name}
                   value={option.name.toLowerCase()}
@@ -100,12 +94,12 @@ export default function TicketsForm({
                 </Radio>
               ))}
             </RadioGroup>
-            <Field className="flex flex-col small-size">
-              <Label htmlFor="ticketQuantity" className="mb-1 font-bold">
+            <div className="flex flex-col small-size">
+              <label htmlFor="ticketQuantity" className="mb-1 font-bold">
                 Vælg antal billetter:
-              </Label>
+              </label>
               <div className="relative">
-                <Select
+                <select
                   id="ticketQuantity"
                   value={localQuantity}
                   onChange={(e) =>
@@ -128,13 +122,13 @@ export default function TicketsForm({
                   <option value="8">8</option>
                   <option value="9">9</option>
                   <option value="10">10</option>
-                </Select>
+                </select>
                 <ChevronDownIcon
                   className="pointer-events-none absolute top-3.5 left-20 size-5 fill-bgColor"
                   aria-hidden="true"
                 />
               </div>
-            </Field>
+            </div>
             <div className="normal-size">
               Total pris for billetter: {localTotalPrice} DKK
             </div>
@@ -147,7 +141,7 @@ export default function TicketsForm({
                 Køb billetter
               </button>
             </div>
-          </Fieldset>
+          </fieldset>
         </form>
       </div>
     </div>

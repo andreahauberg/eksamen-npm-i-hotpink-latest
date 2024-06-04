@@ -9,7 +9,8 @@ export default function Header() {
         <Link
           href="/"
           prefetch={false}
-          className="focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+          className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+          aria-label="Home"
         >
           <svg
             className="h-12"
@@ -18,6 +19,7 @@ export default function Header() {
             height="74"
             viewBox="0 0 200 74"
             fill="none"
+            aria-hidden="true"
           >
             <path
               d="M4.33594 6.47266H31.6406V11.9023H10.5273V19.8906H28.457V24.9883H10.5273V37H4.33594V6.47266ZM35.8203 21.6484C35.8203 19.3438 36.2435 17.2344 37.0898 15.3203C37.9362 13.4062 39.1211 11.7656 40.6445 10.3984C42.181 9.01823 44.0169 7.95052 46.1523 7.19531C48.3008 6.4401 50.6771 6.0625 53.2812 6.0625C55.8724 6.0625 58.2422 6.4401 60.3906 7.19531C62.5391 7.95052 64.375 9.01823 65.8984 10.3984C67.4349 11.7656 68.6263 13.4062 69.4727 15.3203C70.319 17.2344 70.7422 19.3438 70.7422 21.6484C70.7422 23.9661 70.319 26.0951 69.4727 28.0352C68.6263 29.9622 67.4349 31.6224 65.8984 33.0156C64.375 34.4089 62.5391 35.4961 60.3906 36.2773C58.2422 37.0456 55.8724 37.4297 53.2812 37.4297C50.6771 37.4297 48.3008 37.0456 46.1523 36.2773C44.0169 35.4961 42.181 34.4089 40.6445 33.0156C39.1211 31.6224 37.9362 29.9622 37.0898 28.0352C36.2435 26.0951 35.8203 23.9661 35.8203 21.6484ZM42.0117 21.6484C42.0117 23.224 42.2917 24.6432 42.8516 25.9062C43.4245 27.1693 44.2122 28.25 45.2148 29.1484C46.2305 30.0339 47.4219 30.7174 48.7891 31.1992C50.1693 31.681 51.6667 31.9219 53.2812 31.9219C54.8958 31.9219 56.3867 31.681 57.7539 31.1992C59.1341 30.7174 60.3255 30.0339 61.3281 29.1484C62.3307 28.25 63.1185 27.1693 63.6914 25.9062C64.2643 24.6432 64.5508 23.224 64.5508 21.6484C64.5508 20.0729 64.2643 18.6602 63.6914 17.4102C63.1185 16.1602 62.3307 15.1055 61.3281 14.2461C60.3255 13.3737 59.1341 12.7096 57.7539 12.2539C56.3867 11.7982 54.8958 11.5703 53.2812 11.5703C51.6667 11.5703 50.1693 11.7982 48.7891 12.2539C47.4219 12.7096 46.2305 13.3737 45.2148 14.2461C44.2122 15.1055 43.4245 16.1602 42.8516 17.4102C42.2917 18.6602 42.0117 20.0729 42.0117 21.6484ZM75.8203 21.6484C75.8203 19.3438 76.2435 17.2344 77.0898 15.3203C77.9362 13.4062 79.1211 11.7656 80.6445 10.3984C82.181 9.01823 84.0169 7.95052 86.1523 7.19531C88.3008 6.4401 90.6771 6.0625 93.2812 6.0625C95.8724 6.0625 98.2422 6.4401 100.391 7.19531C102.539 7.95052 104.375 9.01823 105.898 10.3984C107.435 11.7656 108.626 13.4062 109.473 15.3203C110.319 17.2344 110.742 19.3438 110.742 21.6484C110.742 23.9661 110.319 26.0951 109.473 28.0352C108.626 29.9622 107.435 31.6224 105.898 33.0156C104.375 34.4089 102.539 35.4961 100.391 36.2773C98.2422 37.0456 95.8724 37.4297 93.2812 37.4297C90.6771 37.4297 88.3008 37.0456 86.1523 36.2773C84.0169 35.4961 82.181 34.4089 80.6445 33.0156C79.1211 31.6224 77.9362 29.9622 77.0898 28.0352C76.2435 26.0951 75.8203 23.9661 75.8203 21.6484ZM82.0117 21.6484C82.0117 23.224 82.2917 24.6432 82.8516 25.9062C83.4245 27.1693 84.2122 28.25 85.2148 29.1484C86.2305 30.0339 87.4219 30.7174 88.7891 31.1992C90.1693 31.681 91.6667 31.9219 93.2812 31.9219C94.8958 31.9219 96.3867 31.681 97.7539 31.1992C99.1341 30.7174 100.326 30.0339 101.328 29.1484C102.331 28.25 103.118 27.1693 103.691 25.9062C104.264 24.6432 104.551 23.224 104.551 21.6484C104.551 20.0729 104.264 18.6602 103.691 17.4102C103.118 16.1602 102.331 15.1055 101.328 14.2461C100.326 13.3737 99.1341 12.7096 97.7539 12.2539C96.3867 11.7982 94.8958 11.5703 93.2812 11.5703C91.6667 11.5703 90.1693 11.7982 88.7891 12.2539C87.4219 12.7096 86.2305 13.3737 85.2148 14.2461C84.2122 15.1055 83.4245 16.1602 82.8516 17.4102C82.2917 18.6602 82.0117 20.0729 82.0117 21.6484Z"
@@ -29,16 +31,16 @@ export default function Header() {
             />
           </svg>
         </Link>
-        <div className="flex items-center gap-4 focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
+        <div className="flex items-center gap-4">
           <div className="md:hidden">
             <Burger />
           </div>
-          <ul className="hidden md:flex gap-8 items-center focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor">
+          <ul className="hidden md:flex gap-8 items-center">
             <li>
               <Link
                 href="/lineup/"
                 prefetch={false}
-                className="hover:text-primaryColor transition-colors duration-200 ease-in-out focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                className="hover:text-primaryColor transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
               >
                 Lineup
               </Link>
@@ -47,7 +49,7 @@ export default function Header() {
               <Link
                 href="/timeTable/"
                 prefetch={false}
-                className="hover:text-primaryColor transition-colors duration-200 ease-in-out focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                className="hover:text-primaryColor transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
               >
                 Tidsplan
               </Link>
@@ -56,7 +58,7 @@ export default function Header() {
               <Link
                 href="/booking/"
                 prefetch={false}
-                className="hover:text-primaryColor transition-colors duration-200 ease-in-out focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                className="hover:text-primaryColor transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
               >
                 Billetter
               </Link>
@@ -65,15 +67,17 @@ export default function Header() {
               <Link
                 href="/live/"
                 prefetch={false}
-                className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus: rounded-lg focus:ring-accentColor"
+                className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                aria-label="Live"
               >
                 <svg
-                  className="pulse transition duration-600 ease-in h-10 w-10 focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+                  className="pulse transition duration-600 ease-in h-10 w-10"
                   xmlns="http://www.w3.org/2000/svg"
                   width="46"
                   height="46"
                   fill="currentColor"
                   viewBox="0 0 16 16"
+                  aria-hidden="true"
                 >
                   <path d="M3.05 3.05a7 7 0 0 0 0 9.9.5.5 0 0 1-.707.707 8 8 0 0 1 0-11.314.5.5 0 0 1 .707.707zm2.122 2.122a4 4 0 0 0 0 5.656.5.5 0 0 1-.708.708 5 5 0 0 1 0-7.072.5.5 0 0 1 .708.708zm5.656-.708a.5.5 0 0 1 .708 0 5 5 0 0 1 0 7.072.5.5 0 1 1-.708-.708 4 4 0 0 0 0-5.656.5.5 0 0 1 0-.708zm2.122-2.12a.5.5 0 0 1 .707 0 8 8 0 0 1 0 11.313.5.5 0 0 1-.707-.707 7 7 0 0 0 0-9.9.5.5 0 0 1 0-.707zM10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
                 </svg>
