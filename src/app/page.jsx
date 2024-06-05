@@ -1,11 +1,13 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import Button from "@/components/globals/Button";
 import CountdownTimer from "@/components/globals/CountdownTimer";
 import HeroSvg from "@/components/globals/HeroSvg.jsx";
 import Faq from "@/components/globals/Faq.jsx";
 import TicketCard from "@/components/globals/TicketCard";
+import { krona_one } from "@/app/fonts.jsx";
 
 export default function Home() {
   // holder styr på om komponenten er monteret
@@ -45,7 +47,8 @@ export default function Home() {
 
   const faqs = [
     {
-      title: "Hvad er åbningstiderne for festivalen?",
+      title:
+        "Hvad er åbningstiderne for festivalen, og er der særlige aktiviteter?",
       body: "Festivalen er åben fra kl. 10:00 til kl. 23:00 hver dag.",
       data: "åbningstider",
       id: "åbningstider",
@@ -69,33 +72,43 @@ export default function Home() {
       id: "sikkerheden på pladsen",
     },
     {
-      title: "Er der faciliteter til personer med handicap?",
+      title:
+        "Er der faciliteter til personer med handicap, og hvordan er forholdene?",
       body: "Ja, vi har specielle faciliteter og adgangsforhold for personer med handicap.",
       data: "faciliteter for handicap",
       id: "faciliteter for handicap",
     },
     {
-      title: "Er der parkeringsmuligheder?",
+      title: "Er der parkeringsmuligheder, og hvor kan jeg finde information?",
       body: "Ja, der er parkeringsmuligheder tæt på festivalområdet. Parkeringspladser kan reserveres på forhånd gennem vores hjemmeside.",
       data: "parkering",
       id: "parkering",
     },
   ];
+
   return (
     <div className="min-h-screen bg-secondaryBgColor">
       <h1 className="hidden">FooFest Forside</h1>
-      <header
-        className="relative text-center py-16 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/image1.png')" }}
-      >
-        <HeroSvg />
-        <div className="mt-8 flex justify-center gap-4 md:gap-6">
-          <Link
-            href="/booking/"
-            className=" w-44 md:w-52 focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
-          >
-            <Button title="Køb billetter" />
-          </Link>
+      <header className="relative text-center py-16 bg-cover bg-center">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/image1.png"
+            alt="Background"
+            layout="fill"
+            objectFit="cover"
+            quality={100}
+          />
+        </div>
+        <div className="relative z-10">
+          <HeroSvg />
+          <div className="mt-8 flex justify-center gap-4 md:gap-6">
+            <Link
+              href="/booking/"
+              className=" w-44 md:w-52 focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+            >
+              <Button title="Køb billetter" />
+            </Link>
+          </div>
         </div>
       </header>
       <section className="text-center py-8 bg-bgColor">
@@ -104,17 +117,22 @@ export default function Home() {
           <CountdownTimer targetDate={new Date("2024-07-01T00:00:00")} />
         )}
       </section>
-      <section className="flex flex-row overflow-x-auto snap-x scroll-px-8 justify-start lg:justify-center items-center space-x-4 md:space-x-8 px-12 lg:px-0 py-5 space-y-0 w-full">
-        {tickets.map((ticket, index) => (
-          <TicketCard
-            key={index}
-            title={ticket.title}
-            description={ticket.description}
-            features={ticket.features}
-            price={ticket.price}
-            link={ticket.link}
-          />
-        ))}
+      <section>
+        <p className={`${krona_one.className} medium-size text-center py-6`}>
+          Billettyper
+        </p>
+        <div className="flex flex-row overflow-x-auto snap-x scroll-px-8 justify-start lg:justify-center items-center space-x-4 md:space-x-8 px-12 lg:px-0 pb-5 space-y-0 w-full">
+          {tickets.map((ticket, index) => (
+            <TicketCard
+              key={index}
+              title={ticket.title}
+              description={ticket.description}
+              features={ticket.features}
+              price={ticket.price}
+              link={ticket.link}
+            />
+          ))}
+        </div>
       </section>
       <section className=" bg-bgColor mt-8">
         <div className="py-6 px-4 rounded-lg flex flex-col justify-center items-center">
