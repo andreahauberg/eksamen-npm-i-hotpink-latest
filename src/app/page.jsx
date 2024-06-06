@@ -10,13 +10,13 @@ import TicketCard from "@/components/globals/TicketCard";
 import { krona_one } from "@/app/fonts.jsx";
 
 export default function Home() {
-  // holder styr på om komponenten er monteret
+  // holder styr på om komponenten er monteret. Sørger for at den kun renderes på klienten og ikke på serveren. Serveren har ikke adgang til DOM'en
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     //isMounted er true, viser at komponenten er monteret
     setIsMounted(true);
-  }, []); //tomt array sørger for den kun kører en gang (componentDiMount)
+  }, []); //tomt array sørger for den kun kører en gang. Derved sikrer man at hele DOM'en er tilgængelig og komponenten er fuldt monteret.
 
   const tickets = [
     {
@@ -112,7 +112,7 @@ export default function Home() {
         </div>
       </header>
       <section className="text-center py-8 bg-bgColor">
-        {/* Render CountdownTimer kun efter komponenten er monteret */}
+        {/* Conditional rendering bruges, så den kun renderes når isMounted er true. Derved forhindrer vi at den renderes for tidligt.  */}
         {isMounted && (
           <CountdownTimer targetDate={new Date("2024-07-01T00:00:00")} />
         )}

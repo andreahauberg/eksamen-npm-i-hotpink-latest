@@ -2,12 +2,13 @@ import React from "react";
 import Countdown from "react-countdown";
 import { krona_one } from "@/app/fonts";
 
-// CountdownTimer tager en targetDate som prop
+// CountdownTimer modtager en targetDate (java-script objekt) som prop
 const CountdownTimer = ({ targetDate }) => (
   <Countdown date={targetDate} renderer={renderer} />
 );
-
+// •	Renderer-funktionen i CountdownTimer-komponenten tager fire argumenter
 const renderer = ({ days, hours, minutes, seconds }) => {
+  // Renderer-funktionen returnerer JSX, som bestemmer hvordan nedtællingen skal vises
   return (
     <div
       className={`${krona_one.className} text-3xl flex justify-center text-white space-x-1 md:space-x-3`}
