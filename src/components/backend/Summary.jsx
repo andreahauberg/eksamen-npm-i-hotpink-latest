@@ -86,6 +86,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                               // clsx til at tilføje CSS-klasser baseret på open-tilstanden. aria-expanded={open} og aria-controls={panel-${index}} er ARIA-attributter, der forbedrer tilgængeligheden ved at angive knaptilstand og kontrollere hvilket panel knappen er forbundet med.
                             >
                               <b>Billet</b> {index + 1} ({ticketType})
+                              {/*  konverteres det til en 1-baseret nummerering */}
                             </DisclosureButton>
                             {open ? (
                               <ChevronUpIcon
@@ -104,6 +105,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                             className=" pt-2 mb-4  pb-4 px-5 flex flex-wrap text-bgColor bg-primaryTextColor rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                             id={`panel-${index}`}
                           >
+                            {/* matcher aria-controls attributten i DisclosureButton for at forbinde de to. */}
                             <div>
                               <p className="small-size">
                                 <b>Fornavn:</b> {info.firstName}
@@ -132,6 +134,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                 <TabPanel className="rounded-xl  bg-primaryTextColor text-bgColor pt-2 mb-4  pb-4 px-5 ">
                   <div>
                     {camping.selectedArea && (
+                      //  logical AND (&&) operator. Render kun hvis p er truthy
                       <p className="small-size">
                         <b>Camping område:</b> {camping.selectedArea}
                       </p>
@@ -144,6 +147,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                     )}
 
                     {camping.twoPersonTent > 0 && (
+                      // hvis større end 0 tillad &&
                       <p className="small-size">
                         <b>2 personers telt x</b> {camping.twoPersonTent}
                       </p>
