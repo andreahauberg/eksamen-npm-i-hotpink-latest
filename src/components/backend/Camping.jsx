@@ -275,6 +275,7 @@ export default function Camping({
                       onChange={setGreenCamping}
                       // prop angiver kald af funktion. SetGC opdatere GC state-variablen
                       className="h-6 w-6 rounded bg-inputFieldColor text-accentColor focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
+                      aria-label="Green camping"
                     >
                       {({ checked }) => (
                         // render-prop dele kode mellem komponenter ved at bruge en prop, hvis værdi er en funktion. Her er det en boolesk værdi, der angiver, om checkboxen er tjekket eller ej
@@ -287,6 +288,7 @@ export default function Camping({
                           // clsx kombinerer statiske og dynamiske klassetyper. fx standard tailwind klasser og booleans
                         >
                           {checked && (
+                            // betinget rendering. Hvis checked er true, vises check icon.
                             <CheckIcon
                               className="w-4 h-4 text-bgColor"
                               aria-hidden="true"
