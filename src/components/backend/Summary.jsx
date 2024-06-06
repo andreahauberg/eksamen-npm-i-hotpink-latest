@@ -21,7 +21,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
 
   const TicketSVG =
     ticketType.toLowerCase() === "vip" ? VIPTicketSVG : RegularTicketSVG;
-
+  // Denne betingelse tjekker, om ticketType (billet type) er "vip" (ignorerer store/små bogstaver). ternary operator bruges til at vælge mellem de to svg'er
   return (
     <div className="grid grid-cols-gridContent">
       <div className="pt-8 pb-16 col-start-3 gap-3 flex flex-wrap items-center justify-center ">
@@ -38,6 +38,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                 <p className="mb-2">
                   {ticketType.charAt(0).toUpperCase() + ticketType.slice(1)}{" "}
                   billet x {ticketQuantity}
+                  {/* Formaterer ticketType til at have en stor begyndelsesbogstav. */}
                 </p>
               </div>
               <TicketSVG className=" w-64" aria-hidden="true" />
@@ -46,10 +47,12 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
               <TabList className="flex space-x-1 rounded-xl bg-primaryTextColor text-bgColor p-1">
                 <Tab
                   className={({ selected }) =>
+                    // render-prop dele kode mellem komponenter ved at bruge en prop, hvis værdi er en funktion. Her er det en boolesk værdi, der viser om tabben er valgt eller ej
                     selected
                       ? "w-full py-2.5 xsmall-size rounded-lg bg-inputFieldColor text-bgColor shadow focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                       : "w-full py-2.5 xsmall-size rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                   }
+                  // clsx kombinerer statiske og dynamiske klassetyper. fx standard tailwind klasser og booleans
                 >
                   Personlige oplysninger
                 </Tab>
@@ -66,8 +69,11 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
               <TabPanels className="mt-2">
                 <TabPanel className="rounded-xl p-3">
                   {personalInfo.map((info, index) => (
+                    // mappes over arrayet, to argumenter gives til call back funktionen. Så hvor hvert element i personalInfo genereres der en sektion
                     <Disclosure key={index} defaultOpen={index === 0}>
+                      {/* key = unik nøgle og defaultOpen sørger for den første sektion er åben som standard */}
                       {({ open }) => (
+                        // render-prop dele kode mellem komponenter ved at bruge en prop, hvis værdi er en funktion. Funktionen tager open-tilstanden som argument og returnerer JSX-indholdet
                         <>
                           <div className="relative mb-2">
                             <DisclosureButton
@@ -77,6 +83,7 @@ export default function SummaryPage({ bookingData, onBack, onNext }) {
                               )}
                               aria-expanded={open}
                               aria-controls={`panel-${index}`}
+                              // clsx til at tilføje CSS-klasser baseret på open-tilstanden. aria-expanded={open} og aria-controls={panel-${index}} er ARIA-attributter, der forbedrer tilgængeligheden ved at angive knaptilstand og kontrollere hvilket panel knappen er forbundet med.
                             >
                               <b>Billet</b> {index + 1} ({ticketType})
                             </DisclosureButton>
