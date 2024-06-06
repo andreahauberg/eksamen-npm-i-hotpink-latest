@@ -153,19 +153,27 @@ export default function Camping({
               <div className="relative">
                 <Select
                   id="campingArea"
-                  value={selectedArea}
+                  value={selectedArea} //Binder værdien af dropdown-menuen til selectedArea i komponenten. Når en mulighed bliver valgt opdateres selectedArea
                   onChange={(e) => setSelectedArea(e.target.value)}
+                  //onChange-hændelsen håndterer ændringer i dropdown'ens værdi. Når der vælges kaldes denne funktion, og localQuantity opdateres med den nye værdi
+                  //e.target.value får værdien af det valgte option element som en streng.
+
                   className={clsx(
                     "mt-1 block w-full appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
                     "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
                   )}
+                  // clsx kombinerer statiske og dynamiske klassetyper. fx standard tailwind klasser og booleans
                   aria-label="Vælg campingområde"
                   required
                 >
                   <option value="">Vælg campingområde</option>
+                  {/*første option er tom, fungerer som en standard besked til brugeren om at vælge et campingområde. */}
                   {filteredCampingAreas.map((area) => (
+                    // For hvert area i filteredCampingAreas arrayet, oprettes en option
                     <option key={area.area} value={area.area}>
+                      {/* hvert element får en unik nøgle baseret på area*/}
                       {area.area} (Ledige pladser: {area.available})
+                      {/*her vises campingområdets navn og antallet af ledige pladser */}
                     </option>
                   ))}
                 </Select>
@@ -198,6 +206,7 @@ export default function Camping({
                       <button
                         type="button"
                         onClick={() =>
+                          // ved klik kaldes funktionen, som tager to argumenter, typen og ændringen af mænngde
                           handleQuantityChange("twoPersonTent", -1)
                         }
                         aria-label="Decrease 2 person tent quantity"
@@ -208,7 +217,10 @@ export default function Camping({
                       <span>{twoPersonTent}</span>
                       <button
                         type="button"
-                        onClick={() => handleQuantityChange("twoPersonTent", 1)}
+                        onClick={() =>
+                          // ved klik kaldes funktionen, som tager to argumenter, typen og ændringen af mænngde
+                          handleQuantityChange("twoPersonTent", 1)
+                        }
                         aria-label="Increase 2 person tent quantity"
                         className="px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor"
                       >
@@ -227,6 +239,7 @@ export default function Camping({
                       <button
                         type="button"
                         onClick={() =>
+                          // ved klik kaldes funktionen, som tager to argumenter, typen og ændringen af mænngde
                           handleQuantityChange("threePersonTent", -1)
                         }
                         aria-label="Decrease 3 person tent quantity"
@@ -238,6 +251,8 @@ export default function Camping({
                       <button
                         type="button"
                         onClick={() =>
+                          // ved klik kaldes funktionen, som tager to argumenter, typen og ændringen af mænngde
+
                           handleQuantityChange("threePersonTent", 1)
                         }
                         aria-label="Increase 3 person tent quantity"
@@ -256,15 +271,20 @@ export default function Camping({
                   <td className="px-4 pb-6 pt-4 flex justify-center text-center items-center">
                     <Checkbox
                       checked={greenCamping}
+                      // prop der styrer om en er tjekket. GC = state-variabel, som indeholder en boolesk værdi
                       onChange={setGreenCamping}
+                      // prop angiver kald af funktion. SetGC opdatere GC state-variablen
                       className="h-6 w-6 rounded bg-inputFieldColor text-accentColor focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
                     >
                       {({ checked }) => (
+                        // render-prop dele kode mellem komponenter ved at bruge en prop, hvis værdi er en funktion. Her er det en boolesk værdi, der angiver, om checkboxen er tjekket eller ej
                         <div
                           className={clsx(
                             checked ? "bg-accentColor" : "bg-inputFieldColor",
+                            // tunary operator
                             "flex items-center justify-center h-6 w-6 rounded "
                           )}
+                          // clsx kombinerer statiske og dynamiske klassetyper. fx standard tailwind klasser og booleans
                         >
                           {checked && (
                             <CheckIcon

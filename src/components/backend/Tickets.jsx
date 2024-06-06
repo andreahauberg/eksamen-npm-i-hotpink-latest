@@ -66,6 +66,7 @@ export default function TicketsForm({
                   key={option.name}
                   value={option.name.toLowerCase()}
                   className={({ active, checked }) =>
+                    // clsx kombinerer statiske og dynamiske klassetyper. fx standard tailwind klasser og booleans
                     clsx(
                       "relative flex cursor-pointer rounded-lg bg-bgColor py-4 px-5 shadow-md transition focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-accentColor",
                       {
@@ -101,27 +102,29 @@ export default function TicketsForm({
               <div className="relative">
                 <select
                   id="ticketQuantity"
-                  value={localQuantity}
-                  onChange={(e) =>
-                    setLocalQuantity(parseInt(e.target.value, 10))
-                  }
+                  value={localQuantity} //Binder værdien af dropdown-menuen til localQuantity i komponenten. Når en mulighed bliver valgt opdateres localQuantity
+                  onChange={(e) => setLocalQuantity(e.target.value, 10)} //onChange-hændelsen håndterer ændringer i dropdown'ens værdi. Når der vælges kaldes denne funktion, og localQuantity opdateres med den nye værdi
+                  //e.target.value får værdien af det valgte option element som en streng.
                   className={clsx(
                     "mt-1 block w-28 appearance-none border-none rounded-lg bg-inputFieldColor text-bgColor py-2 px-5",
                     "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
                   )}
+                  // clsx kombinerer statiske og dynamiske klassetyper. fx standard tailwind klasser og booleans
                   aria-describedby="ticketQuantity-description"
                   required
                 >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
+                  {/* komprimeret kode */}
+                  {/* Opretter et arry med 10 udeffinerede elementer, bruger spread til at kovertere til et reelt array */}
+                  {/* Her mapper vi og genrerer option-elementer 
+                  i = index som går fra 0 - 9*/}
+                  {[...Array(10)].map((_, i) => (
+                    // element får en unik nøgle baseret på indexet plus 1 (= værdier fra 1 til 10).
+                    // sætter værdien af option til index + 1
+                    <option key={i + 1} value={i + 1}>
+                      {/* her vises index + 1 som text */}
+                      {i + 1}
+                    </option>
+                  ))}
                 </select>
                 <ChevronDownIcon
                   className="pointer-events-none absolute top-3.5 left-20 size-5 fill-bgColor"
