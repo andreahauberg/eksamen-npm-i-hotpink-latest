@@ -5,9 +5,12 @@ import RegularTicketSVG from "./RegularTicketSVG";
 import VIPTicketSVG from "./VIPTicketSVG";
 
 export default function ConfirmationPage({ bookingData }) {
+  // ConfirmationPage modtager bookingData som en prop, som indeholder oplysninger om ordren.
   const { orderId, personalInfo, totalPrice, ticketType } = bookingData;
+  // ekstraherer bookingData
 
   const TicketSVG = ticketType === "regular" ? RegularTicketSVG : VIPTicketSVG;
+  // conditional rendering, vælger mellem de to svg-er baseret på ticketType
 
   return (
     <div className="grid grid-cols-gridContent">
