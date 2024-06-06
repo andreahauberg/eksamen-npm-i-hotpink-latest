@@ -1,4 +1,5 @@
 const VIPTicketSVG = ({ className }) => (
+  // funktionel komponent defineret med en arrow function, som modtager className som prop
   <svg
     id="Layer_2"
     data-name="Layer 2"
