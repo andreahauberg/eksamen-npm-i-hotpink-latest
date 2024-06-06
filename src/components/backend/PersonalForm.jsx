@@ -49,10 +49,18 @@ export default function PersonalForm({
   }, [ticketQuantity, ticketType, campingOptions]);
 
   const handleInputChange = (index, field, value) => {
+    // Funktionen modtager tre parametre: index, field, og value.
     setLocalPersonalInfo((prev) => {
+      // setLocalPersonalInfo bruges til at opdatere state-variablen localPersonalInfo. Funktionen tager en callback-funktion som argument, som modtager den tidligere state (prev) og returnerer den nye state.
       const newPersonalInfo = [...prev];
-      newPersonalInfo[index] = { ...newPersonalInfo[index], [field]: value };
+      // Her oprettes en kopi af den tidligere state (prev). Dette er vigtigt, fordi state i React er immutabel, hvilket betyder, at du ikke bør ændre den direkte.
+      newPersonalInfo[index] = {
+        ...newPersonalInfo[index],
+        [field]: value,
+        // Der laves en kopi af det element i newPersonalInfo-arrayet, der svarer til det givne index. Derefter opdateres feltet (field) i dette element med den nye værdi (value).
+      };
       return newPersonalInfo;
+      // Den opdaterede kopi af newPersonalInfo returneres og bliver den nye state.
     });
   };
 
@@ -100,8 +108,11 @@ export default function PersonalForm({
             </legend>
 
             {localPersonalInfo.map((info, index) => (
+              // mappes over arrayet, to argumenter gives til call back funktionen. Så hvor hvert element i localPersonalInfo genereres der en sektion
               <Disclosure key={index} defaultOpen={index === 0}>
+                {/* key = unik nøgle og defaultOpen sørger for den første sektion er åben som standard */}
                 {({ open }) => (
+                  // render-prop dele kode mellem komponenter ved at bruge en prop, hvis værdi er en funktion. Funktionen tager open-tilstanden som argument og returnerer JSX-indholdet
                   <>
                     <div className="relative mb-2">
                       <DisclosureButton
@@ -110,6 +121,8 @@ export default function PersonalForm({
                           { "": open }
                         )}
                         aria-expanded={open}
+                        // clsx til at tilføje CSS-klasser baseret på open-tilstanden. aria-expanded={open} og aria-controls={panel-${index}} er ARIA-attributter, der forbedrer tilgængeligheden ved at angive knaptilstand og kontrollere hvilket panel knappen er forbundet med.
+
                         //ChatGpt prompt: Jeg udvikler en formular i React og ønsker at forbedre tilgængeligheden ved at bruge ARIA-attributter. Kan du forklare, hvordan jeg kan tilføje ARIA labels for input felter som fornavn, efternavn, telefonnummer, fødselsdato, og email? Jeg vil gerne sikre, at skærmlæsere korrekt kan identificere hvert felt og dets formål.
 
                         aria-controls={`panel-${index}`}
@@ -127,8 +140,10 @@ export default function PersonalForm({
                           aria-hidden="true"
                         />
                       )}
+                      {/* ternary operator */}
                     </div>
                     <DisclosurePanel className="pb-2" id={`panel-${index}`}>
+                      {/* matcher aria-controls attributten i DisclosureButton for at forbinde de to. */}
                       <div className="space-y-4">
                         <Field className="space-y-2">
                           <Label htmlFor={`firstName-${index}`}>Fornavn:</Label>
@@ -143,6 +158,7 @@ export default function PersonalForm({
                             required
                             onChange={(e) =>
                               handleInputChange(
+                                // hændelse der opdaterer localPersonalInfo via handleInputChange.
                                 index,
                                 "firstName",
                                 e.target.value
