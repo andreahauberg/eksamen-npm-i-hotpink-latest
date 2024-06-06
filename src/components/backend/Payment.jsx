@@ -5,6 +5,7 @@ import { fetchAPI, saveOrderToSupabase } from "../../app/api/api.js";
 import { krona_one } from "@/app/fonts.jsx";
 
 export default function Payment({ bookingData, onNext, onBack }) {
+  // sender de tre props med
   const {
     reservationId,
     personalInfo,
@@ -13,28 +14,42 @@ export default function Payment({ bookingData, onNext, onBack }) {
     orderId,
     totalPrice,
   } = bookingData;
+  // Ekstrahere data fra bookingData
 
   const [cardNumber, setCardNumber] = useState("");
   const [cardName, setCardName] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
   const [focused, setFocused] = useState("");
+  // useState opbevarer og opdaterer værdierne for kreditkortdetaljerne og den fokuserede inputfelt.
 
   const handleCompletePurchase = async (event) => {
     event.preventDefault();
+    // Forhindrer den standard handling af formularindsendelse, som normalt ville genindlæse siden, så vi kan udføre yderligere valideringer og API-opkald uden at genindlæse siden
 
     const form = event.target.closest("form");
+    //  Finder den nærmeste formularelement til den aktuelle event target
     if (!form.checkValidity()) {
+      // Returnerer true hvis formularen er gyldig, ellers false
       form.reportValidity();
+      // Viser valideringsmeddelelser
       return;
     }
 
-    await fetchAPI("/fullfill-reservation", {
-      method: "POST",
-      body: JSON.stringify({ id: reservationId }),
-    });
+    await fetchAPI(
+      "/fullfill-reservation",
+      // Kalder til API'en med reservations-ID'et
+      {
+        method: "POST",
+        // Specificerer, at dette er en POST-anmodning.
+        body: JSON.stringify({ id: reservationId }),
+        // Inkluderer reservations-ID'et i anmodningen
+      }
+    );
+    // sender en POST-request til serveren fot at fuldføre reservationen
 
     const orderData = personalInfo.map((info) => ({
+      // mapper personalInfo arrayet og skaber et nyt array med formaterede ordredata
       first_name: info.firstName,
       last_name: info.lastName,
       amount: ticketQuantity,
@@ -46,19 +61,22 @@ export default function Payment({ bookingData, onNext, onBack }) {
     }));
 
     await saveOrderToSupabase(orderData);
-
+    // Kalder en funktion for at gemme dataene i Supabase, await sørger for vi venter til handlingen er fuldført
     onNext({ ...bookingData, orderId });
+    // Kalder onNext callback for at navigere til det næste trin i betalingsprocessen.
   };
 
   const handleCardNumberChange = (e) => {
     const value = e.target.value.replace(/\D/g, "");
     setCardNumber(value);
   };
+  // Fjerner ikke-cifrede tegn fra kortnummeret.
 
   const handleCardNameChange = (e) => {
     const value = e.target.value.replace(/[^a-zA-ZæøåÆØÅ\s]/g, "");
     setCardName(value);
   };
+  // Tillader kun bogstaver og mellemrum i navnet.
 
   const handleExpiryChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");
@@ -73,11 +91,13 @@ export default function Payment({ bookingData, onNext, onBack }) {
 
     setExpiry(value);
   };
+  // Formaterer udløbsdatoen som MM/YY.
 
   const handleCvcChange = (e) => {
     const value = e.target.value.replace(/\D/g, "");
     setCvc(value);
   };
+  // handleCvcChange: Fjerner ikke-cifrede tegn fra CVC.
 
   return (
     <div className="grid grid-cols-gridContent">
@@ -97,6 +117,7 @@ export default function Payment({ bookingData, onNext, onBack }) {
               focused={focused}
             />
             <form className="space-y-4 mt-5" noValidate>
+              {/* Deaktiverer HTML5-formularvalidering. Bruger java-sript til manuelt og validere  */}
               <div>
                 <label htmlFor="cardNumber" className="block small-size">
                   Kortnummer
@@ -108,8 +129,12 @@ export default function Payment({ bookingData, onNext, onBack }) {
                   name="cardNumber"
                   className="w-full p-2 bg-inputFieldColor text-bgColor rounded-lg focus:outline-none focus:ring-2 focus:ring-accentColor"
                   value={cardNumber}
+                  // state variabel, indeholder den aktuelle værdi. Når den ændres, apdateres værdien automatisk og afspejler den nye værdi.
                   onChange={handleCardNumberChange}
+                  // on-change = event-handler, udløses når værdien ændres of functionen handleCardnumberChange håndtere ændringerne
                   onFocus={(e) => setFocused(e.target.name)}
+                  // Angiver en event-handler til at opdatere focused state-variablen, når feltet får fokus.
+
                   maxLength="16"
                   aria-label="Indtast kortnummer"
                 />
