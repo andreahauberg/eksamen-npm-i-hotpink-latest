@@ -14,9 +14,9 @@ export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    //isMounted er true, viser at komponenten er monteret
+    //isMounted er true, viser at komponenten er monteret (effecten)
     setIsMounted(true);
-  }, []); //tomt array sørger for den kun kører en gang. Derved sikrer man at hele DOM'en er tilgængelig og komponenten er fuldt monteret.
+  }, []); //tomt array sørger for den kun kører en gang. Derved sikrer man at hele DOM'en er tilgængelig og komponenten er fuldt monteret. (dependencies)
 
   const tickets = [
     {

@@ -271,14 +271,14 @@ export default function Camping({
                   <td className="px-4 pb-6 pt-4 flex justify-center text-center items-center">
                     <Checkbox
                       checked={greenCamping}
-                      // prop der styrer om en er tjekket. GC = state-variabel, som indeholder en boolesk værdi
+                      // checked Prop: Bestemmer, om checkboxen er tjekket. greenCamping er en state-variabel, der holder en boolean værdi
                       onChange={setGreenCamping}
-                      // prop angiver kald af funktion. SetGC opdatere GC state-variablen
+                      //Angiver en funktion, der skal kaldes, når checkboxens tilstand ændres. setGreenCamping opdaterer greenCamping state-variablen
                       className="h-6 w-6 rounded bg-inputFieldColor text-accentColor focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-accentColor"
                       aria-label="Green camping"
                     >
                       {({ checked }) => (
-                        // render-prop dele kode mellem komponenter ved at bruge en prop, hvis værdi er en funktion. Her er det en boolesk værdi, der angiver, om checkboxen er tjekket eller ej
+                        // Render prop funktion, der tager et objekt med en checked egenskab som argument og returnerer JSX. checked enskaben har en boolesk værdi, der angiver, om checkboxen er tjekket eller ej
                         <div
                           className={clsx(
                             checked ? "bg-accentColor" : "bg-inputFieldColor",
@@ -288,7 +288,7 @@ export default function Camping({
                           // clsx kombinerer statiske og dynamiske klassetyper. fx standard tailwind klasser og booleans
                         >
                           {checked && (
-                            // betinget rendering. Hvis checked er true, vises check icon.
+                            // conditional rendering. viser elementer baseret på betingelsen.
                             <CheckIcon
                               className="w-4 h-4 text-bgColor"
                               aria-hidden="true"
