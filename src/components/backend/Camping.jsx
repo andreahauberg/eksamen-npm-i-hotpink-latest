@@ -50,10 +50,14 @@ export default function Camping({
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
+    // Definerer en asynkron funktion kaldet loadCampingAreas
     const loadCampingAreas = async () => {
+      // Venter på at fetchAPI funktionen fuldfører og returnerer data
       const data = await fetchAPI("/available-spots");
+      // Sætter den hentede data som state ved hjælp af setCampingAreas funktionen
       setCampingAreas(data);
     };
+    // Kalder den asynkrone funktion loadCampingAreas
     loadCampingAreas();
   }, []);
 

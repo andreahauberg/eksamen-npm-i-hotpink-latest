@@ -6,7 +6,7 @@ import { krona_one } from "@/app/fonts";
 const CountdownTimer = ({ targetDate }) => (
   <Countdown date={targetDate} renderer={renderer} />
 );
-// •	Renderer-funktionen i CountdownTimer-komponenten tager fire argumenter
+// Renderer-funktionen (call-back function) i CountdownTimer-komponenten modtager et objekt som fire argumenter
 const renderer = ({ days, hours, minutes, seconds }) => {
   // Renderer-funktionen returnerer JSX, som bestemmer hvordan nedtællingen skal vises
   return (
