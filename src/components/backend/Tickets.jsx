@@ -19,14 +19,14 @@ export default function TicketsForm({
   const [localTotalPrice, setLocalTotalPrice] = useState(0);
 
   useEffect(() => {
+    const updatePrice = () => {
+      const pricePerTicket =
+        localTicketType === "regular" ? prices.regular : prices.vip;
+      setLocalTotalPrice(localQuantity * pricePerTicket);
+    };
+
     updatePrice();
   }, [localTicketType, localQuantity]);
-
-  const updatePrice = () => {
-    const pricePerTicket =
-      localTicketType === "regular" ? prices.regular : prices.vip;
-    setLocalTotalPrice(localQuantity * pricePerTicket);
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();

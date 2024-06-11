@@ -36,7 +36,7 @@ export default function PersonalForm({
       }));
       setLocalPersonalInfo(initialInfo);
     }
-  }, [ticketQuantity]);
+  }, [ticketQuantity, localPersonalInfo.length]);
 
   useEffect(() => {
     const ticketPrice =

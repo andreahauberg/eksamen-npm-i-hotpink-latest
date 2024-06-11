@@ -81,7 +81,7 @@ export default function Camping({
     onClick({
       camping: { greenCamping, twoPersonTent, threePersonTent, selectedArea },
     });
-  }, [greenCamping, twoPersonTent, threePersonTent, selectedArea]);
+  }, [greenCamping, twoPersonTent, threePersonTent, selectedArea, onClick]);
 
   const handleQuantityChange = (type, increment) => {
     if (type === "twoPersonTent") {
