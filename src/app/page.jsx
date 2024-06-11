@@ -123,14 +123,7 @@ export default function Home() {
         </p>
         <div className="flex flex-row overflow-x-auto snap-x scroll-px-8 justify-start lg:justify-center items-center space-x-4 md:space-x-8 px-12 lg:px-0 pb-5 space-y-0 w-full">
           {tickets.map((ticket, index) => (
-            <TicketCard
-              key={index}
-              title={ticket.title}
-              description={ticket.description}
-              features={ticket.features}
-              price={ticket.price}
-              link={ticket.link}
-            />
+            <TicketCard key={index} {...ticket} />
           ))}
         </div>
       </section>
@@ -139,13 +132,7 @@ export default function Home() {
           <p className="large-size pt-4 pb-10 ">Ofte Stillede Spørgsmål</p>
           <div className="">
             {faqs.map((faq, index) => (
-              <Faq
-                key={index}
-                title={faq.title}
-                body={faq.body}
-                data={faq.data}
-                id={faq.id}
-              />
+              <Faq key={index} {...faq} />
             ))}
           </div>
         </div>
