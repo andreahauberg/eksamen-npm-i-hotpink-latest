@@ -26,6 +26,7 @@ export default function Footer() {
             <Link
               href="/#"
               className="focus:outline-none focus:rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+              aria-label="Instagram"
             >
               <svg
                 className="h-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
@@ -34,6 +35,7 @@ export default function Footer() {
                 height="53"
                 viewBox="0 0 53 53"
                 fill="none"
+                aria-hidden="true"
               >
                 <path
                   d="M26.25 30.8437C23.7891 30.8437 21.6562 28.875 21.6562 26.25C21.6562 23.7891 23.625 21.6562 26.25 21.6562C28.7109 21.6562 30.8438 23.625 30.8438 26.25C30.8438 28.7109 28.7109 30.8437 26.25 30.8437Z"
@@ -56,6 +58,7 @@ export default function Footer() {
             <Link
               href="/#"
               className="focus:outline-none focus: rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+              aria-label="Facebook"
             >
               <svg
                 className="h-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accentColor focus:rounded-lg"
@@ -64,6 +67,7 @@ export default function Footer() {
                 height="53"
                 viewBox="0 0 54 53"
                 fill="none"
+                aria-hidden="true"
               >
                 <path
                   fillRule="evenodd"
@@ -76,6 +80,7 @@ export default function Footer() {
             <Link
               href="/#"
               className="focus:outline-none focus: rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
+              aria-label="YouTube"
             >
               <svg
                 className="h-10 focus:outline-none focus: rounded-lg focus:ring-2 focus:ring-offset-2 focus:ring-accentColor"
@@ -84,6 +89,7 @@ export default function Footer() {
                 height="53"
                 viewBox="0 0 53 53"
                 fill="none"
+                aria-hidden="true"
               >
                 <path
                   d="M31.0156 26.25L24.125 22.3125V30.1875L31.0156 26.25Z"
