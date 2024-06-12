@@ -113,8 +113,10 @@ export default function Home() {
       </header>
       <section className="text-center py-8 bg-bgColor">
         {/* Conditional rendering bruges, så den kun renderes når isMounted er true. Derved forhindrer vi at den renderes for tidligt.  */}
-        {isMounted && (
+        {isMounted ? (
           <CountdownTimer targetDate={new Date("2024-07-01T00:00:00")} />
+        ) : (
+          <p>loading...</p>
         )}
       </section>
       <section>

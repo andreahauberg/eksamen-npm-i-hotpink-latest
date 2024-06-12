@@ -21,6 +21,7 @@ function calculateTotalPrice(ticketQuantity, ticketType, campingOptions) {
     (campingOptions.greenCamping ? prices.greenCamping : 0) +
     campingOptions.twoPersonTent * prices.TwoPersonsTent +
     campingOptions.threePersonTent * prices.ThreePersonsTent;
+
   return ticketPrice + addOnPrice + prices.fee;
 }
 
@@ -52,13 +53,14 @@ export default function Camping({
   useEffect(() => {
     // Definerer en asynkron funktion kaldet loadCampingAreas
     const loadCampingAreas = async () => {
-      // Venter på at fetchAPI funktionen fuldfører og returnerer data
+      // bruger await til at vente på, at fetchAPI's Promise bliver opfyldt, og returnerer data
       const data = await fetchAPI("/available-spots");
-      // Sætter den hentede data som state ved hjælp af setCampingAreas funktionen
+      // opdaterer state med den hentede data.
       setCampingAreas(data);
     };
-    // Kalder den asynkrone funktion loadCampingAreas
+    // kaldes for at udføre datahentningen.
     loadCampingAreas();
+    // kun kører én gang, når komponenten mountes
   }, []);
 
   useEffect(() => {
@@ -79,15 +81,22 @@ export default function Camping({
 
   useEffect(() => {
     onClick({
+      // kalder on-click og sender et objekt med campingdata
       camping: { greenCamping, twoPersonTent, threePersonTent, selectedArea },
     });
   }, [greenCamping, twoPersonTent, threePersonTent, selectedArea, onClick]);
 
+  // to parametre: type af telt og mængden der skal ændres
+  // defineres som en variabel, der tildeles en arrow-funktion, kan derefter bruges som en funktion andre steder
   const handleQuantityChange = (type, increment) => {
     if (type === "twoPersonTent") {
+      // prev er den nuværende mængde
       setTwoPersonTent((prev) => {
+        // newQuantity beregnes ved at lægge increment til den nuværende mængde og sikre at den ikke bliver mindre end 0
         const newQuantity = Math.max(0, prev + increment);
+        // den samlede mængde telte, summen af de nye topersonerstelte og de nuværende tre personers
         const totalTents = newQuantity + threePersonTent;
+        // hvis den er <= biletmængden, så returneres den nye mængde ellers retuneres prev (ændringen gennemføres ikke)
         return totalTents <= ticketQuantity ? newQuantity : prev;
       });
     } else if (type === "threePersonTent") {
@@ -130,9 +139,11 @@ export default function Camping({
 
     onNext();
   };
-
+  // Filter-metoden skaber et nyt array med alle elementer der opfylder kravene
   const filteredCampingAreas = campingAreas.filter(
+    // denne funktion tjekker hvert area for tilgængelighed er større end eller lig med det ønskede antal billetter
     (area) => area.available >= ticketQuantity
+    // kun de områder hvor tilgængelighed er større end eller lig med billetmængden, indkluderes i filteredCampingAreas
   );
 
   return (
